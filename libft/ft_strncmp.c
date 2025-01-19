@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:29:42 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/19 19:20:57 by tmahmoud         ###   ########.fr       */
+/*   Created: 2024/07/04 18:48:49 by tmahmoud          #+#    #+#             */
+/*   Updated: 2024/07/17 01:47:29 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	(void) av;
-	(void) envp;
-	if (ac == 1)
-		minishell();
-	else
-		return (1);
-	return (0);
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] && s2[i] && (s1[i] == s2[i]) && i < (n - 1))
+		i++;
+	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }

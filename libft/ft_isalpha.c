@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:29:42 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/19 19:20:57 by tmahmoud         ###   ########.fr       */
+/*   Created: 2024/07/02 18:59:06 by tmahmoud          #+#    #+#             */
+/*   Updated: 2024/07/15 19:14:40 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+int	ft_isalpha(int c)
 {
-	(void) av;
-	(void) envp;
-	if (ac == 1)
-		minishell();
-	else
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
 		return (1);
-	return (0);
+	else
+		return (0);
 }

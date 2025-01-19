@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:29:42 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/19 19:20:57 by tmahmoud         ###   ########.fr       */
+/*   Created: 2024/07/06 11:49:11 by tmahmoud          #+#    #+#             */
+/*   Updated: 2024/07/17 14:15:05 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	(void) av;
-	(void) envp;
-	if (ac == 1)
-		minishell();
+	unsigned char	*dest;
+	unsigned char	*source;
+
+	dest = (unsigned char *)dst;
+	source = (unsigned char *)src;
+	if (!dst && !src)
+		return (NULL);
+	if (dest >= source)
+		while (len--)
+			dest[len] = source[len];
 	else
-		return (1);
-	return (0);
+		ft_memcpy(dst, src, len);
+	return (dest);
 }

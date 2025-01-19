@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:29:42 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/19 19:20:57 by tmahmoud         ###   ########.fr       */
+/*   Created: 2024/07/02 19:01:29 by tmahmoud          #+#    #+#             */
+/*   Updated: 2024/07/05 20:26:45 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+int	ft_isprint(int c)
 {
-	(void) av;
-	(void) envp;
-	if (ac == 1)
-		minishell();
-	else
+	if (c >= 32 && c <= 126)
 		return (1);
 	return (0);
 }

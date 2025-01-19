@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:29:42 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/19 19:20:57 by tmahmoud         ###   ########.fr       */
+/*   Created: 2024/07/14 23:55:45 by tmahmoud          #+#    #+#             */
+/*   Updated: 2024/07/20 03:36:02 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+int	ft_lstsize(t_list *lst)
 {
-	(void) av;
-	(void) envp;
-	if (ac == 1)
-		minishell();
-	else
-		return (1);
-	return (0);
+	unsigned int	i;
+	t_list			*temp;
+
+	i = 0;
+	temp = lst;
+	while (temp)
+	{
+		temp = temp->next;
+		i++;
+	}
+	return (i);
 }

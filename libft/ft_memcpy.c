@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:29:42 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/19 19:20:57 by tmahmoud         ###   ########.fr       */
+/*   Created: 2024/07/05 21:39:08 by tmahmoud          #+#    #+#             */
+/*   Updated: 2024/07/17 14:06:26 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	(void) av;
-	(void) envp;
-	if (ac == 1)
-		minishell();
-	else
-		return (1);
-	return (0);
+	size_t			i;
+	unsigned char	*dest;
+	unsigned char	*source;
+
+	if (!dst && !src)
+		return (NULL);
+	i = 0;
+	dest = (unsigned char *)dst;
+	source = (unsigned char *)src;
+	while (i < n)
+	{
+		dest[i] = source[i];
+		i++;
+	}
+	return (dest);
 }

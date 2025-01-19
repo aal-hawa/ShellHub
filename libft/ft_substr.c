@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:29:42 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/19 19:20:57 by tmahmoud         ###   ########.fr       */
+/*   Created: 2024/07/08 00:11:55 by tmahmoud          #+#    #+#             */
+/*   Updated: 2024/07/20 03:48:05 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	(void) av;
-	(void) envp;
-	if (ac == 1)
-		minishell();
-	else
-		return (1);
-	return (0);
+	char	*resut;
+
+	if (!s || ft_strlen(s) <= start || !len)
+		return (ft_strdup(""));
+	else if ((ft_strlen(s) - start) < len)
+		len = ft_strlen(s) - start;
+	resut = ft_calloc(sizeof(char), (len + 1));
+	if (!resut)
+		return (NULL);
+	ft_strlcpy(resut, s + start, len + 1);
+	return (resut);
 }

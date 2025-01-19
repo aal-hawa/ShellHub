@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:29:42 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/19 19:20:57 by tmahmoud         ###   ########.fr       */
+/*   Created: 2024/07/06 15:56:01 by tmahmoud          #+#    #+#             */
+/*   Updated: 2024/07/17 03:26:29 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	(void) av;
-	(void) envp;
-	if (ac == 1)
-		minishell();
-	else
-		return (1);
-	return (0);
+	size_t	i;
+	size_t	nlen;
+
+	i = 0;
+	nlen = ft_strlen(needle);
+	if (!*needle)
+		return ((char *)haystack);
+	while (haystack[i] && i < len)
+	{
+		if (nlen + i <= len && ft_strncmp(haystack + i, needle, nlen) == 0)
+			return ((char *)haystack + i);
+		i++;
+	}
+	return (NULL);
 }
