@@ -6,10 +6,10 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:29:42 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/19 17:30:13 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:39:21 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envp)
 {
 }
