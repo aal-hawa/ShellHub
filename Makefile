@@ -1,44 +1,37 @@
 NAME = minishell
 LIBFT = libft
 LIBFT_A = $(LIBFT)/libft.a
-# NAME_BNS = minishell_bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(LIBFT)/headers
+CFLAGS = -Wall -Werror -Wextra
+FLAGS = $(CFLAGS) -I$(LIBFT)/headers -L$(LIBFT) -lft
 LDFLAGS = -lreadline -lncurses
-SRC_MAIN = main.c 
-# SRC_BNS = main_bonus.c 
 
+SRC_MAIN = main.c
 SRC = minishell.c \
-	parsing/readline.c parsing/tokens.c
-OBGS = $(SRC:.c=.o) $(SRC_MAIN:.c=.o)
-# OBGS =  $(SRC_MAIN:.c=.o)
+	parsing/readline.c \
+	parsing/tokens.c
 
-# OBGS_BNS = $(SRC:.c=.o) $(SRC_BNS:.c=.o)
+OBJS = $(SRC:.c=.o) $(SRC_MAIN:.c=.o)
 
 all: $(LIBFT_A) $(NAME)
 
-$(LIBFT_A):
+$(LIBFT_A): 
 	make -C $(LIBFT)
 
-$(NAME): $(OBGS)
-	$(CC) $(OBGS) -o $(NAME) $(LDFLAGS)
+$(NAME): $(OBJS) $(LIBFT_A)
+	$(CC) $(OBJS) -o $(NAME) $(FLAGS) $(LDFLAGS)
 
-# $(NAME_BNS): $(OBGS_BNS)
-# 	$(CC) $(OBGS_BNS) -o $(NAME_BNS)
-
-%.o: %.c 
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	make clean -C $(LIBFT)
-	rm -f $(OBGS) $(OBGS_BNS)
+	rm -f $(OBJS)
 
 fclean: clean
 	make fclean -C $(LIBFT)
-	rm -f $(NAME) $(NAME_BNS)
+	rm -f $(NAME)
 
 re: fclean all
 
-bonus: $(NAME_BNS)
-
-.PHONY: all clean fclean re bonus 
+.PHONY: all clean fclean re

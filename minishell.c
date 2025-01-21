@@ -6,7 +6,7 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:51:39 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 17:01:44 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:00:02 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	minishell(void)
 		// readLine && hestory
 		line = readline_fun();
 		printf("the input: %s\n", line);
-		// tokens
 		tokens = tokens_fun(line);
+		while(*tokens)
+			printf("the tokens: %s\n", *tokens++);
 		// nodes
 		// syntax error
 		// commands structure

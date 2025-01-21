@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
+/*   free_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 19:09:52 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 17:24:40 by tmahmoud         ###   ########.fr       */
+/*   Created: 2025/01/21 19:58:17 by tmahmoud          #+#    #+#             */
+/*   Updated: 2025/01/21 19:59:26 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+#include "minishell.h"
 
-char **tokens_fun(char *line)
+void free_nodes(t_node *head)
 {
-	char **split;
-	split = ft_split(line, ' ');
-	return (split);	
+    t_node *temp;
+    while (head) {
+        temp = head;
+        head = head->next;
+        if (temp->args) {
+            for (int i = 0; temp->args[i]; i++)
+                free(temp->args[i]);
+            free(temp->args);
+        }
+        free(temp);
+    }
 }
