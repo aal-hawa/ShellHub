@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:47:16 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 14:27:18 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:47:56 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_info
 {
-	
+	char	**env;
 }					t_info;
 
 void	minishell();
