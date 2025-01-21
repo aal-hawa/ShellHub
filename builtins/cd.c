@@ -6,13 +6,14 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:55:44 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 13:57:36 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:27:37 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-int cd_func(char *cd)
+char	*cd_func(char *cd)
 {
-	return(chdir(cd));
+	chdir(cd);
+	return(pwd_func());
 }
