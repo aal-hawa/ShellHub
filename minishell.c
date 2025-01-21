@@ -6,21 +6,27 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:51:39 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/19 19:31:29 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:01:44 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	minishell()
+// ls | grep "txt"
+void	minishell(void)
 {
+	char	*line;
+	char **tokens;
+
 	while (1)
 	{
-		char *line;
 		// char **tokens;
-	
-		line = readline_func();
+		// readLine && hestory
+		line = readline_fun();
 		printf("the input: %s\n", line);
-		// tokens = tokens_fun(line);
+		// tokens
+		tokens = tokens_fun(line);
+		// nodes
+		// syntax error
+		// commands structure
 	}
 }

@@ -6,15 +6,15 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:09:52 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/19 19:30:31 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:01:09 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// # include "../minishell.h"
+# include "../minishell.h"
 
-// char **tokens_fun(char *line)
-// {
-// 	char **split;
-// 	//split
-// 	return (split);	
-// }
+char **tokens_fun(char *line)
+{
+	char **split;
+	split = ft_split(line, " ");
+	return (split);	
+}

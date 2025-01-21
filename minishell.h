@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:47:16 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/19 19:14:52 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:02:04 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include "libft/libft.h"
 
 typedef struct s_info
 {
@@ -25,6 +26,6 @@ typedef struct s_info
 }					t_info;
 
 void	minishell();
-char *readline_func();
+char *readline_fun();
 char **tokens_fun(char *line);
 #endif
