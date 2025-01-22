@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   status_program.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 14:17:08 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/22 20:16:40 by aal-hawa         ###   ########.fr       */
+/*   Created: 2025/01/22 20:08:13 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/01/22 20:11:03 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-void	exit_func()
+int	status_program_fun(t_info *info)
 {
-	// free all things before exit program
-	exit(0);
+	return (info->status_exit);
 }
-

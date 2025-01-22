@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 14:17:08 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/22 20:16:40 by aal-hawa         ###   ########.fr       */
+/*   Created: 2025/01/19 19:04:06 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/01/21 19:08:03 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-void	exit_func()
+char *readline_fun()
 {
-	// free all things before exit program
-	exit(0);
+	char *line;
+	
+	line = readline ("Enter a line: ");
+	add_history(line);
+	return (line);
 }
-

@@ -6,13 +6,13 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:57:52 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 14:24:19 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:16:11 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-void	echo_func(char *str)
+void	echo_n_func(char *str)
 {
 	printf("%s", str);
 }

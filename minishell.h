@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:47:16 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 19:59:38 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:14:31 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_node {
 typedef struct s_info
 {
 	char	**env;
+    int     status_exit;
+    char    *curent_path;
 }					t_info;
 
 void	minishell();
@@ -40,4 +42,5 @@ char	*pwd_func();
 void	exit_func();
 void	echo_func(char *str);
 void free_nodes(t_node *head);
+int	is_operator_fun(char *str);
 #endif
