@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 13:57:52 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 14:24:19 by aal-hawa         ###   ########.fr       */
+/*   Created: 2025/01/21 14:17:08 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/01/22 19:14:30 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+# include "../../minishell.h"
 
-void	echo_func(char *str)
+void	exit_func()
 {
-	printf("%s", str);
+	exit(0);
 }
+

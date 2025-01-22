@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 15:45:13 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 15:54:08 by aal-hawa         ###   ########.fr       */
+/*   Created: 2025/01/21 13:55:44 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/01/22 19:14:13 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+# include "../../minishell.h"
 
-int	export_func(char *name, t_info *info)
+char	*cd_func(char *cd)
 {
-	char	*export;
-	if (!getenv(name))
-	{
-		export = malloc(name);
-		if (!export)
-			return (-1);
-		// add in info->env
-	}
-	return (0);
+	chdir(cd);
+	return(pwd_func());
 }

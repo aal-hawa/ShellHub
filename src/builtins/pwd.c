@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 19:09:52 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 17:24:40 by tmahmoud         ###   ########.fr       */
+/*   Created: 2025/01/21 14:23:20 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/01/22 19:14:35 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+# include "../../minishell.h"
 
-char **tokens_fun(char *line)
+char	*pwd_func()
 {
-	char **split;
-	split = ft_split(line, ' ');
-	return (split);	
+	return (getcwd(NULL, 0));
 }

@@ -1,37 +1,48 @@
+GREEN_B = "\033[1;32m"
+RED_BI = "\033[1;3;31m"
+BLUE_I = "\033[3;34m"
+YELLOW = "\033[0;33m"
+RESET = "\033[0m"
+
+CC = cc 
+CFLAGS = -Wall -Wextra -Werror -I/Users/mbamatra/homebrew/opt/readline/include
+LDFLAGS = -L/Users/mbamatra/homebrew/opt/readline/lib -lreadline 
+
+LIBFT_DIR = ./libft
+LIBFT = $(LIBFT_DIR)/libft.a
+
+SRCDIR = src
+OBJDIR = objs
 NAME = minishell
-LIBFT = libft
-LIBFT_A = $(LIBFT)/libft.a
-CC = cc
-CFLAGS = -Wall -Werror -Wextra
-FLAGS = $(CFLAGS) -I$(LIBFT)/headers -L$(LIBFT) -lft
-LDFLAGS = -lreadline -lncurses
+SOURCES = $(shell find $(SRCDIR) -type f -name '*.c')
+OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
-SRC_MAIN = main.c
-SRC = minishell.c \
-	parsing/readline.c \
-	parsing/tokens.c
+all: $(NAME)
+	@echo $(GREEN_B)"\n$(NAME) is Compiled.🐢 \n"$(RESET)
 
-OBJS = $(SRC:.c=.o) $(SRC_MAIN:.c=.o)
+$(NAME): $(OBJECTS) $(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -L$(LIBFT_DIR) -lft $(LDFLAGS)
+	@echo $(BLUE_I)"$(NAME) has been linked successfully."$(RESET)
 
-all: $(LIBFT_A) $(NAME)
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+	@echo $(YELLOW)".\c"$(RESET)
 
-$(LIBFT_A): 
-	make -C $(LIBFT)
-
-$(NAME): $(OBJS) $(LIBFT_A)
-	$(CC) $(OBJS) -o $(NAME) $(FLAGS) $(LDFLAGS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo $(YELLOW)".\c"$(RESET)
 
 clean:
-	make clean -C $(LIBFT)
-	rm -f $(OBJS)
+	@rm -rf $(OBJDIR)
+	@make -C $(LIBFT_DIR) clean
+	@echo $(YELLOW)"Cleaned"$(RESET)
 
 fclean: clean
-	make fclean -C $(LIBFT)
-	rm -f $(NAME)
+	@rm -rf $(NAME)
+	@make -C $(LIBFT_DIR) fclean
+	@echo $(YELLOW)"Fully cleaned"$(RESET)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

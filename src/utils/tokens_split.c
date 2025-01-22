@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   tokens_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/09 22:04:01 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/22 16:43:36 by tmahmoud         ###   ########.fr       */
+/*   Created: 2025/01/22 17:34:52 by tmahmoud          #+#    #+#             */
+/*   Updated: 2025/01/22 19:15:11 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
 int	mymalloc(char **result, int i, size_t len)
 {
@@ -27,6 +27,25 @@ int	mymalloc(char **result, int i, size_t len)
 	}
 	return (0);
 }
+
+// static int check_valid(char const *s, char *str)
+// {
+// 	size_t	j;
+
+// 	j = 0;
+// 	new = 0;
+// 	while (s[i] == c && s[i])
+// 		i++;
+// 	while (s[i] != c && s[i])
+// 	{
+// 		if (new == 0)
+// 		{
+// 			++words;
+// 			new = 1;
+// 		}
+// 		i++;
+// 	}
+// }
 
 int	fill(char **result, char const *s, char c)
 {
@@ -82,7 +101,7 @@ size_t	wordscount(char const *s, char c)
 	return (words);
 }
 
-char	**       ft_split(char const *s, char c)
+char	**tokens_split(char const *s, char *str)
 {
 	size_t	words;
 	char	**result;
@@ -90,12 +109,12 @@ char	**       ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	words = 0;
-	words = wordscount(s, c);
+	words = wordscount(s, str);
 	result = ft_calloc((words + 1), sizeof(char *));
 	if (!result)
 		return (NULL);
 	result[words] = NULL;
-	if (fill(result, s, c))
+	if (fill(result, s, str))
 		return (NULL);
 	return (result);
 }

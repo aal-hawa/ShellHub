@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 14:23:20 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/21 14:23:30 by aal-hawa         ###   ########.fr       */
+/*   Created: 2025/01/21 13:57:52 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/01/22 19:14:24 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+# include "../../minishell.h"
 
-char	*pwd_func()
+void	echo_func(char *str)
 {
-	return (getcwd(NULL, 0));
+	printf("%s", str);
 }
