@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_strlchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 13:55:44 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/23 17:19:39 by aal-hawa         ###   ########.fr       */
+/*   Created: 2025/01/23 17:06:25 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/01/23 17:08:29 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-char	*cd_fun(char *cd, t_info *info)
+char	*ft_strlchr(char **str, char lst_char, int is_str_malloc)
 {
-	if (!ft_strcmp(cd,".."))
-		info->curent_path = ft_strlchr(&info->curent_path, '/', 1);
-	else
-		info->curent_path = ft_restore_value(&info->curent_path, ft_strjoin(info->curent_path, cd), 1);
-	if (chdir(info->curent_path))
+	size_t	i;
+	size_t	y;
+	char	*dest;
+
+	i = ft_strlen(*str);
+	y = 0;
+	while (1)
 	{
-		printf ("Error path: %s\n", cd);
-		pwd_fun(info);
+		if (str[0][i] == lst_char)
+			break ;
+		if (i == 0)
+			break ;
+		i--;
 	}
-	return(info->curent_path);
+	if (i == 0)
+		return (*str);
+	dest = malloc(sizeof(char) * i);
+	if (!dest)
+		return (free_fun(str), NULL);
+	ft_strlcpy(dest, *str, i);
+	if (is_str_malloc == 1)
+		free_fun(str);
+	return (dest);
 }

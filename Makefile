@@ -9,7 +9,8 @@ LDFLAGS = -lreadline -lncurses
 SRC_MAIN = main.c
 SRC = minishell.c \
 	parsing/readline.c \
-	parsing/tokens.c
+	parsing/tokens.c \
+	utils/free_malloc.c 
 
 OBJS = $(SRC:.c=.o) $(SRC_MAIN:.c=.o)
 

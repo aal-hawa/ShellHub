@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   free_malloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 15:33:53 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/23 17:12:34 by aal-hawa         ###   ########.fr       */
+/*   Created: 2025/01/23 15:34:31 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/01/23 16:12:03 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*env_fun(char *name)
+void	free_fun(char **str)
 {
-	return (getenv(name));
+	if (!*str)
+		free(*str);
+	*str = NULL;
 }

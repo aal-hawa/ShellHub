@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:47:16 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/22 20:14:31 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:15:21 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ typedef struct s_info
 void	minishell();
 char	*readline_fun();
 char	**tokens_fun(char *line);
-char	*cd_func(char *cd);
-char	*pwd_func();
-void	exit_func();
-void	echo_func(char *str);
-void free_nodes(t_node *head);
-int	is_operator_fun(char *str);
+char	*cd_fun(char *cd, t_info *info);
+char	*pwd_fun(t_info *info);
+void	exit_fun();
+void	echo_n_fun(char *str);
+void    free_nodes(t_node *head);
+int     is_operator_fun(char *str);
+void	free_fun(char **str);
 #endif

@@ -6,13 +6,13 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:17:08 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/22 20:16:40 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:12:37 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-void	exit_func()
+void	exit_fun()
 {
 	// free all things before exit program
 	exit(0);

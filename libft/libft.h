@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 19:17:18 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/22 20:54:05 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:08:22 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,9 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char 	**add_in_split(char **split, char *add_str);
 char 	**del_from_split(char **split, char *del_str);
+size_t	ft_strclen(const char *s, char to_char);
+char	*ft_strccpy(char *str, char to_char);
+int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_restore_value(char **dest, char **str, int is_str_malloc);
+char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
 #endif

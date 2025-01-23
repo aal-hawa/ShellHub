@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strclen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 15:33:53 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/23 17:12:34 by aal-hawa         ###   ########.fr       */
+/*   Created: 2025/01/23 15:13:39 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/01/23 15:17:48 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-
-char	*env_fun(char *name)
+#include "libft.h"
+// return length of string before to_char
+// return 0 if did not have to_char inside the string
+size_t	ft_strclen(const char *s, char to_char)
 {
-	return (getenv(name));
+	size_t	i;
+
+	i = 0;
+	while (s[i] && s[i] != to_char)
+		i++;
+	if (!s[i])
+		return (0);
+	return (i);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_in_split.c                                     :+:      :+:    :+:   */
+/*   edit_in_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 20:20:03 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/22 20:53:42 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/23 19:01:29 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	len_split(char **split)
 		len++;
 	return (len);
 }
-
+// check if you want share adress of split three pointers
 char **del_from_split(char **split, char *del_str)
 {
 	int	i;

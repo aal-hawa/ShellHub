@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"time.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"ft_strccpy": "cpp"
 	}
 }
