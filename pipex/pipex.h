@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 14:54:56 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/09/29 11:29:39 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/25 18:48:39 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+typedef struct s_node {
+    char **args;
+    char *type;
+	char *type_before;
+	char *type_after;
+    struct s_node *next;
+    int is_dir_bilt_cmd;
+} t_node;
+
 
 typedef struct s_info
 {
@@ -41,6 +51,10 @@ typedef struct s_info
 	size_t	i_split;
 	int		env_null;
 	int		is_exit_one;
+
+	char	**env;
+    int     status_exit;
+    char    *curent_path;
 }			t_info;
 
 size_t		ft_strlen(const char *s);

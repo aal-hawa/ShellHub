@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:20:55 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/09/29 11:33:15 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:03:58 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,54 @@ void	childs(char **str, int **fd1, pid_t *frs, t_info *info)
 		info->is_for_w = 1;
 	child_execve(fd1, strs, frs, info);
 	exit(0);
+}
+int	direct_fun(t_node *node, t_info *info)
+{
+	if (node->type_before == ">")
+		info->fd_file_w = open_file_w(node->args[info->ac - 1]);
+	else if (node->type_before == ">>")
+		info->fd_file_w = open_file_w_b(node->args[info->ac - 1]);
+	else if (node->type_before == "<" || node->type_before == "<<")
+		info->offset = init_files(node->args, info);
+	if (info->fd_file_w == -1)
+	{
+		info->is_exit_one = 1;
+		return (1);
+	}
+	return (0);
+}
+
+int	builtins_fun()
+{
+	
+}
+
+int	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
+{
+	info->i_childs = 0;
+	if (info->fd_file_r == -1)
+		info->i_childs = 1;
+	while (node)
+	{
+		if (node->is_dir_bilt_cmd == 0)
+		{
+			if (direct_fun(node, info) == 1)
+				break ;
+		}
+		else if (node->is_dir_bilt_cmd == 1)
+			builtins_fun();
+		else 
+		{
+			frs[info->i_childs] = fork();
+			if (frs[info->i_childs] == 0)
+			{
+				close_fds_childs(fd1, info);
+				childs(node->args, fd1, frs, info);
+			}
+		}
+		info->i_childs++;
+		node = node->next;
+	}
 }
 
 void	init_childs(char **str, int **fd1, pid_t *frs, t_info *info)
