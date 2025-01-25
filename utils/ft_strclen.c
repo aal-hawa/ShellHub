@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strclen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:13:39 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/23 15:17:48 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/25 15:59:46 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 // return length of string before to_char
 // return 0 if did not have to_char inside the string
 size_t	ft_strclen(const char *s, char to_char)
