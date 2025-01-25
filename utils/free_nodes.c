@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:58:17 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/21 19:59:26 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/01/25 14:24:32 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void free_nodes(t_node *head)
 {

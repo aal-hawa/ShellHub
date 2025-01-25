@@ -6,11 +6,11 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 20:20:03 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/23 19:01:29 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/25 14:24:23 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 void	free_split(char **split, int len)
 {

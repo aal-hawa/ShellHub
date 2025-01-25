@@ -6,11 +6,11 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:10:23 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/23 15:24:42 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/25 14:24:37 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 char *ft_strccpy(char *str, char to_char)
 {
