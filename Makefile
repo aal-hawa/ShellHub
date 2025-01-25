@@ -10,8 +10,8 @@ SRC_MAIN = main.c
 SRC = minishell.c \
 	parsing/readline.c \
 	parsing/tokens.c \
-	utils/free_malloc.c 
-
+	utils/free_malloc.c \
+	utils/edit_in_split.c utils/ft_strclen.c utils/ft_strccpy.c utils/ft_strcmp.c utils/ft_strlchr.c
 OBJS = $(SRC:.c=.o) $(SRC_MAIN:.c=.o)
 
 all: $(LIBFT_A) $(NAME)
