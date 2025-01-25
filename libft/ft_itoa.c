@@ -6,7 +6,7 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:09:21 by tmahmoud          #+#    #+#             */
-/*   Updated: 2024/07/20 03:56:54 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/01/25 17:07:46 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ int	countfunction(int n)
 char	*ft_itoa(int n)
 {
 	int		count;
-	int		sign;
 	char	*result;
 
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	else if (n == 0)
 		return (ft_strdup("0"));
-	sign = 1;
 	count = countfunction(n);
 	result = malloc(sizeof(char) * (count + 1));
 	if (!result)

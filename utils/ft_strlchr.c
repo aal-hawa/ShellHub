@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:06:25 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/23 17:08:29 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/25 17:08:06 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 char	*ft_strlchr(char **str, char lst_char, int is_str_malloc)
 {
 	size_t	i;
-	size_t	y;
 	char	*dest;
 
 	i = ft_strlen(*str);
-	y = 0;
 	while (1)
 	{
 		if (str[0][i] == lst_char)
