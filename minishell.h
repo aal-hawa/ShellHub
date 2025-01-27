@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:47:16 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/27 17:31:40 by tmahmoud         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -52,7 +41,7 @@ char	*ft_strccpy(char *str, char to_char);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_restore_value(char **dest, char **str, int is_str_malloc);
 char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
+void	free_split(char **split, int len);
 char    *pre_split(char **s, const char *ops);
 t_node  *nodes_init(char **tokens);
-
 #endif

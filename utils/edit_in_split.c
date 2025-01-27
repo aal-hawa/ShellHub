@@ -1,16 +1,19 @@
 
 #include "../minishell.h"
 
-void	free_split(char **split, int len)
+int	is_exit_del_str(char **split, char *del_str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (i < len)
-		free(split[i]);
-	free (split);
+	while (split[i])
+	{
+		if (!ft_strcmp(split[i], del_str))
+			return (1);
+		i++;
+	}
+	return (0);
 }
-
 int	len_split(char **split)
 {
 	int	len;
@@ -23,20 +26,22 @@ int	len_split(char **split)
 // check if you want share adress of split three pointers
 char **del_from_split(char **split, char *del_str)
 {
-	int	i;
-	int	y;
-	int	len;
+	int		i;
+	int		y;
+	int		len;
 	char	**new_split;
 
 	i = 0;
 	y = 0;
+	if (!is_exit_del_str(split, del_str))
+		return (split); 
 	len = len_split(split);
 	new_split = malloc(sizeof(char *) * (len));
 	if (!new_split)
 		return (NULL);
 	while (split[i])
 	{
-		if (!ft_memcmp(split[i], del_str, ft_strlen(del_str)))
+		if (!ft_strcmp(split[i], del_str))
 		{
 			new_split[y] = ft_strdup(split[i]);
 			if (!new_split[y])
@@ -45,9 +50,7 @@ char **del_from_split(char **split, char *del_str)
 		}
 		i++;
 	}
-	new_split[y] = NULL;
-	free_split(split, len - 1);
-	return (new_split);
+	return (new_split[y] = NULL, free_split(split, len), new_split);
 }
 
 char **add_in_split(char **split, char *add_str)
