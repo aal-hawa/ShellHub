@@ -6,7 +6,7 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:46:30 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/25 16:41:02 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:00:00 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,23 @@ static int is_operator(const char c, const char *ops)
     return (0);
 }
 
+static void replace_fct(char *result, size_t k, char c, int duble)
+{
+    if(duble)
+    {   
+        result[k++] = ' ';
+        result[k++] = c;
+        result[k++] = c;
+        result[k++] = ' ';
+    }
+    else
+    {
+        result[k++] = ' ';
+        result[k++] = c;
+        result[k++] = ' ';
+    }
+}
+
 static char *get_result(const char *s, const char *ops, char *result)
 {
     size_t i = 0;
@@ -59,10 +76,7 @@ static char *get_result(const char *s, const char *ops, char *result)
     {
         if (is_operator(s[i], ">") && is_operator(s[i + 1], ">"))
         {
-            result[k++] = ' ';
-            result[k++] = '>';
-            result[k++] = '>';
-            result[k++] = ' ';
+            replace_fct(result, k, '>', 1);
             i++;
         }
         else if (is_operator(s[i], "<") && is_operator(s[i + 1], "<"))

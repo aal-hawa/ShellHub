@@ -6,7 +6,7 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:47:16 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/25 15:54:36 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:31:40 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 
 typedef struct s_node {
     char **args;
-    char type;
+    char type_before;
+    char type_after;
     struct s_node *next;
     int is_dir_bilt_cmd;
 } t_node;
@@ -42,7 +43,6 @@ char	*cd_fun(char *cd, t_info *info);
 char	*pwd_fun(t_info *info);
 void	exit_fun();
 void	echo_n_fun(char *str);
-void    free_nodes(t_node *head);
 int     is_operator_fun(char *str);
 void	free_fun(char **str);
 char 	**add_in_split(char **split, char *add_str);
@@ -53,4 +53,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_restore_value(char **dest, char **str, int is_str_malloc);
 char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
 char    *pre_split(char **s, const char *ops);
+t_node  *nodes_init(char **tokens);
+
 #endif
