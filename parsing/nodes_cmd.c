@@ -1,116 +1,126 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   nodes_cmd.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 17:56:55 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/01/27 17:38:39 by tmahmoud         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
 
-t_node *create_node(char **args, char type_before, char type_after)
+static int is_redirection_cmd(const char *cmd)
+{
+    int i;
+    const char *redirections[] = {">", "<", ">>", "<<", NULL};
+    for (i = 0; redirections[i]; i++)
+    {
+        if (ft_strcmp(cmd, redirections[i]) == 0)
+            return 1;
+    }
+    return 0;
+}
+
+static int is_builtin_cmd(const char *cmd)
+{
+    int i;
+    const char *builtins[] = {"cd", "pwd", "echo", "export", "unset", "env", "exit", NULL};
+    for (i = 0; builtins[i]; i++)
+    {
+        if (ft_strcmp(cmd, builtins[i]) == 0)
+            return 1;
+    }
+    return 0;
+}
+
+t_node *create_node(char **args, const char *type_before, const char *type_after)
 {
     t_node *node = malloc(sizeof(t_node));
     if (!node)
         return NULL;
-
     node->args = args;
-    node->type_before = type_before;
-    node->type_after = type_after;
+    node->type_before = type_before ? ft_strdup(type_before) : NULL;
+    node->type_after = type_after ? ft_strdup(type_after) : NULL;
     node->next = NULL;
-    node->is_dir_bilt_cmd = 0; // Default value, update as necessary
-
+    node->is_dir_bilt_cmd = is_builtin_cmd(args[0]) ? 1 : is_redirection_cmd(type_before) ? 0 : 2;
     return node;
-}
-
-static void free_nodes(t_node **head)
-{
-    t_node *tmp;
-
-    while (*head)
-    {
-        tmp = (*head)->next;
-        if ((*head)->args)
-        {
-            for (size_t i = 0; (*head)->args[i]; i++)
-                free((*head)->args[i]);
-            free((*head)->args);
-        }
-        free(*head);
-        *head = tmp;
-    }
 }
 
 t_node *nodes_init(char **tokens)
 {
-    t_node *head = NULL;
-    t_node *current = NULL;
+    t_node *head = NULL, *current = NULL;
+    char **args = NULL;
+    char *type_before = ft_strdup("start");
+    char *type_after = NULL;
 
-    for (size_t i = 0; tokens[i]; i++)
+    for (int i = 0; tokens[i]; i++)
     {
-        // Assuming tokens contain commands and types, adjust as necessary
-        char **args = malloc(2 * sizeof(char *));
-        if (!args)
+        if (ft_strcmp(tokens[i], "|") == 0 || is_redirection_cmd(tokens[i]))
         {
-            free_nodes(&head);
-            return NULL;
-        }
-
-        args[0] = strdup(tokens[i]);
-        args[1] = NULL;
-
-        t_node *new_node = create_node(args, 0, 0); // Default types, modify as needed
-        if (!new_node)
-        {
-            free_nodes(&head);
-            return NULL;
-        }
-
-        if (!head)
-        {
-            head = new_node;
-            current = head;
+            type_after = ft_strdup(tokens[i]);
+            if (args)
+            {
+                t_node *new_node = create_node(args, type_before, type_after);
+                if (!new_node)
+                {
+                    free(type_before);
+                    free(type_after);
+                    free_nodes(&head);
+                    return NULL;
+                }
+                if (!head)
+                    head = new_node;
+                else
+                    current->next = new_node;
+                current = new_node;
+                args = NULL;
+            }
+            free(type_before);
+            type_before = type_after;
+            type_after = NULL;
         }
         else
         {
-            current->next = new_node;
-            current = current->next;
+            int count = 0;
+            while (args && args[count])
+                count++;
+            args = realloc(args, sizeof(char *) * (count + 2));
+            args[count] = ft_strdup(tokens[i]);
+            args[count + 1] = NULL;
         }
     }
 
+    if (args)
+    {
+        t_node *new_node = create_node(args, type_before, "end");
+        if (!new_node)
+        {
+            free(type_before);
+            free_nodes(&head);
+            return NULL;
+        }
+        if (!head)
+            head = new_node;
+        else
+            current->next = new_node;
+    }
+    free(type_before);
     return head;
 }
 
-void print_nodes(const t_node *head)
+void print_nodes(t_node *nodes)
 {
-    while (head)
+    while (nodes)
     {
-        printf("Command: %s\n", head->args[0]);
-        printf("Type Before: \"%c\", Type After: \"%c\"\n", head->type_before, head->type_after);
-        head = head->next;
+        printf("Args: ");
+        for (int i = 0; nodes->args[i]; i++)
+            printf("%s ", nodes->args[i]);
+        printf("\nType Before: %s, Type After: %s, is_dir_bilt_cmd: %d\n",
+               nodes->type_before, nodes->type_after, nodes->is_dir_bilt_cmd);
+        nodes = nodes->next;
     }
 }
-
+// Example usage
 int main()
 {
-    char *tokens[] = {"ls", "|", "grep", "text", NULL};
-
+    char *tokens[] = {"ls", "|", "grep", "\"txt\"", ">>", "output.txt", "|", "cd", "..", "|", "ls", "|", "grep", "\"txt rgegeg rwwfw\"", "<", "gwg.txt", NULL};
     t_node *nodes = nodes_init(tokens);
-    if (!nodes)
+
+    if (nodes)
     {
-        perror("Error initializing nodes");
-        return 1;
+        print_nodes(nodes);
+        free_nodes(&nodes);
     }
-
-    print_nodes(nodes);
-
-    free_nodes(&nodes);
     return 0;
 }

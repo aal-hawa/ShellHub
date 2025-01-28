@@ -11,8 +11,8 @@
 
 typedef struct s_node {
     char **args;
-    char type_before;
-    char type_after;
+    char *type_before;
+    char *type_after;
     struct s_node *next;
     int is_dir_bilt_cmd;
 } t_node;
@@ -44,4 +44,5 @@ char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
 void	free_split(char **split, int len);
 char    *pre_split(char **s, const char *ops);
 t_node  *nodes_init(char **tokens);
+void    free_nodes(t_node **nodes);
 #endif
