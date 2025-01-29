@@ -6,18 +6,18 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:52:54 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/25 16:52:58 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:29:11 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_split(char **split, int len)
-{
-	int i;
+// void	free_split(char **split, int len)
+// {
+// 	int i;
 
-	i = 0;
-	while (i < len)
-		free(split[i]);
-	free (split);
-}
+// 	i = 0;
+// 	while (i < len)
+// 		free(split[i]);
+// 	free (split);
+// }
