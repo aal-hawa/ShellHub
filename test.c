@@ -80,14 +80,14 @@ char *pre_split(char **s, const char *ops)
 
 int main()
 {
-    char *s = strdup("ls|grep \"count\""); // Dynamically allocate `s`
+    char *s = strdup("ls|grep \"count\""); 
     const char *ops = "|><";
-    char *result = pre_split(&s, ops); // Pass `&s` to allow freeing
+    char *result = pre_split(&s, ops);
 
     if (result)
     {
         printf("Result: \"%s\"\n", result);
-        free(result); // Free the allocated memory for the result
+        free(result);
     }
 
     return 0;

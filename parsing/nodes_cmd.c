@@ -1,27 +1,55 @@
-#include "../minishell.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
-static int is_redirection_cmd(const char *cmd)
+typedef struct s_node {
+    char **args;
+    char *type_before;
+    char *type_after;
+    struct s_node *next;
+    int is_dir_bilt_cmd;
+} t_node;
+
+int is_redirection_cmd(const char *cmd)
 {
     int i;
     const char *redirections[] = {">", "<", ">>", "<<", NULL};
     for (i = 0; redirections[i]; i++)
     {
-        if (ft_strcmp(cmd, redirections[i]) == 0)
+        if (strcmp(cmd, redirections[i]) == 0)
             return 1;
     }
     return 0;
 }
 
-static int is_builtin_cmd(const char *cmd)
+int is_builtin_cmd(const char *cmd)
 {
     int i;
     const char *builtins[] = {"cd", "pwd", "echo", "export", "unset", "env", "exit", NULL};
     for (i = 0; builtins[i]; i++)
     {
-        if (ft_strcmp(cmd, builtins[i]) == 0)
+        if (strcmp(cmd, builtins[i]) == 0)
             return 1;
     }
     return 0;
+}
+
+void free_nodes(t_node **nodes)
+{
+    while (*nodes)
+    {
+        t_node *temp = *nodes;
+        *nodes = (*nodes)->next;
+        if (temp->args)
+        {
+            for (int i = 0; temp->args[i]; i++)
+                free(temp->args[i]);
+            free(temp->args);
+        }
+        free(temp->type_before);
+        free(temp->type_after);
+        free(temp);
+    }
 }
 
 t_node *create_node(char **args, const char *type_before, const char *type_after)
@@ -30,45 +58,69 @@ t_node *create_node(char **args, const char *type_before, const char *type_after
     if (!node)
         return NULL;
     node->args = args;
-    node->type_before = type_before ? ft_strdup(type_before) : NULL;
-    node->type_after = type_after ? ft_strdup(type_after) : NULL;
+    node->type_before = type_before ? strdup(type_before) : NULL;
+    node->type_after = type_after ? strdup(type_after) : NULL;
     node->next = NULL;
     node->is_dir_bilt_cmd = is_builtin_cmd(args[0]) ? 1 : is_redirection_cmd(type_before) ? 0 : 2;
     return node;
 }
 
+static int create_last_node(char **args, char *type_before, t_node *head, t_node *current)
+{
+    t_node *new_node = create_node(args, type_before, "end");
+    if (!new_node)
+    {
+        free(type_before);
+        free_nodes(&head);
+        return (0);
+    }
+    if (!head)
+        head = new_node;
+    else
+        current->next = new_node;
+    return (1);
+}
+
+static int create_new_node(char **args, char *type_after, char **type_before, t_node **head, t_node **current)
+{
+    if (args)
+    {
+        t_node *new_node = create_node(args, *type_before, type_after);
+        if (!new_node)
+        {
+            free(*type_before);
+            free(type_after);
+            free_nodes(head);
+            return (0);
+        }
+        if (!*head)
+            *head = new_node;
+        else
+            (*current)->next = new_node;
+        *current = new_node;
+    }
+    free(*type_before);
+    *type_before = type_after;
+    return (1);
+}
+
+
 t_node *nodes_init(char **tokens)
 {
     t_node *head = NULL, *current = NULL;
     char **args = NULL;
-    char *type_before = ft_strdup("start");
+    char *type_before = strdup("start");
     char *type_after = NULL;
+    int i = 0;
 
-    for (int i = 0; tokens[i]; i++)
+    while (tokens[i])
     {
-        if (ft_strcmp(tokens[i], "|") == 0 || is_redirection_cmd(tokens[i]))
+        if (strcmp(tokens[i], "|") == 0 || is_redirection_cmd(tokens[i]))
         {
-            type_after = ft_strdup(tokens[i]);
-            if (args)
-            {
-                t_node *new_node = create_node(args, type_before, type_after);
-                if (!new_node)
-                {
-                    free(type_before);
-                    free(type_after);
-                    free_nodes(&head);
-                    return NULL;
-                }
-                if (!head)
-                    head = new_node;
-                else
-                    current->next = new_node;
-                current = new_node;
-                args = NULL;
-            }
-            free(type_before);
-            type_before = type_after;
-            type_after = NULL;
+            type_after = strdup(tokens[i]);
+            if (!create_new_node(args, type_after, &type_before, &head, &current))
+                return NULL;
+            args = NULL;// there is an issue here, 
         }
         else
         {
@@ -76,25 +128,15 @@ t_node *nodes_init(char **tokens)
             while (args && args[count])
                 count++;
             args = realloc(args, sizeof(char *) * (count + 2));
-            args[count] = ft_strdup(tokens[i]);
+            args[count] = strdup(tokens[i]);
             args[count + 1] = NULL;
         }
+        i++;
     }
 
     if (args)
-    {
-        t_node *new_node = create_node(args, type_before, "end");
-        if (!new_node)
-        {
-            free(type_before);
-            free_nodes(&head);
+        if (create_last_node(args, type_before, head, current) == 0)
             return NULL;
-        }
-        if (!head)
-            head = new_node;
-        else
-            current->next = new_node;
-    }
     free(type_before);
     return head;
 }
@@ -111,6 +153,7 @@ void print_nodes(t_node *nodes)
         nodes = nodes->next;
     }
 }
+
 // Example usage
 int main()
 {
