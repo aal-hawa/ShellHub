@@ -129,33 +129,43 @@ static int	handle_special_token(char *token, char ***args, char **type_after,
 	return (1);
 }
 
+static int	process_single_token(char *token, char ***args, char **type_after,
+		char **type_before, t_node **head, t_node **current)
+{
+	int	count;
+
+	if (strcmp(token, "|") == 0 || is_redirection_cmd(token))
+	{
+		if (!handle_special_token(token, args, type_after, type_before, head,
+				current))
+			return (0);
+	}
+	else
+	{
+		count = 0;
+		while (*args && (*args)[count])
+			count++;
+		*args = realloc(*args, sizeof(char *) * (count + 2));
+		(*args)[count] = strdup(token);
+		(*args)[count + 1] = NULL;
+	}
+	return (1);
+}
+
 static int	process_tokens(char **tokens, t_node **head, t_node **current,
 		char **type_before)
 {
 	char	**args;
-	int		i;
 	char	*type_after;
-	int		count;
+	int		i;
 
 	args = NULL;
 	i = 0;
 	while (tokens[i])
 	{
-		if (strcmp(tokens[i], "|") == 0 || is_redirection_cmd(tokens[i]))
-		{
-			if (!handle_special_token(tokens[i], &args, &type_after,
-					type_before, head, current))
-				return (0);
-		}
-		else
-		{
-			count = 0;
-			while (args && args[count])
-				count++;
-			args = realloc(args, sizeof(char *) * (count + 2));
-			args[count] = strdup(tokens[i]);
-			args[count + 1] = NULL;
-		}
+		if (!process_single_token(tokens[i], &args, &type_after, type_before,
+				head, current))
+			return (0);
 		i++;
 	}
 	if (args)
