@@ -1,5 +1,5 @@
 
-#include "pipex.h"
+# include "../minishell.h"
 
 int	open_file_r(char *name_file)
 {
@@ -48,9 +48,9 @@ int	init_files(char **str, t_info *info)
 	{
 		info->offset = 3;
 		info->fd_file_r = open_file_r_w("/tmp/tmp_pipe");
-		info->limiter = ft_strjoin(str[2], "\n", 0);
+		info->limiter = ft_strjoin_p(str[2], "\n", 0);
 		info->i_limiter = ft_strlen(info->limiter);
-		ft_putstr_fd(get_next_line(info), info->fd_file_r, 1);
+		ft_putstr_fd_p(get_next_line(info), info->fd_file_r, 1);
 		if (info->fd_file_r != -1)
 			close(info->fd_file_r);
 		info->fd_file_r = open_file_r("/tmp/tmp_pipe");

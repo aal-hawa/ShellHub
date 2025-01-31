@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+# include "../minishell.h"
 
-typedef struct s_node
-{
-	char			**args;
-	char			*type_before;
-	char			*type_after;
-	struct s_node	*next;
-	int				is_dir_bilt_cmd;
-}					t_node;
+// typedef struct s_node
+// {
+// 	char			**args;
+// 	char			*type_before;
+// 	char			*type_after;
+// 	struct s_node	*next;
+// 	int				is_dir_bilt_cmd;
+// }					t_node;
 
 int	is_redirection_cmd(const char *cmd)
 {
@@ -59,7 +60,7 @@ void	free_nodes(t_node **nodes)
 }
 
 t_node	*create_node(char **args, const char *type_before,
-		const char *type_after)
+		const char *type_after, t_info *info)
 {
 	t_node	*node;
 
@@ -71,15 +72,17 @@ t_node	*create_node(char **args, const char *type_before,
 	node->type_after = type_after ? strdup(type_after) : NULL;
 	node->next = NULL;
 	node->is_dir_bilt_cmd = is_builtin_cmd(args[0]) ? 1 : is_redirection_cmd(type_before) ? 0 : 2;
+	if (node->is_dir_bilt_cmd == 2)
+		info->str_i++;
 	return (node);
 }
 
 static int	create_last_node(char **args, char *type_before, t_node *head,
-		t_node *current)
+		t_node *current, t_info *info)
 {
 	t_node	*new_node;
 
-	new_node = create_node(args, type_before, "end");
+	new_node = create_node(args, type_before, "end", info);
 	if (!new_node)
 	{
 		free(type_before);
@@ -94,13 +97,13 @@ static int	create_last_node(char **args, char *type_before, t_node *head,
 }
 
 static int	create_new_node(char **args, char *type_after, char **type_before,
-		t_node **head, t_node **current)
+		t_node **head, t_node **current, t_info *info)
 {
 	t_node	*new_node;
 
 	if (args)
 	{
-		new_node = create_node(args, *type_before, type_after);
+		new_node = create_node(args, *type_before, type_after, info);
 		if (!new_node)
 		{
 			free(*type_before);
@@ -120,17 +123,17 @@ static int	create_new_node(char **args, char *type_after, char **type_before,
 }
 
 static int	handle_special_token(char *token, char ***args, char **type_after,
-		char **type_before, t_node **head, t_node **current)
+		char **type_before, t_node **head, t_node **current, t_info *info)
 {
 	*type_after = strdup(token);
-	if (!create_new_node(*args, *type_after, type_before, head, current))
+	if (!create_new_node(*args, *type_after, type_before, head, current, info))
 		return (0);
 	*args = NULL; // Reset args after creating a node
 	return (1);
 }
 
 static int	process_tokens(char **tokens, t_node **head, t_node **current,
-		char **type_before)
+		char **type_before, t_info *info)
 {
 	char	**args;
 	int		i;
@@ -144,7 +147,7 @@ static int	process_tokens(char **tokens, t_node **head, t_node **current,
 		if (strcmp(tokens[i], "|") == 0 || is_redirection_cmd(tokens[i]))
 		{
 			if (!handle_special_token(tokens[i], &args, &type_after,
-					type_before, head, current))
+					type_before, head, current, info))
 				return (0);
 		}
 		else
@@ -159,12 +162,12 @@ static int	process_tokens(char **tokens, t_node **head, t_node **current,
 		i++;
 	}
 	if (args)
-		if (!create_last_node(args, *type_before, *head, *current))
+		if (!create_last_node(args, *type_before, *head, *current, info))
 			return (0);
 	return (1);
 }
 
-t_node	*nodes_init(char **tokens)
+t_node	*nodes_init(char **tokens, t_info *info)
 {
 	t_node	*head;
 	t_node	*current;
@@ -172,7 +175,7 @@ t_node	*nodes_init(char **tokens)
 
 	head = NULL, current = NULL;
 	type_before = strdup("start");
-	if (!process_tokens(tokens, &head, &current, &type_before))
+	if (!process_tokens(tokens, &head, &current, &type_before, info))
 	{
 		free(type_before);
 		return (NULL);
@@ -201,8 +204,9 @@ int	main(void)
 			"cd", "..", "|", "ls", "|", "grep", "\"txt rgegeg rwwfw\"", "<",
 			"gwg.txt", NULL};
 	t_node	*nodes;
+	t_info	info;
 
-	nodes = nodes_init(tokens);
+	nodes = nodes_init(tokens, &info);
 	if (nodes)
 	{
 		print_nodes(nodes);

@@ -1,5 +1,5 @@
 
-#include "pipex.h"
+# include "../minishell.h"
 
 size_t	len_sub(char const *s, char c)
 {
@@ -78,7 +78,7 @@ int	sub_split(char **dst, char const *s, char c, t_info *info)
 	return (dst[i++] = NULL, info->i_split = i, 0);
 }
 
-char	**ft_split(char const *s, char c, t_info *info)
+char	**ft_split_p(char const *s, char c, t_info *info)
 {
 	char	**dst;
 	size_t	len;

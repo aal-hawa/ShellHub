@@ -1,5 +1,4 @@
-
-#include "pipex.h"
+# include "../minishell.h"
 
 int	wait_fun(t_info *info)
 {

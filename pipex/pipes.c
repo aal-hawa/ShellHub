@@ -1,5 +1,5 @@
 
-#include "pipex.h"
+# include "../minishell.h"
 
 void	close_fds_childs(int **fd1, t_info *info)
 {
@@ -41,7 +41,7 @@ void	childs(char **str, int **fd1, pid_t *frs, t_info *info)
 {
 	char	**strs;
 
-	strs = ft_split(str[info->i_childs + info->offset], ' ', info);
+	strs = ft_split_p(str[info->i_childs + info->offset], ' ', info);
 	if (!strs)
 		return (error_pipe(fd1, -3, info, NULL),
 			de_allocate(&fd1, &frs, info->str_i), exit(1));
@@ -49,8 +49,8 @@ void	childs(char **str, int **fd1, pid_t *frs, t_info *info)
 	if (!info->path_commd)
 	{
 		if (info->env_null == 1)
-			ft_putstr_fd(
-				ft_strjoin("zsh: command not found: ", strs[0], 0), 2, 2);
+			ft_putstr_fd_p(
+				ft_strjoin_p("zsh: command not found: ", strs[0], 0), 2, 2);
 		return (error_pipe(fd1, -3, info, strs),
 			de_allocate(&fd1, &frs, info->str_i),
 			exit(127));
@@ -79,9 +79,31 @@ int	direct_fun(t_node *node, t_info *info)
 	return (0);
 }
 
-int	builtins_fun()
+char	*builtins_fun(t_node *node, t_info *info)
 {
-	
+	char	*result;
+
+	result = NULL;
+	if (node->args[0] == "cd")
+		result = cd_fun(node->args[1], info);
+	else if (node->args[0] == "echo")
+	{
+		if (node->args[1] == "-n")
+			result = echo_n_fun(node->args[2]);
+		else
+			result = echo_with_line_fun(node->args[1]);
+	}
+	else if (node->args[0] == "env")
+		result = env_fun(node->args[1]);
+	else if (node->args[0] == "export")
+		export_fun(node->args[1], info);
+	else if (node->args[0] == "unset")
+		unset_func(node->args[1], info);
+	else if (node->args[0] == "pwd")
+		result = pwd_fun(info);
+	else if (node->args[0] == "exit")
+		exit_fun();
+	return (result);
 }
 
 int	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
@@ -97,7 +119,7 @@ int	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 				break ;
 		}
 		else if (node->is_dir_bilt_cmd == 1)
-			builtins_fun();
+			builtins_fun(node, info);
 		else 
 		{
 			frs[info->i_childs] = fork();
@@ -106,8 +128,8 @@ int	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 				close_fds_childs(fd1, info);
 				childs(node->args, fd1, frs, info);
 			}
+			info->i_childs++;
 		}
-		info->i_childs++;
 		node = node->next;
 	}
 }

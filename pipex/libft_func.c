@@ -1,54 +1,7 @@
 
-#include "pipex.h"
+# include "../minishell.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(const char *str)
-{
-	char	*dst;
-	size_t	i;
-	size_t	len;
-
-	if (!str)
-		return (NULL);
-	len = ft_strlen(str);
-	dst = malloc(sizeof(char) * (len + 1));
-	if (!dst)
-		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		dst[i] = str[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-int	ft_strncmp(const char *str1, const char *str2, size_t n)
-{
-	while (n > 0)
-	{
-		if ((unsigned char)*str1 != (unsigned char)*str2)
-			return ((unsigned char)*str1 - (unsigned char)*str2);
-		if (!(unsigned char)*str1)
-			return (0);
-		str1++;
-		str2++;
-		n--;
-	}
-	return (0);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2, int is_path)
+char	*ft_strjoin_p(char const *s1, char const *s2, int is_path)
 {
 	size_t	len;
 	char	*dst;
@@ -74,7 +27,7 @@ char	*ft_strjoin(char const *s1, char const *s2, int is_path)
 	return (dst);
 }
 
-void	ft_putstr_fd(char *s, int fd, int is_malloc)
+void	ft_putstr_fd_p(char *s, int fd, int is_malloc)
 {
 	int	i;
 
