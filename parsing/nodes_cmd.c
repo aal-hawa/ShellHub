@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../minishell.h"
 
+typedef struct s_node
+{
+	char			**args;
+	char			*type_before;
+	char			*type_after;
+	struct s_node	*next;
+	int				is_dir_bilt_cmd;
+}					t_node;
 
 int	is_redirection_cmd(const char *cmd)
 {
@@ -117,8 +124,8 @@ static int	create_new_node(char **args, char *type_after, char **type_before,
 static int	handle_special_token(char *token, char ***args, char **type_after,
 		char **type_before, t_node **head, t_node **current, t_info *info)
 {
-	*type_after = ft_strdup(token);
-	if (!create_new_node(*args, *type_after, type_before, head, current, info))
+	*type_after = strdup(token);
+	if (!create_new_node(*args, *type_after, type_before, head, current))
 		return (0);
 	*args = NULL;
 	return (1);
@@ -158,9 +165,21 @@ static int	process_tokens(char **tokens, t_node **head, t_node **current,
 	i = 0;
 	while (tokens[i])
 	{
-		if (!process_single_token(tokens[i], &args, &type_after, type_before,
-				head, current, info))
-			return (0);
+		if (strcmp(tokens[i], "|") == 0 || is_redirection_cmd(tokens[i]))
+		{
+			if (!handle_special_token(tokens[i], &args, &type_after,
+					type_before, head, current))
+				return (0);
+		}
+		else
+		{
+			count = 0;
+			while (args && args[count])
+				count++;
+			args = realloc(args, sizeof(char *) * (count + 2));
+			args[count] = strdup(tokens[i]);
+			args[count + 1] = NULL;
+		}
 		i++;
 	}
 	if (args)
@@ -176,8 +195,8 @@ t_node	*nodes_init(char **tokens, t_info *info)
 	char	*type_before;
 
 	head = NULL, current = NULL;
-	type_before = ft_strdup("start");
-	if (!process_tokens(tokens, &head, &current, &type_before, info))
+	type_before = strdup("start");
+	if (!process_tokens(tokens, &head, &current, &type_before))
 	{
 		free(type_before);
 		return (NULL);
@@ -206,8 +225,8 @@ int	main(void)
 			"cd", "..", "|", "ls", "|", "grep", "\"txt rgegeg rwwfw\"", "<",
 			"gwg.txt", NULL};
 	t_node	*nodes;
-	t_info *info;
-	nodes = nodes_init(tokens, info);
+
+	nodes = nodes_init(tokens);
 	if (nodes)
 	{
 		print_nodes(nodes);

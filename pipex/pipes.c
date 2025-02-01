@@ -79,35 +79,15 @@ int	direct_fun(t_node *node, t_info *info)
 	return (0);
 }
 
-char	*builtins_fun(t_node *node, t_info *info)
+int	builtins_fun()
 {
-	char	*result;
-
-	result = NULL;
-	if (node->args[0] == "cd")
-		result = cd_fun(node->args[1], info);
-	else if (node->args[0] == "echo")
-	{
-		if (node->args[1] == "-n")
-			result = echo_n_fun(node->args[2]);
-		else
-			result = echo_with_line_fun(node->args[1]);
-	}
-	else if (node->args[0] == "env")
-		result = env_fun(node->args[1]);
-	else if (node->args[0] == "export")
-		export_fun(node->args[1], info);
-	else if (node->args[0] == "unset")
-		unset_func(node->args[1], info);
-	else if (node->args[0] == "pwd")
-		result = pwd_fun(info);
-	else if (node->args[0] == "exit")
-		exit_fun();
-	return (result);
+	
 }
 
 int	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 {
+	char	*result_blts;
+
 	info->i_childs = 0;
 	if (info->fd_file_r == -1)
 		info->i_childs = 1;
@@ -119,7 +99,7 @@ int	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 				break ;
 		}
 		else if (node->is_dir_bilt_cmd == 1)
-			builtins_fun(node, info);
+			builtins_fun();
 		else 
 		{
 			frs[info->i_childs] = fork();

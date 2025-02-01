@@ -3,6 +3,7 @@
 		"time.h": "c",
 		"minishell.h": "c",
 		"ft_strccpy": "cpp",
-		"sstream": "c"
+		"sstream": "c",
+		"__locale": "c"
 	}
 }
