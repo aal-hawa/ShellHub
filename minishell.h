@@ -73,27 +73,27 @@ char	*ft_restore_value(char **dest, char **str, int is_str_malloc);
 char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
 // void	free_split(char **split, int len);
 char    *pre_split(char **s, const char *ops);
-t_node  *nodes_init(char **tokens);
+t_node	*nodes_init(char **tokens, t_info *info);
 void    free_nodes(t_node **nodes);
 void	init_info(int ac, char *env, char **envp, t_info *info);
 
 
-char		**ft_split_p(char const *s, char c, t_info *info);
-int			open_file_w(char *name_file);
-int			my_pipe(char **str, t_info *info);
-char		*ft_strjoin_p(char const *s1, char const *s2, int is_path);
-int			open_file_w_b(char *name_file);
-void		env_data(char **envp, char **env, t_info *info);
-int			init_files(char **str, t_info *info);
-void		error_pipe(int **fd1, int i, t_info *info, char **strs);
-char		*get_next_line(t_info *info);
-char		*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
-char		*free_char(char *this_string);
-void		ft_putstr_fd_p(char *s, int fd, int is_malloc);
-int			finish_parent(int ***fd, pid_t **frs, t_info *info);
-void		de_allocate(int ***fd, pid_t **frs, int i);
-void		free_split(char **dst, size_t i);
-void		get_path_command(char **strs, t_info *info);
-void		allocate_fds(int ***fd, pid_t **frs, int j);
-
+char	**ft_split_p(char const *s, char c, t_info *info);
+int		open_file_w(char *name_file);
+int		my_pipe(char **str, t_info *info);
+char	*ft_strjoin_p(char const *s1, char const *s2, int is_path);
+int		open_file_w_b(char *name_file);
+void	env_data(char **envp, char **env, t_info *info);
+int		init_files(char **str, t_info *info);
+void	error_pipe(int **fd1, int i, t_info *info, char **strs);
+char	*get_next_line(t_info *info);
+char	*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
+char	*free_char(char *this_string);
+void	ft_putstr_fd_p(char *s, int fd, int is_malloc);
+int		finish_parent(int ***fd, pid_t **frs, t_info *info);
+void	de_allocate(int ***fd, pid_t **frs, int i);
+void	free_split(char **dst, size_t i);
+void	get_path_command(char **strs, t_info *info);
+void	allocate_fds(int ***fd, pid_t **frs, int j);
+int		init_files_biultins(char *str, t_info *info);
 #endif

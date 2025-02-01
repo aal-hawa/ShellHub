@@ -61,3 +61,13 @@ int	init_files(char **str, t_info *info)
 	}
 	return (info->offset);
 }
+
+int	init_files_biultins(char *str, t_info *info)
+{
+	info->fd_file_r = open_file_r_w("/tmp/tmp_biultins");
+	ft_putstr_fd_p(str, info->fd_file_r, 1);
+	if (info->fd_file_r != -1)
+		close(info->fd_file_r);
+	info->fd_file_r = open_file_r("/tmp/tmp_biultins");
+	return (info->fd_file_r);
+}

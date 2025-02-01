@@ -103,11 +103,15 @@ char	*builtins_fun(t_node *node, t_info *info)
 		result = pwd_fun(info);
 	else if (node->args[0] == "exit")
 		exit_fun();
+	// if (result && is_operator_fun(node->type_after) == 0)
+	// 	printf("%s", result);
 	return (result);
 }
 
 int	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 {
+	char	*result_blts;
+
 	info->i_childs = 0;
 	if (info->fd_file_r == -1)
 		info->i_childs = 1;
@@ -119,7 +123,11 @@ int	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 				break ;
 		}
 		else if (node->is_dir_bilt_cmd == 1)
-			builtins_fun(node, info);
+		{
+			result_blts = builtins_fun(node, info);
+			if (result_blts && is_operator_fun(node->type_after) == 1)
+				init_files_biultins(result_blts, info);
+		}
 		else 
 		{
 			frs[info->i_childs] = fork();
