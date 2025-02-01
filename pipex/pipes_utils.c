@@ -1,5 +1,5 @@
 
-#include "pipex.h"
+# include "../minishell.h"
 
 void	free_splits(char **strs)
 {

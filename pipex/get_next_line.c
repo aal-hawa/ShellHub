@@ -1,5 +1,5 @@
 
-#include "pipex.h"
+# include "../minishell.h"
 
 char	*free_char(char *this_string)
 {

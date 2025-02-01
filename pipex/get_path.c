@@ -1,7 +1,7 @@
 
-#include "pipex.h"
+# include "../minishell.h"
 
-void	env_data(char **envp, char **env)
+void	env_data(char **envp, char **env, t_info *info)
 {
 	int	i;
 
@@ -11,6 +11,8 @@ void	env_data(char **envp, char **env)
 	{
 		while (envp[i])
 		{
+			if (ft_strncmp(envp[i], "HOME=", 5) == 0)
+				info->home = &envp[i][5];
 			if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 			{
 				*env = &envp[i][5];
@@ -30,15 +32,15 @@ char	*get_from_env(char *env, char *str, t_info *info)
 	if (!env)
 		return (NULL);
 	i = 0;
-	env_split = ft_split(env, ':', info);
+	env_split = ft_split_p(env, ':', info);
 	if (!env_split)
 		return (NULL);
 	while (env_split[i])
 	{
-		joined = ft_strjoin(env_split[i], str, 1);
+		joined = ft_strjoin_p(env_split[i], str, 1);
 		if (!joined)
-			return (ft_putstr_fd(
-					ft_strjoin("zsh: command not found: ", str, 0), 2, 2),
+			return (ft_putstr_fd_p(
+					ft_strjoin_p("zsh: command not found: ", str, 0), 2, 2),
 				free_split(env_split, info->i_split), NULL);
 		if (!access(joined, R_OK))
 			return (free_split(env_split, info->i_split), joined);
@@ -46,7 +48,7 @@ char	*get_from_env(char *env, char *str, t_info *info)
 		i++;
 	}
 	free_split(env_split, info->i_split);
-	return (ft_putstr_fd(ft_strjoin("zsh: command not found: ", str, 0), 2, 2),
+	return (ft_putstr_fd_p(ft_strjoin_p("zsh: command not found: ", str, 0), 2, 2),
 		NULL);
 }
 

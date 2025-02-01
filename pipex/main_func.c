@@ -1,5 +1,4 @@
-
-#include "pipex.h"
+# include "../minishell.h"
 
 void	init_info_main(int ac, char *env, char **envp, t_info *info)
 {
@@ -24,8 +23,8 @@ int	main(int ac, char **arg, char **envp)
 	int		is_error_127;
 
 	if (ac != 5)
-		return (ft_putstr_fd("Bad argc\n", 2, 0), 1);
-	env_data(envp, &env);
+		return (ft_putstr_fd_p("Bad argc\n", 2, 0), 1);
+	env_data(envp, &env, &info);
 	init_info_main(ac, env, envp, &info);
 	if (!env)
 		info.env_null = 1;

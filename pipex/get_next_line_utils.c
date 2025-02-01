@@ -1,5 +1,5 @@
 
-#include "pipex.h"
+# include "../minishell.h"
 
 int	last_letters(char *str, int *is_done, t_info *info)
 {
