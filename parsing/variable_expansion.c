@@ -53,16 +53,16 @@ char	*doller_sign_fun(char *str, t_info *info)
 	char	*varible;
 
 	i = 0;
-	while (info->env[i])
+	while (info->envp[i])
 	{
-		varible = varible_fun(info->env[i], '=');
+		varible = varible_fun(info->envp[i], '=');
 		if (!varible)
 		{
 			i++;
 			continue ;
 		}
 		if (varible == str)
-			return (value_fun(info->env[i], '='));
+			return (value_fun(info->envp[i], '='));
 		free (varible);
 		varible = NULL;
 		i++;

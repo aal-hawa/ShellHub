@@ -19,6 +19,7 @@ typedef struct s_node {
     char *type_before;
     char *type_after;
     int is_dir_bilt_cmd;
+	int	fd_file;
     struct s_node *next;
 } t_node;
 
@@ -44,14 +45,15 @@ typedef struct s_info
 	int		env_null;
 	int		is_exit_one;
 
-
 	// char	**env;
 	char	*home;
     int     status_exit;
     char    *curent_path;
+	int		index_files_crt;
+	t_node	*nodes;
 }					t_info;
 
-void	minishell();
+void	minishell(t_info *info);
 char	*readline_fun();
 char	**tokens_fun(char *line);
 char	*cd_fun(char *cd, t_info *info);
@@ -75,27 +77,33 @@ char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
 char    *pre_split(char **s, const char *ops);
 t_node	*nodes_init(char **tokens, t_info *info);
 void    free_nodes(t_node **nodes);
-
+void	init_info(int ac, char *env, char **envp, t_info *info);
 
 size_t		ft_strlen(const char *s);
-char		**ft_split(char const *s, char c, t_info *info);
+char		**ft_split_p(char const *s, char c, t_info *info);
 int			open_file_w(char *name_file);
-int			my_pipe(char **str, t_info *info);
+// int			execute_fun(char **str, t_info *info);
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
-char		*ft_strjoin(char const *s1, char const *s2, int is_path);
+char		*ft_strjoin_p(char const *s1, char const *s2, int is_path);
 int			open_file_w_b(char *name_file);
-void		env_data(char **envp, char **env);
-int			init_files(char **str, t_info *info);
+void		env_data(char **envp, char **env, t_info *info);
+// int			init_files(char **str, t_info *info);
+void		init_files(t_node *node, t_info *info);
+int			init_files_biultins(char *str, t_info *info);
+void		init_here_doc(t_node *node, t_info *info);
 void		error_pipe(int **fd1, int i, t_info *info, char **strs);
 char		*get_next_line(t_info *info);
 char		*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
 char		*free_char(char *this_string);
-void		ft_putstr_fd(char *s, int fd, int is_malloc);
+void		ft_putstr_fd_p(char *s, int fd, int is_malloc);
 int			finish_parent(int ***fd, pid_t **frs, t_info *info);
 void		de_allocate(int ***fd, pid_t **frs, int i);
 void		free_split(char **dst, size_t i);
 char		*ft_strdup(const char *str);
 void		get_path_command(char **strs, t_info *info);
 void		allocate_fds(int ***fd, pid_t **frs, int j);
-
+void		print_nodes(t_node *nodes);
+void		childs(t_node *node, int **fd1, pid_t *frs, t_info *info);
+void		close_fds_childs(int **fd1, t_info *info);
+int			execute_fun(t_info *info);
 #endif

@@ -49,7 +49,7 @@ typedef struct s_info
 size_t		ft_strlen(const char *s);
 char		**ft_split(char const *s, char c, t_info *info);
 int			open_file_w(char *name_file);
-int			my_pipe(char **str, t_info *info);
+int			execute_fun(char **str, t_info *info);
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
 char		*ft_strjoin(char const *s1, char const *s2, int is_path);
 int			open_file_w_b(char *name_file);
