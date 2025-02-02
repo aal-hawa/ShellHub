@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../minishell.h"
 
 typedef struct s_node
 {
@@ -126,7 +125,7 @@ static int	handle_special_token(char *token, char ***args, char **type_after,
 		char **type_before, t_node **head, t_node **current, t_info *info)
 {
 	*type_after = strdup(token);
-	if (!create_new_node(*args, *type_after, type_before, head, current, info))
+	if (!create_new_node(*args, *type_after, type_before, head, current))
 		return (0);
 	*args = NULL;
 	return (1);
@@ -161,7 +160,7 @@ static int	process_tokens(char **tokens, t_node **head, t_node **current,
 	char	**args;
 	char	*type_after;
 	int		i;
-	int		count;
+
 	args = NULL;
 	i = 0;
 	while (tokens[i])
@@ -169,7 +168,7 @@ static int	process_tokens(char **tokens, t_node **head, t_node **current,
 		if (strcmp(tokens[i], "|") == 0 || is_redirection_cmd(tokens[i]))
 		{
 			if (!handle_special_token(tokens[i], &args, &type_after,
-					type_before, head, current, info))
+					type_before, head, current))
 				return (0);
 		}
 		else
@@ -197,7 +196,7 @@ t_node	*nodes_init(char **tokens, t_info *info)
 
 	head = NULL, current = NULL;
 	type_before = strdup("start");
-	if (!process_tokens(tokens, &head, &current, &type_before, info))
+	if (!process_tokens(tokens, &head, &current, &type_before))
 	{
 		free(type_before);
 		return (NULL);
@@ -220,18 +219,18 @@ void	print_nodes(t_node *nodes)
 }
 
 // Example usage
-// int	main(void)
-// {
-// 	char	*tokens[] = {"ls", "|", "grep", "\"txt\"", ">>", "output.txt", "|",
-// 			"cd", "..", "|", "ls", "|", "grep", "\"txt rgegeg rwwfw\"", "<",
-// 			"gwg.txt", NULL};
-// 	t_node	*nodes;
+int	main(void)
+{
+	char	*tokens[] = {"ls", "|", "grep", "\"txt\"", ">>", "output.txt", "|",
+			"cd", "..", "|", "ls", "|", "grep", "\"txt rgegeg rwwfw\"", "<",
+			"gwg.txt", NULL};
+	t_node	*nodes;
 
-// 	nodes = nodes_init(tokens);
-// 	if (nodes)
-// 	{
-// 		print_nodes(nodes);
-// 		free_nodes(&nodes);
-// 	}
-// 	return (0);
-// }
+	nodes = nodes_init(tokens);
+	if (nodes)
+	{
+		print_nodes(nodes);
+		free_nodes(&nodes);
+	}
+	return (0);
+}
