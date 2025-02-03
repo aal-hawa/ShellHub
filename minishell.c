@@ -36,11 +36,14 @@ void	minishell(t_info *info)
 		line = readline_fun();
 		printf("the input: %s\n", line);
 		tokens = tokens_fun(line);
-		while(*tokens)
-			printf("the tokens: %s\n", *tokens++);
+		// while(*tokens)
+		// 	printf("the tokens: %s\n", *tokens++);
+		printf("\n-----------------------------\n");
 		nodes = nodes_init(tokens, info);
+		printf("outside if in minishell file\n");
 		if (nodes)
 		{
+			printf("inside if in minishell file\n");
 			info->nodes = nodes;
 			print_nodes(nodes);
 			is_error_127 = execute_fun(info);

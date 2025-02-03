@@ -85,7 +85,7 @@ int	execute_fun(t_info *info)
 {
 	int		**fd1;
 	pid_t	*frs;
-
+	printf("execute_fun\n");
 	if (info->str_i <= 0)
 		return (1);
 	allocate_fds(&fd1, &frs, info->str_i);

@@ -12,6 +12,48 @@
 // 	int				is_dir_bilt_cmd;
 // }					t_node;
 
+// typedef struct s_info
+// {
+//     	int		i_fds;
+// 	int		i_childs;
+// 	int		i_wait;
+// 	int		fd_file_r;
+// 	int		fd_file_w;
+// 	int		offset;
+// 	int		ac;
+// 	int		str_i;
+// 	char	*env;
+// 	char	*limiter;
+// 	int		i_limiter;
+// 	char	*path_commd;
+// 	char	**envp;
+// 	int		is_for_w;
+// 	int		is_bonus;
+// 	size_t	i_split;
+// 	int		env_null;
+// 	int		is_exit_one;
+
+// 	// char	**env;
+// 	char	*home;
+//     int     status_exit;
+//     char    *curent_path;
+// 	int		index_files_crt;
+// 	t_node	*nodes;
+// }					t_info;
+
+void	print_nodes(t_node *nodes)
+{
+	while (nodes)
+	{
+		printf("Args: ");
+		for (int i = 0; nodes->args[i]; i++)
+			printf("%s ", nodes->args[i]);
+		printf("\nType Before: %s, Type After: %s, is_dir_bilt_cmd: %d\n",
+			nodes->type_before, nodes->type_after, nodes->is_dir_bilt_cmd);
+		nodes = nodes->next;
+	}
+}
+
 int	is_redirection_cmd(const char *cmd)
 {
 	int			i;
@@ -19,7 +61,7 @@ int	is_redirection_cmd(const char *cmd)
 
 	for (i = 0; redirections[i]; i++)
 	{
-		if (ft_strcmp(cmd, redirections[i]) == 0)
+		if (strcmp(cmd, redirections[i]) == 0)
 			return (1);
 	}
 	return (0);
@@ -33,7 +75,7 @@ int	is_builtin_cmd(const char *cmd)
 
 	for (i = 0; builtins[i]; i++)
 	{
-		if (ft_strcmp(cmd, builtins[i]) == 0)
+		if (strcmp(cmd, builtins[i]) == 0)
 			return (1);
 	}
 	return (0);
@@ -68,8 +110,8 @@ t_node	*create_node(char **args, const char *type_before,
 	if (!node)
 		return (NULL);
 	node->args = args;
-	node->type_before = type_before ? ft_strdup(type_before) : NULL;
-	node->type_after = type_after ? ft_strdup(type_after) : NULL;
+	node->type_before = type_before ? strdup(type_before) : NULL;
+	node->type_after = type_after ? strdup(type_after) : NULL;
 	node->next = NULL;
 	node->is_dir_bilt_cmd = is_builtin_cmd(args[0]) ? 1 : is_redirection_cmd(type_before) ? 0 : 2;
 	if (node->is_dir_bilt_cmd == 2)
@@ -149,7 +191,7 @@ static int	handle_special_token(char *token, char ***args, char **type_after,
 // 		while (*args && (*args)[count])
 // 			count++;
 // 		*args = realloc(*args, sizeof(char *) * (count + 2));
-// 		(*args)[count] = ft_strdup(token);
+// 		(*args)[count] = strdup(token);
 // 		(*args)[count + 1] = NULL;
 // 	}
 // 	return (1);
@@ -165,16 +207,19 @@ static int	process_tokens(char **tokens, t_node **head, t_node **current,
 
 	args = NULL;
 	i = 0;
+		printf("process_tokens line 210\n");
 	while (tokens[i])
 	{
 		if (strcmp(tokens[i], "|") == 0 || is_redirection_cmd(tokens[i]))
 		{
+					printf("process_tokens line 215 inside if\n");
 			if (!handle_special_token(tokens[i], &args, &type_after,
 					type_before, head, current, info))
 				return (0);
 		}
 		else
 		{
+			printf("process_tokens line 222 inside else\n");
 			count = 0;
 			while (args && args[count])
 				count++;
@@ -192,47 +237,43 @@ static int	process_tokens(char **tokens, t_node **head, t_node **current,
 
 t_node	*nodes_init(char **tokens, t_info *info)
 {
+
 	t_node	*head;
 	t_node	*current;
 	char	*type_before;
 
 	head = NULL, current = NULL;
 	type_before = strdup("start");
+	printf("nodes_init line 244\n");
 	if (!process_tokens(tokens, &head, &current, &type_before, info))
 	{
 		free(type_before);
 		return (NULL);
 	}
+	printf("nodes_init line 250\n");
 	free(type_before);
 	return (head);
 }
 
-void	print_nodes(t_node *nodes)
-{
-	while (nodes)
-	{
-		printf("Args: ");
-		for (int i = 0; nodes->args[i]; i++)
-			printf("%s ", nodes->args[i]);
-		printf("\nType Before: %s, Type After: %s, is_dir_bilt_cmd: %d\n",
-			nodes->type_before, nodes->type_after, nodes->is_dir_bilt_cmd);
-		nodes = nodes->next;
-	}
-}
+
 
 // Example usage
 // int	main(void)
 // {
-// 	char	*tokens[] = {"ls", "|", "grep", "\"txt\"", ">>", "output.txt", "|",
+// 	char	*tokens[] = {"ls", "|", "grep", "txt", ">>", "output.txt", "|",
 // 			"cd", "..", "|", "ls", "|", "grep", "\"txt rgegeg rwwfw\"", "<",
 // 			"gwg.txt", NULL};
 // 	t_node	*nodes;
+// 	t_info	info;
 
-// 	nodes = nodes_init(tokens, info);
+// 	nodes = nodes_init(tokens, &info);
 // 	if (nodes)
 // 	{
 // 		print_nodes(nodes);
+// 		print_nodes(nodes);
 // 		free_nodes(&nodes);
+// 		printf("\n--------------\n----------\n---\n");
+// 				print_nodes(nodes);
 // 	}
 // 	return (0);
 // }
