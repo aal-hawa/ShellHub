@@ -96,6 +96,6 @@ int	execute_fun(t_info *info)
 			return (error_pipe(fd1, --info->i_fds, info, NULL),
 				de_allocate(&fd1, &frs, info->str_i), exit(1), 1);
 	// init_childs(str, fd1, frs, info);
-	order_execve_fun(info->nodes, fd1, frs, info);
+	order_execve_fun(info->first_node, fd1, frs, info);
 	return (finish_parent(&fd1, &frs, info));
 }

@@ -50,7 +50,7 @@ typedef struct s_info
     int     status_exit;
     char    *curent_path;
 	int		index_files_crt;
-	t_node	*nodes;
+	t_node	*first_node;
 }					t_info;
 
 void	minishell(t_info *info);
@@ -106,4 +106,5 @@ void		print_nodes(t_node *nodes);
 void		childs(t_node *node, int **fd1, pid_t *frs, t_info *info);
 void		close_fds_childs(int **fd1, t_info *info);
 int			execute_fun(t_info *info);
+void		create_nodes(char *line, t_info *info);
 #endif

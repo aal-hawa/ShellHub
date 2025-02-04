@@ -4,6 +4,7 @@
 		"minishell.h": "c",
 		"ft_strccpy": "cpp",
 		"sstream": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"__node_handle": "c"
 	}
 }
