@@ -27,6 +27,7 @@ void	dir_bilt_fun(t_node **node, char *before_tybe)
 }
 void	type_after_fun(t_node **node, char **line, int i)
 {
+
 	if (line[0][i] != '|' && line[0][i + 1])
 	{
 		if (line[0][i] == '>' && line[0][i + 1] == '>')
@@ -36,8 +37,10 @@ void	type_after_fun(t_node **node, char **line, int i)
 	}
 	else
 	{
-		node[0]->type_after = calloc(1, 2);
+		// node[0]->type_after = calloc(1, 2);
+		node[0]->type_after = malloc(sizeof(char) * 2);
 		node[0]->type_after[0] = line[0][i];
+		node[0]->type_after[1] = '\0';
 	}
 }
 
@@ -45,14 +48,17 @@ char	*insert_node(t_node **node, char **line, int i, int j)
 {
 	char	*cmd_order;
 	char	*before_tybe;
+	int		x;
 
+	x = 0;
 	cmd_order = malloc(sizeof(char) * (i - j + 1));
 	while (j < i)
 	{
-		cmd_order[j] = line[0][j];
+		cmd_order[x] = line[0][j];
 		j++;
+		x++;
 	}
-	cmd_order[j] = '\0';
+	cmd_order[x] = '\0';
 	node[0]->args = ft_split(cmd_order, ' ');
 	free(cmd_order);
 	before_tybe = node[0]->type_after;
