@@ -3,9 +3,9 @@
 int	direct_fun(t_node *node, t_info *info)
 {
 	if (!ft_strcmp(node->type_before,">"))
-		info->fd_file_w = open_file_w(node->args[info->ac - 1]);
+		info->fd_file_w = open_file_w(node->args[0]);
 	else if (!ft_strcmp(node->type_before,">>"))
-		info->fd_file_w = open_file_w_b(node->args[info->ac - 1]);
+		info->fd_file_w = open_file_w_b(node->args[0]);
 	else if (!ft_strcmp(node->type_before, "<"))
 		init_files(node, info);
 	else if (!ft_strcmp(node->type_before, "<<"))

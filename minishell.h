@@ -14,19 +14,21 @@
 # include <string.h>
 # include <sys/wait.h>
 
-typedef struct s_node {
+typedef struct s_node
+{
     char **args;
     char *type_before;
     char *type_after;
     int is_dir_bilt_cmd;
 	int	fd_file;
+	char	*last_fd_name;
     struct s_node *next;
 } t_node;
 
 
 typedef struct s_info
 {
-    	int		i_fds;
+    int		i_fds;
 	int		i_childs;
 	int		i_wait;
 	int		fd_file_r;
@@ -67,6 +69,7 @@ int		unset_func(char *name, t_info *info);
 int     is_operator_fun(char *str);
 void	free_fun(char **str);
 char 	**add_in_split(char **split, char *add_str);
+char	**marge_2_splits(char **first_split, char **second_split);
 char 	**del_from_split(char **split, char *del_str);
 size_t	ft_strclen(const char *s, char to_char);
 char	*ft_strccpy(char *str, char to_char);
