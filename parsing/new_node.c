@@ -16,7 +16,8 @@
 // char	**ft_split(char const *s, char c);
 void	dir_bilt_fun(t_node **node, char *before_tybe)
 {
-	if (ft_strcmp(before_tybe, "start") && ft_strcmp(before_tybe,"|"))
+	if (!ft_strcmp(before_tybe, "<") || !ft_strcmp(before_tybe,"<<")
+	 || !ft_strcmp(before_tybe,">") || !ft_strcmp(before_tybe,">>"))
 		node[0]->is_dir_bilt_cmd = 0;
 	else if (!ft_strcmp(node[0]->args[0], "cd") || !ft_strcmp(node[0]->args[0], "pwd") 
 		|| !ft_strcmp(node[0]->args[0], "echo") || !ft_strcmp(node[0]->args[0], "env") || !ft_strcmp(node[0]->args[0], "export")

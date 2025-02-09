@@ -20,8 +20,8 @@ int	direct_fun(t_node *node, t_info *info)
 
 char	*builtins_fun(t_node *node, t_info *info)
 {
-	
 	char	*result;
+
 	result = NULL;
 	if (!ft_strcmp(node->args[0], "cd"))
 		result = cd_fun(node->args[1], info);
@@ -100,6 +100,8 @@ int	execute_fun(t_info *info)
 				return (error_pipe(fd1, --info->i_fds, info, NULL),
 					de_allocate(&fd1, &frs, info->str_i), exit(1), 1);
 	}
+	info->curent_path = pwd_fun(info);
+	
 	// init_childs(str, fd1, frs, info);
 	order_execve_fun(info->first_node, fd1, frs, info);
 	return (finish_parent(&fd1, &frs, info));
