@@ -12,12 +12,9 @@ void	env_data(char **envp, char **env, t_info *info)
 		while (envp[i])
 		{
 			if (ft_strncmp(envp[i], "HOME=", 5) == 0)
-				info->home = &envp[i][5];
+				info->home = ft_strdup(&envp[i][5]);
 			if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			{
 				*env = &envp[i][5];
-				break ;
-			}
 			i++;
 		}
 	}

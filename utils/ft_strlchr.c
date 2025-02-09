@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:06:25 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/01/25 17:08:06 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:47:08 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ char	*ft_strlchr(char **str, char lst_char, int is_str_malloc)
 	}
 	if (i == 0)
 		return (*str);
-	dest = malloc(sizeof(char) * i);
+	dest = malloc(sizeof(char) * (i + 1));
 	if (!dest)
 		return (free_fun(str), NULL);
-	ft_strlcpy(dest, *str, i);
+	ft_strlcpy(dest, *str, i + 1);
 	if (is_str_malloc == 1)
 		free_fun(str);
 	return (dest);
