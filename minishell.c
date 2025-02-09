@@ -25,7 +25,7 @@ void	unlink_files(t_info *info)
 void	minishell(t_info *info)
 {
 	char	*line;
-	// int		is_error_127;
+	int		is_error_127;
 
 	while (1)
 	{
@@ -44,15 +44,15 @@ void	minishell(t_info *info)
 		{
 			printf("inside if in minishell file\n");
 			print_nodes(info->first_node);
-			// is_error_127 = execute_fun(info);
-			// // if (ft_strncmp(arg[1], "here_doc", 8) == 0 && info->fd_file_w != -1)
-			// // 	unlink ("/tmp/tmp_pipe");
-			// unlink_files(info);
-			// // free_nodes(&nodes);
-			// if (is_error_127 == 1)
-			// 	exit(127);
-			// if (info->is_exit_one == 1)
-			// 	exit(1);
+			is_error_127 = execute_fun(info);
+			// if (ft_strncmp(arg[1], "here_doc", 8) == 0 && info->fd_file_w != -1)
+			// 	unlink ("/tmp/tmp_pipe");
+			unlink_files(info);
+			// free_nodes(&nodes);
+			if (is_error_127 == 1)
+				exit(127);
+			if (info->is_exit_one == 1)
+				exit(1);
 		}
 		free(line);
 		// nodes

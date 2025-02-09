@@ -85,16 +85,21 @@ int	execute_fun(t_info *info)
 {
 	int		**fd1;
 	pid_t	*frs;
+
+	fd1 = NULL;
+	frs = NULL;
 	printf("execute_fun\n");
-	if (info->str_i <= 0)
-		return (1);
-	allocate_fds(&fd1, &frs, info->str_i);
-	// info->offset = init_files(str, info);
-	info->i_fds = 0;
-	while (info->i_fds < info->str_i + 1)
-		if (pipe(fd1[info->i_fds++]) == -1)
-			return (error_pipe(fd1, --info->i_fds, info, NULL),
-				de_allocate(&fd1, &frs, info->str_i), exit(1), 1);
+	printf("info->str_i: %d\n", info->str_i);
+	if (info->str_i > 0)
+	{
+		allocate_fds(&fd1, &frs, info->str_i);
+		// info->offset = init_files(str, info);
+		info->i_fds = 0;
+		while (info->i_fds < info->str_i + 1)
+			if (pipe(fd1[info->i_fds++]) == -1)
+				return (error_pipe(fd1, --info->i_fds, info, NULL),
+					de_allocate(&fd1, &frs, info->str_i), exit(1), 1);
+	}
 	// init_childs(str, fd1, frs, info);
 	order_execve_fun(info->first_node, fd1, frs, info);
 	return (finish_parent(&fd1, &frs, info));
