@@ -83,7 +83,7 @@ t_node *	order_nodes(t_node **current_node)
 	}
 	// marge last node with the commands
 	file_nodes->args = marge_2_splits(file_nodes->args, ft_split(str_cmd, ' '));
-	str_cmd = free_char(str_cmd);
+	str_cmd = free_char(&str_cmd);
 	// replace and free current node
 	free_nodes(current_node);
 	return (first_node);

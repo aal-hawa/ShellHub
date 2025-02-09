@@ -14,7 +14,7 @@
 // }					t_node;
 
 // char	**ft_split(char const *s, char c);
-void	dir_bilt_fun(t_node **node, char *before_tybe)
+void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info)
 {
 	if (!ft_strcmp(before_tybe, "<") || !ft_strcmp(before_tybe,"<<")
 	 || !ft_strcmp(before_tybe,">") || !ft_strcmp(before_tybe,">>"))
@@ -23,8 +23,11 @@ void	dir_bilt_fun(t_node **node, char *before_tybe)
 		|| !ft_strcmp(node[0]->args[0], "echo") || !ft_strcmp(node[0]->args[0], "env") || !ft_strcmp(node[0]->args[0], "export")
 			||!ft_strcmp(node[0]->args[0], "unset") || !ft_strcmp(node[0]->args[0], "exit"))
 		node[0]->is_dir_bilt_cmd = 1;
-	else 
+	else
+	{
 		node[0]->is_dir_bilt_cmd = 2;
+		info->str_i++;
+	}
 }
 void	type_after_fun(t_node **node, char **line, int i)
 {
@@ -84,27 +87,25 @@ void	create_nodes(char *line, t_info *info)
 	}
 	node->type_before = strdup("start");
 	info->first_node = node;
-	printf("before setting last node\n");
 	while (line[i])
 	{
 		if (line[i] == '|' || line[i] == '>' || line[i] == '<')
 		{
 			type_after_fun(&node, &line, i);
 			before_tybe = insert_node(&node, &line, i, j);
-			dir_bilt_fun(&node, before_tybe);
+			dir_bilt_fun(&node, before_tybe, info);
 			j = i;
 			node->next = NULL;
 			node = node->next;
 			node = malloc(sizeof(t_node));
 			// next_node = node;
 			node->type_before = strdup(before_tybe);
-			printf("aaaaaaaaaaaaaaaaaaaaa\n");
 		}
 		i++;
 	}
 	node->type_after = strdup("end");
 	before_tybe = insert_node(&node, &line, i, j);
-	dir_bilt_fun(&node, before_tybe);
+	dir_bilt_fun(&node, before_tybe, info);
 	node->next = NULL;
 }
 // ls | grep	r00

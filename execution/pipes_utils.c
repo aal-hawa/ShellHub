@@ -10,7 +10,7 @@ void	free_splits(char **strs)
 		i = 0;
 		while (strs[i])
 		{
-			strs[i] = free_char(strs[i]);
+			strs[i] = free_char(&strs[i]);
 			i++;
 		}
 		free(strs);
@@ -38,7 +38,7 @@ void	error_pipe(int **fd1, int i, t_info *info, char **strs)
 	if (strs)
 		free_splits(strs);
 	if (info->path_commd)
-		free_char(info->path_commd);
+		free_char(&info->path_commd);
 }
 
 void	de_allocate(int ***fd, pid_t **frs, int i)

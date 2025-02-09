@@ -80,8 +80,8 @@ void	init_here_doc(t_node *node, t_info *info)
 	if (info->fd_file_r != -1)
 		close(info->fd_file_r);
 	info->fd_file_r = open_file_r(str);
-	str_i = free_char(str_i);
-	str = free_char(str);
+	str_i = free_char(&str_i);
+	str = free_char(&str);
 }
 
 int	init_files_biultins(char *str, t_info *info)

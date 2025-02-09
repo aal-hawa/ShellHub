@@ -33,7 +33,7 @@ void	child_execve(int **fd1, char **strs, pid_t *frs, t_info *info)
 	perror(info->path_commd);
 	de_allocate(&fd1, &frs, info->str_i);
 	free_split(strs, info->i_split);
-	free_char(info->path_commd);
+	free_char(&info->path_commd);
 	exit(1);
 }
 

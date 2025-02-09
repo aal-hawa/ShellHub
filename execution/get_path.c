@@ -41,7 +41,7 @@ char	*get_from_env(char *env, char *str, t_info *info)
 				free_split(env_split, info->i_split), NULL);
 		if (!access(joined, R_OK))
 			return (free_split(env_split, info->i_split), joined);
-		free_char(joined);
+		joined = free_char(&joined);
 		i++;
 	}
 	free_split(env_split, info->i_split);

@@ -81,6 +81,11 @@ char    *pre_split(char **s, const char *ops);
 t_node	*nodes_init(char **tokens, t_info *info);
 void    free_nodes(t_node **nodes);
 void	init_info(int ac, char *env, char **envp, t_info *info);
+void	reset_info(t_info *info);
+
+
+
+
 
 size_t		ft_strlen(const char *s);
 char		**ft_split_p(char const *s, char c, t_info *info);
@@ -97,7 +102,7 @@ void		init_here_doc(t_node *node, t_info *info);
 void		error_pipe(int **fd1, int i, t_info *info, char **strs);
 char		*get_next_line(t_info *info);
 char		*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
-char		*free_char(char *this_string);
+char		*free_char(char **this_string);
 void		ft_putstr_fd_p(char *s, int fd, int is_malloc);
 int			finish_parent(int ***fd, pid_t **frs, t_info *info);
 void		de_allocate(int ***fd, pid_t **frs, int i);

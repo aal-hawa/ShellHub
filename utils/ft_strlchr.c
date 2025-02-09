@@ -6,12 +6,14 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:06:25 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/09 17:47:08 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:32:40 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
+// return str to the last char inside it
+// example: folder1/folder2/folder3 by char is / it will return folder1/folder2
 char	*ft_strlchr(char **str, char lst_char, int is_str_malloc)
 {
 	size_t	i;

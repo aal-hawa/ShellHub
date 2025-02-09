@@ -37,7 +37,7 @@ char	*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info)
 	while (s2[i])
 		dst[j++] = s2[i++];
 	dst[j] = '\0';
-	free_char(s1);
+	free_char(&s1);
 	if (last_letters(dst, is_done, info) == 1)
 		while (info->i_limiter-- >= 0)
 			dst[j--] = '\0';

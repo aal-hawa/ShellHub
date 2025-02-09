@@ -1,12 +1,12 @@
 
 # include "../minishell.h"
 
-char	*free_char(char *this_string)
+char	*free_char(char **this_string)
 {
-	if (!this_string)
+	if (!*this_string)
 		return (NULL);
-	free(this_string);
-	this_string = NULL;
+	free(*this_string);
+	*this_string = NULL;
 	return (NULL);
 }
 

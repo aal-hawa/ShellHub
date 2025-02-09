@@ -79,6 +79,8 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 		}
 		node = node->next;
 	}
+	printf("FINISH: order_execve_fun\n");
+
 }
 
 int	execute_fun(t_info *info)

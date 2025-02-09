@@ -33,7 +33,7 @@ void	close_fds_parent(int **fd1, t_info *info)
 	if (info->fd_file_w != -1)
 		close(info->fd_file_w);
 	if (info->limiter != NULL)
-		free_char(info->limiter);
+		free_char(&info->limiter);
 }
 
 int	finish_parent(int ***fd, pid_t **frs, t_info *info)
@@ -45,5 +45,7 @@ int	finish_parent(int ***fd, pid_t **frs, t_info *info)
 	close_fds_parent(*fd, info);
 	is_error_127 = wait_fun(info);
 	de_allocate(fd, frs, info->str_i);
+	printf("FINISH: finish_parent\n");
+
 	return (is_error_127);
 }
