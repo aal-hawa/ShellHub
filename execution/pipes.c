@@ -22,9 +22,13 @@ void	close_fds_childs(int **fd1, t_info *info)
 
 void	child_execve(int **fd1, char **strs, pid_t *frs, t_info *info)
 {
-	if (info->is_for_w == 0)
+	printf ("--------------\n");
+	printf ("info->is_for_w: %d\n", info->is_for_w );
+	printf ("info->fd_file_w: %d\n", info->fd_file_w );
+	printf ("--------------\n");
+	if (info->is_for_w == 2)
 		dup2(fd1[info->i_childs + 1][1], STDOUT_FILENO);
-	else
+	else if (info->is_for_w == 1)
 		dup2(info->fd_file_w, STDOUT_FILENO);
 	close(fd1[info->i_childs + 1][1]);
 	if (info->is_for_w == 1)
@@ -59,8 +63,8 @@ void	childs(t_node *node, int **fd1, pid_t *frs, t_info *info)
 	if (info->i_childs != 0)
 		dup2(fd1[info->i_childs][0], STDIN_FILENO);
 	close(fd1[info->i_childs][0]);
-	if (info->i_childs == info->str_i - 1)
-		info->is_for_w = 1;
+	// if (info->i_childs == info->str_i - 1)
+	// 	info->is_for_w = 1;
 	child_execve(fd1, strs, frs, info);
 	exit(0);
 }

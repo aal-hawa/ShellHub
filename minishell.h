@@ -68,7 +68,7 @@ int		export_fun(char *name, t_info *info);
 int		unset_func(char *name, t_info *info);
 int     is_operator_fun(char *str);
 void	free_fun(char **str);
-char 	**add_in_split(char **split, char *add_str);
+char	**add_in_split(char **split, char *add_str, int is_alpha);
 char	**marge_2_splits(char **first_split, char **second_split);
 char 	**del_from_split(char **split, char *del_str);
 size_t	ft_strclen(const char *s, char to_char);

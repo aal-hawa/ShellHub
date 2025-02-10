@@ -3,9 +3,17 @@
 int	direct_fun(t_node *node, t_info *info)
 {
 	if (!ft_strcmp(node->type_before,">"))
+	{
 		info->fd_file_w = open_file_w(node->args[0]);
+		info->is_for_w = 1;
+		node->fd_file = info->fd_file_w;
+	}
 	else if (!ft_strcmp(node->type_before,">>"))
+	{
 		info->fd_file_w = open_file_w_b(node->args[0]);
+		info->is_for_w = 1;
+		node->fd_file = info->fd_file_w;
+	}
 	else if (!ft_strcmp(node->type_before, "<"))
 		init_files(node, info);
 	else if (!ft_strcmp(node->type_before, "<<"))
@@ -56,6 +64,7 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 		info->i_childs = 1;
 	while (node)
 	{
+		info->is_for_w = 0;
 		if (node->is_dir_bilt_cmd == 0)
 		{
 			if (direct_fun(node, info) == 1)
@@ -69,6 +78,11 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 		}
 		else 
 		{
+			if (!ft_strcmp(node->type_after, "|"))
+			{
+				info->is_for_w = 2;
+				printf ("aaaaaaaaaa\n");
+			}
 			frs[info->i_childs] = fork();
 			if (frs[info->i_childs] == 0)
 			{
@@ -80,7 +94,6 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 		node = node->next;
 	}
 	printf("FINISH: order_execve_fun\n");
-
 }
 
 int	execute_fun(t_info *info)
@@ -103,7 +116,6 @@ int	execute_fun(t_info *info)
 					de_allocate(&fd1, &frs, info->str_i), exit(1), 1);
 	}
 	info->curent_path = pwd_fun(info);
-	
 	// init_childs(str, fd1, frs, info);
 	order_execve_fun(info->first_node, fd1, frs, info);
 	return (finish_parent(&fd1, &frs, info));

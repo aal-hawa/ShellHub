@@ -55,6 +55,14 @@ char	*insert_node(t_node **node, char **line, int i, int j)
 	int		x;
 
 	x = 0;
+	printf("-----------\n");
+	printf("line[0][j]: %c\n", line[0][j]);
+	if (j != 0)
+	{
+		j++;
+		printf("line[0][j + 1]: %c\n", line[0][j]);
+	}
+	printf("-----------\n");
 	cmd_order = malloc(sizeof(char) * (i - j + 1));
 	while (j < i)
 	{
@@ -95,9 +103,9 @@ void	create_nodes(char *line, t_info *info)
 			before_tybe = insert_node(&node, &line, i, j);
 			dir_bilt_fun(&node, before_tybe, info);
 			j = i;
-			node->next = NULL;
+			node->next = malloc(sizeof(t_node));
+			// node->next = NULL;
 			node = node->next;
-			node = malloc(sizeof(t_node));
 			// next_node = node;
 			node->type_before = strdup(before_tybe);
 		}

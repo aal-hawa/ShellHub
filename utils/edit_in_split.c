@@ -55,7 +55,7 @@ char **del_from_split(char **split, char *del_str)
 	return (new_split[y] = NULL, free_split(split, len), new_split);
 }
 
-char **add_in_split(char **split, char *add_str)
+char **add_in_split(char **split, char *add_str, int is_alpha)
 {
 	int	i;
 	int	len;
@@ -65,6 +65,8 @@ char **add_in_split(char **split, char *add_str)
 	len = len_split(split);
 	len++;
 	new_split = malloc(sizeof(char *) * (len + 1));
+	if (is_alpha == 1)
+		is_alpha++;
 	if (!new_split)
 		return (NULL);
 	while (split[i])

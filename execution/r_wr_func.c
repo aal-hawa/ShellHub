@@ -43,6 +43,7 @@ int	open_file_r_w(char *name_file)
 void	init_files(t_node *node, t_info *info)
 {
 	info->fd_file_r = open_file_r(node->args[0]);
+	node->fd_file = info->fd_file_r; 
 }
 
 // int	init_files(char **str, t_info *info)
@@ -80,6 +81,7 @@ void	init_here_doc(t_node *node, t_info *info)
 	if (info->fd_file_r != -1)
 		close(info->fd_file_r);
 	info->fd_file_r = open_file_r(str);
+	node->fd_file = info->fd_file_r; 
 	str_i = free_char(&str_i);
 	str = free_char(&str);
 }
