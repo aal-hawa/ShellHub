@@ -25,6 +25,28 @@ int	len_split(char **split)
 		len++;
 	return (len);
 }
+char	**copy_split(char **split)
+{
+	int	i;
+	int	len;
+	char	**new_split;
+
+	i = 0;
+	if (!split)
+		return (NULL);
+	len = len_split(split);
+	new_split = malloc(sizeof(char *) * (len + 1));
+	if (!new_split)
+		return (NULL);
+	while (i < len)
+	{
+		new_split[i] = ft_strdup(split[i]);
+		i++;
+	}
+	new_split[i] = NULL;
+	return (new_split);
+}
+
 // check if you want share adress of split three pointers
 char **del_from_split(char **split, char *del_str)
 {
@@ -117,12 +139,13 @@ char	**marge_2_splits(char **first_split, char **second_split)
 	j = 0;
 	while (second_split && second_split[j])
 	{
-		new_split[i] = ft_strdup(first_split[i]);
+		new_split[i] = ft_strdup(second_split[j]);
 		printf("new_split[i]: %s\n", new_split[i]);
 
 		if (!new_split[i])
 			return(free_split(new_split, i - 1), NULL);
 		i++;
+		j++;
 	}
 	new_split[i] = NULL;
 	printf("4-----------\n");

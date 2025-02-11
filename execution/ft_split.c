@@ -34,23 +34,18 @@ size_t	count_sub(char const *s, char c)
 
 void	free_split(char **dst, size_t i)
 {
-	printf("aaaaa-----------\n");
 
 	if (!dst)
 		return ;
 	while (i > 0)
 	{
 		i--;
-		printf("i: %ld\n", i);
-
 		if (dst[i])
 		{
-			printf("dst[i]: %s\n", dst[i]);
 			free(dst[i]);
 			dst[i] = NULL;
 		}
 	}
-	printf("bbbbbb-----------\n");
 	free(dst);
 	dst = NULL;
 }

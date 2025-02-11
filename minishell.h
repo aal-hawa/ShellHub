@@ -83,9 +83,9 @@ void    free_nodes(t_node **nodes);
 void	init_info(int ac, char *env, char **envp, t_info *info);
 void	reset_info(t_info *info);
 t_node	*malloc_node();
-
-
-
+int		len_split(char **split);
+char	**copy_split(char **split);
+void	copy_node(t_node *to_node, t_node *from_node, int is_free_before);
 
 size_t		ft_strlen(const char *s);
 char		**ft_split_p(char const *s, char c, t_info *info);

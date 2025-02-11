@@ -114,18 +114,12 @@ t_node *	order_nodes(t_node **current_node)
 	str_cmd = free_char(&str_cmd);
 	// replace and free current node
 	printf("7777-----------\n");
-	printf("first_node->is_dir_bilt_cmd %d\n",first_node->is_dir_bilt_cmd);
-	printf("first_node->type_after %s\n",first_node->type_after);
-	printf("first_node->type_before %s\n",first_node->type_before);
-	printf("first_node->args[0] %s\n",first_node->args[0]);
 	if (!first_node->type_after)
 		first_node->type_after = ft_strdup(current_node[0]->type_after);
 	if (!first_node->type_before)
 		first_node->type_before = ft_strdup(current_node[0]->type_before);
-	printf("first_node->is_dir_bilt_cmd %d\n",first_node->is_dir_bilt_cmd);
-	printf("first_node->type_after %s\n",first_node->type_after);
-	printf("first_node->type_before %s\n",first_node->type_before);
-	printf("first_node->args[0] %s\n",first_node->args[0]);
+	if (first_node->is_dir_bilt_cmd == -1)
+		first_node->is_dir_bilt_cmd = current_node[0]->is_dir_bilt_cmd;
 	free_nodes(current_node);
 	printf("8888-----------\n");
 	printf("first_node->is_dir_bilt_cmd %d\n",first_node->is_dir_bilt_cmd);
@@ -166,26 +160,30 @@ char	*insert_node(t_node **node, char **line, int i, int j)
 void	order_info_nodes(t_info *info)
 {
 	t_node *current_node;
+	t_node *first_node;
 	t_node *next_node;
 
-	current_node = info->first_node;
+	current_node = malloc_node();
+	copy_node(current_node, info->first_node, 0);
+	// current_node = info->first_node;
+	first_node = NULL;
 	next_node = NULL;
 	if (current_node)
 		next_node = current_node->next;
 	while (current_node)
 	{
 		current_node = order_nodes(&current_node);
-		
-		printf("FINISH: order_nodes\n");
+		if (!first_node)
+			first_node = current_node;
 		while (current_node)
 			current_node = current_node->next;
 		current_node = next_node;
 		if (current_node)
 			next_node = current_node->next;
 		printf("current_node changed \n");
-
 	}
 	printf("FINISH WHILE: order_info_nodes\n");
+	info->first_node = first_node;
 }
 
 void	create_nodes(char *line, t_info *info)
