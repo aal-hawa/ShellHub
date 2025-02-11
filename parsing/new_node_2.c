@@ -5,9 +5,13 @@ void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info)
 	if (!ft_strcmp(before_tybe, "<") || !ft_strcmp(before_tybe,"<<")
 	 || !ft_strcmp(before_tybe,">") || !ft_strcmp(before_tybe,">>"))
 		node[0]->is_dir_bilt_cmd = 0;
-	else if (!ft_strcmp(node[0]->args[0], "cd") || !ft_strcmp(node[0]->args[0], "pwd") 
-		|| !ft_strcmp(node[0]->args[0], "echo") || !ft_strcmp(node[0]->args[0], "env") || !ft_strcmp(node[0]->args[0], "export")
-			||!ft_strcmp(node[0]->args[0], "unset") || !ft_strcmp(node[0]->args[0], "exit"))
+	else if (!ft_strcmp(node[0]->args[0], "cd")
+		|| !ft_strcmp(node[0]->args[0], "pwd") 
+		|| !ft_strcmp(node[0]->args[0], "echo")
+		|| !ft_strcmp(node[0]->args[0], "env") 
+		|| !ft_strcmp(node[0]->args[0], "export")
+		||!ft_strcmp(node[0]->args[0], "unset")
+		|| !ft_strcmp(node[0]->args[0], "exit"))
 		node[0]->is_dir_bilt_cmd = 1;
 	else
 	{
@@ -17,7 +21,6 @@ void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info)
 }
 void	type_after_fun(t_node **node, char **line, int i)
 {
-
 	if (line[0][i] != '|' && line[0][i + 1])
 	{
 		if (line[0][i] == '>' && line[0][i + 1] == '>')
@@ -27,7 +30,6 @@ void	type_after_fun(t_node **node, char **line, int i)
 	}
 	else
 	{
-		// node[0]->type_after = calloc(1, 2);
 		node[0]->type_after = malloc(sizeof(char) * 2);
 		node[0]->type_after[0] = line[0][i];
 		node[0]->type_after[1] = '\0';
@@ -47,7 +49,6 @@ t_node *	order_nodes(t_node **current_node)
 	args = current_node[0]->args;
 	space = " ";
 	str_cmd = NULL;
-	printf("1111-----------\n");
 	file_nodes = malloc_node();
 	if (!file_nodes)
 		return (*current_node);
@@ -56,11 +57,9 @@ t_node *	order_nodes(t_node **current_node)
 
 	while (*args)
 	{
-		printf("2222-----------0\n");
 		// make new node of files
 		if (is_operator_fun(*args) == 1)
 		{
-			printf("3333-----------0\n");
 			if (file_nodes->args)
 			{
 				file_nodes->type_after = ft_strdup(*args);
@@ -70,50 +69,26 @@ t_node *	order_nodes(t_node **current_node)
 			file_nodes->type_before = ft_strdup(*args);
 			args++;
 			file_nodes->args = ft_split(*args, ' ');
-			printf("3333-----------1\n");
 
 		}
 		else
 		{
-			printf("4444-----------0\n");
-			// strjoin the command
-			printf("str_cmd %s\n",str_cmd);
-
 			if (str_cmd)
 			{
 				str_join =  ft_strjoin(str_cmd, space);
 				str_cmd = ft_restore_value(&str_cmd, &str_join, 1);
 			}
-			printf("str_cmd %s\n",str_cmd);
-			printf("*args %s\n",*args);
-
 			str_join =  ft_strjoin(str_cmd, *args);
-			printf("str_join %s\n",str_join);
-
 			str_cmd = ft_restore_value(&str_cmd, &str_join, 1);
-
-			printf("str_cmd %s\n",str_cmd);
-
-			printf("4444-----------1\n");
 		}
 		if (args)
 			args++;
-		printf("2222-----------1\n");
 	}
 	// marge last node with the commands
-	printf("5555-----------\n");
-	if (!file_nodes->args)
-		printf("file_nodes->args = NULL \n");
-	if (!ft_split(str_cmd, ' '))
-		printf("ft_split(str_cmd, ' ') = NULL \n");
-	printf("str_cmd %s\n",str_cmd);
-	
 	file_nodes->args = marge_2_splits(file_nodes->args, ft_split(str_cmd, ' '));
-	printf("6666-----------\n");
 
 	str_cmd = free_char(&str_cmd);
 	// replace and free current node
-	printf("7777-----------\n");
 	if (!first_node->type_after)
 		first_node->type_after = ft_strdup(current_node[0]->type_after);
 	if (!first_node->type_before)
@@ -121,11 +96,6 @@ t_node *	order_nodes(t_node **current_node)
 	if (first_node->is_dir_bilt_cmd == -1)
 		first_node->is_dir_bilt_cmd = current_node[0]->is_dir_bilt_cmd;
 	free_nodes(current_node);
-	printf("8888-----------\n");
-	printf("first_node->is_dir_bilt_cmd %d\n",first_node->is_dir_bilt_cmd);
-	printf("first_node->type_after %s\n",first_node->type_after);
-	printf("first_node->type_before %s\n",first_node->type_before);
-	printf("first_node->args[0] %s\n",first_node->args[0]);
 	return (first_node);
 }
 
@@ -136,14 +106,8 @@ char	*insert_node(t_node **node, char **line, int i, int j)
 	int		x;
 
 	x = 0;
-	printf("-----------\n");
-	printf("line[0][j]: %c\n", line[0][j]);
 	if (j != 0)
-	{
 		j++;
-		printf("line[0][j + 1]: %c\n", line[0][j]);
-	}
-	printf("-----------\n");
 	cmd_order = malloc(sizeof(char) * (i - j + 1));
 	while (j < i)
 	{
@@ -180,7 +144,6 @@ void	order_info_nodes(t_info *info)
 		current_node = next_node;
 		if (current_node)
 			next_node = current_node->next;
-		printf("current_node changed \n");
 	}
 	printf("FINISH WHILE: order_info_nodes\n");
 	info->first_node = first_node;
@@ -192,6 +155,7 @@ void	create_nodes(char *line, t_info *info)
 	char	*before_tybe;
 	int		i;
 	int		j;
+
 
 	j = 0;
 	i = 0;
@@ -229,11 +193,12 @@ void	create_nodes(char *line, t_info *info)
 	before_tybe = insert_node(&node, &line, i, j);
 	dir_bilt_fun(&node, before_tybe, info);
 	node->next = NULL;
-	printf("info->first_node->is_dir_bilt_cmd %d\n",info->first_node->is_dir_bilt_cmd);
-	printf("info->first_node->type_after %s\n",info->first_node->type_after);
-	printf("info->first_node->type_before %s\n",info->first_node->type_before);
-	printf("info->first_node->args[0] %s\n",info->first_node->args[0]);
+
+	// print_nodes(info->first_node);
+	// printf("---------------FINISH: print_nodes-----------------\n");
 	order_info_nodes(info);
+	print_nodes(info->first_node);
+	printf("---------------FINISH: order_info_nodes-----------------\n");
 	printf("FINISH: order_info_nodes\n");
 
 	printf("info->first_node->is_dir_bilt_cmd %d\n",info->first_node->is_dir_bilt_cmd);
