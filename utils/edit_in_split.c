@@ -107,6 +107,7 @@ char	**marge_2_splits(char **first_split, char **second_split)
 	while (first_split && first_split[i])
 	{
 		new_split[i] = ft_strdup(first_split[i]);
+		printf("new_split[i]: %s\n", new_split[i]);
 		if (!new_split[i])
 			return(free_split(new_split, i - 1), NULL);
 		i++;
@@ -117,6 +118,8 @@ char	**marge_2_splits(char **first_split, char **second_split)
 	while (second_split && second_split[j])
 	{
 		new_split[i] = ft_strdup(first_split[i]);
+		printf("new_split[i]: %s\n", new_split[i]);
+
 		if (!new_split[i])
 			return(free_split(new_split, i - 1), NULL);
 		i++;
