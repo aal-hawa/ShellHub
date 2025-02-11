@@ -86,6 +86,10 @@ t_node	*malloc_node();
 int		len_split(char **split);
 char	**copy_split(char **split);
 void	copy_node(t_node *to_node, t_node *from_node, int is_free_before);
+int		is_exit_str_in_split(char **split, char *del_str);
+
+
+
 
 size_t		ft_strlen(const char *s);
 char		**ft_split_p(char const *s, char c, t_info *info);

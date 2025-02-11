@@ -209,13 +209,19 @@ void	create_nodes(char *line, t_info *info)
 		if (line[i] == '|')
 		{
 			type_after_fun(&node, &line, i);
+			printf("FINISH: type_after_fun\n");
 			before_tybe = insert_node(&node, &line, i, j);
+			printf("FINISH: insert_node\n");
+
 			dir_bilt_fun(&node, before_tybe, info);
+			printf("FINISH: dir_bilt_fun\n");
+
 			j = i;
 			// node->next = NULL;
-			node = malloc_node();
+			node->next = malloc_node();
 			node = node->next;
 			node->type_before = ft_strdup(before_tybe);
+			printf("FINISH: -------------------\n");
 		}
 		i++;
 	}

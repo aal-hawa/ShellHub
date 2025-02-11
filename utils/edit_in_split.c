@@ -1,7 +1,7 @@
 
 #include "../minishell.h"
 
-int	is_exit_del_str(char **split, char *del_str)
+int	is_exit_str_in_split(char **split, char *del_str)
 {
 	int	i;
 
@@ -57,7 +57,7 @@ char **del_from_split(char **split, char *del_str)
 
 	i = 0;
 	y = 0;
-	if (!is_exit_del_str(split, del_str))
+	if (!is_exit_str_in_split(split, del_str))
 		return (split); 
 	len = len_split(split);
 	new_split = malloc(sizeof(char *) * (len));
