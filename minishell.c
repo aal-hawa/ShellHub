@@ -39,7 +39,7 @@ void	minishell(t_info *info)
 		// tokens = tokens_fun(line);
 		// while(*tokens)
 		// 	printf("the tokens: %s\n", *tokens++);
-		// printf("\n-----------------------------\n");
+		
 		// nodes = nodes_init(tokens, info);
 		// printf("outside if in minishell file\n");
 		if (info->first_node)

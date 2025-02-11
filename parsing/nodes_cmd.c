@@ -43,15 +43,17 @@
 
 void	print_nodes(t_node *nodes)
 {
+	printf("\n-----------------------------\n");
 	while (nodes)
 	{
 		printf("Args: ");
 		for (int i = 0; nodes->args[i]; i++)
-			printf("%s ", nodes->args[i]);
+		printf("%s ", nodes->args[i]);
 		printf("\nType Before: %s, Type After: %s, is_dir_bilt_cmd: %d\n",
 			nodes->type_before, nodes->type_after, nodes->is_dir_bilt_cmd);
-		nodes = nodes->next;
-	}
+			nodes = nodes->next;
+		}
+	printf("\n-----------------------------\n");
 }
 
 int	is_redirection_cmd(const char *cmd)
@@ -106,7 +108,7 @@ t_node	*create_node(char **args, const char *type_before,
 {
 	t_node	*node;
 
-	node = malloc(sizeof(t_node));
+	node = malloc_node();
 	if (!node)
 		return (NULL);
 	node->args = args;

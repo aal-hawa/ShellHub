@@ -87,7 +87,7 @@ void	create_nodes(char *line, t_info *info)
 
 	j = 0;
 	i = 0;
-	node = malloc(sizeof(t_node));
+	node = malloc_node();
 	if (!node)
 	{
 		info->first_node = NULL;
@@ -103,7 +103,7 @@ void	create_nodes(char *line, t_info *info)
 			before_tybe = insert_node(&node, &line, i, j);
 			dir_bilt_fun(&node, before_tybe, info);
 			j = i;
-			node->next = malloc(sizeof(t_node));
+			node->next = malloc_node();
 			// node->next = NULL;
 			node = node->next;
 			// next_node = node;

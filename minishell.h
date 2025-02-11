@@ -82,7 +82,7 @@ t_node	*nodes_init(char **tokens, t_info *info);
 void    free_nodes(t_node **nodes);
 void	init_info(int ac, char *env, char **envp, t_info *info);
 void	reset_info(t_info *info);
-
+t_node	*malloc_node();
 
 
 

@@ -14,7 +14,7 @@ SRC = minishell.c \
 	parsing/readline.c 	parsing/tokens.c parsing/double_qoutes.c parsing/nodes_cmd.c parsing/new_node.c \
 	parsing/operators.c parsing/single_quotes.c parsing/syntax_errors.c parsing/variable_expansion.c \
 	utils/free_malloc.c	utils/edit_in_split.c utils/ft_strclen.c \
-	utils/ft_strccpy.c utils/ft_strcmp.c utils/ft_strlchr.c \
+	utils/ft_strccpy.c utils/ft_strcmp.c utils/ft_strlchr.c utils/malloc_node.c \
 	utils/free_nodes.c utils/free_split.c utils/ft_restore_value.c utils/init_info.c utils/pre_split.c \
 	execution/ft_split.c execution/libft_func.c execution/r_wr_func.c execution/pipes.c execution/parent_func.c \
 	execution/pipes_utils.c execution/get_path.c  execution/get_next_line.c execution/get_next_line_utils.c execution/execute.c \
