@@ -111,52 +111,33 @@ char	**marge_2_splits(char **first_split, char **second_split)
 	int	len2;
 	char	**new_split;
 
-	printf("1-----------\n");
 
 	i = 0;
 	len1 = len_split(first_split);
 	len2 = len_split(second_split);
-	printf("len1: %d\n", len1);
-	printf("len2: %d\n", len2);
-
 	new_split = malloc(sizeof(char *) * (len1 + len2 + 1));
-	printf("2-----------\n");
-
-
 	if (!new_split)
 		return (NULL);
 		
 	while (first_split && first_split[i])
 	{
 		new_split[i] = ft_strdup(first_split[i]);
-		printf("new_split[i]: %s\n", new_split[i]);
 		if (!new_split[i])
 			return(free_split(new_split, i - 1), NULL);
 		i++;
 	}
-	printf("3-----------\n");
-
 	j = 0;
 	while (second_split && second_split[j])
 	{
 		new_split[i] = ft_strdup(second_split[j]);
-		printf("new_split[i]: %s\n", new_split[i]);
-
 		if (!new_split[i])
 			return(free_split(new_split, i - 1), NULL);
 		i++;
 		j++;
 	}
 	new_split[i] = NULL;
-	printf("4-----------\n");
-	printf("len1: %d\n", len1);
-
 	free_split(first_split, len1);
-	printf("5-----------\n");
-	printf("len2: %d\n", len2);
-
 	free_split(second_split, len2);
-	printf("6-----------\n");
 
 	return (new_split);
 }

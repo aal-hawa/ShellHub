@@ -80,6 +80,7 @@ char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
 char    *pre_split(char **s, const char *ops);
 t_node	*nodes_init(char **tokens, t_info *info);
 void    free_nodes(t_node **nodes);
+void	free_node(t_node **nodes);
 void	init_info(int ac, char *env, char **envp, t_info *info);
 void	reset_info(t_info *info);
 t_node	*malloc_node();

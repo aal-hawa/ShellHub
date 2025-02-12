@@ -209,19 +209,16 @@ static int	process_tokens(char **tokens, t_node **head, t_node **current,
 
 	args = NULL;
 	i = 0;
-		printf("process_tokens line 210\n");
 	while (tokens[i])
 	{
 		if (strcmp(tokens[i], "|") == 0 || is_redirection_cmd(tokens[i]))
 		{
-					printf("process_tokens line 215 inside if\n");
 			if (!handle_special_token(tokens[i], &args, &type_after,
 					type_before, head, current, info))
 				return (0);
 		}
 		else
 		{
-			printf("process_tokens line 222 inside else\n");
 			count = 0;
 			while (args && args[count])
 				count++;
@@ -246,13 +243,11 @@ t_node	*nodes_init(char **tokens, t_info *info)
 
 	head = NULL, current = NULL;
 	type_before = strdup("start");
-	printf("nodes_init line 244\n");
 	if (!process_tokens(tokens, &head, &current, &type_before, info))
 	{
 		free(type_before);
 		return (NULL);
 	}
-	printf("nodes_init line 250\n");
 	free(type_before);
 	return (head);
 }

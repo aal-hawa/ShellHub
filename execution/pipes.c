@@ -22,10 +22,7 @@ void	close_fds_childs(int **fd1, t_info *info)
 
 void	child_execve(int **fd1, char **strs, pid_t *frs, t_info *info)
 {
-	printf ("--------------\n");
-	printf ("info->is_for_w: %d\n", info->is_for_w );
-	printf ("info->fd_file_w: %d\n", info->fd_file_w );
-	printf ("--------------\n");
+
 	if (info->is_for_w == 2)
 		dup2(fd1[info->i_childs + 1][1], STDOUT_FILENO);
 	else if (info->is_for_w == 1)

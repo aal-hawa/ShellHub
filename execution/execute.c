@@ -93,7 +93,6 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 		}
 		node = node->next;
 	}
-	printf("FINISH: order_execve_fun\n");
 }
 
 int	execute_fun(t_info *info)
@@ -103,8 +102,6 @@ int	execute_fun(t_info *info)
 
 	fd1 = NULL;
 	frs = NULL;
-	printf("execute_fun\n");
-	printf("info->str_i: %d\n", info->str_i);
 	if (info->str_i > 0)
 	{
 		allocate_fds(&fd1, &frs, info->str_i);

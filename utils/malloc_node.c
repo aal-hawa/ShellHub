@@ -18,6 +18,11 @@ t_node	*malloc_node()
 
 void	copy_node(t_node *to_node, t_node *from_node, int is_free_before)
 {
+	if (!from_node)
+	{
+		printf("\n\n--------------  Error  --------------\n\n");
+		return ;
+	}
 	if (is_free_before == 1 && to_node->type_after)
 		to_node->type_after = free_char(&to_node->type_after);
 	if (is_free_before == 1 && to_node->type_before)

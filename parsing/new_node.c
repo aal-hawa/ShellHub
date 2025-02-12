@@ -55,14 +55,8 @@ char	*insert_node(t_node **node, char **line, int i, int j)
 	int		x;
 
 	x = 0;
-	printf("-----------\n");
-	printf("line[0][j]: %c\n", line[0][j]);
 	if (j != 0)
-	{
 		j++;
-		printf("line[0][j + 1]: %c\n", line[0][j]);
-	}
-	printf("-----------\n");
 	cmd_order = malloc(sizeof(char) * (i - j + 1));
 	while (j < i)
 	{
