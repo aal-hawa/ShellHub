@@ -10,7 +10,7 @@ void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info)
 		|| !ft_strcmp(node[0]->args[0], "echo")
 		|| !ft_strcmp(node[0]->args[0], "env") 
 		|| !ft_strcmp(node[0]->args[0], "export")
-		||!ft_strcmp(node[0]->args[0], "unset")
+		|| !ft_strcmp(node[0]->args[0], "unset")
 		|| !ft_strcmp(node[0]->args[0], "exit"))
 		node[0]->is_dir_bilt_cmd = 1;
 	else
@@ -39,7 +39,6 @@ t_node *	order_nodes(t_node **current_node)
 {
 	char	**args;
 	char	*str_cmd;
-	char	*space;
 	char	*str_join;
 	int		i;
 	t_node	*file_nodes;
@@ -48,7 +47,6 @@ t_node *	order_nodes(t_node **current_node)
 	file_nodes = NULL;
 	first_node = NULL;
 	args = current_node[0]->args;
-	space = " ";
 	str_cmd = NULL;
 	file_nodes = malloc_node();
 	if (!file_nodes)
@@ -76,7 +74,7 @@ t_node *	order_nodes(t_node **current_node)
 		{
 			if (str_cmd)
 			{
-				str_join =  ft_strjoin(str_cmd, space);
+				str_join =  ft_strjoin(str_cmd, " ");
 				str_cmd = ft_restore_value(&str_cmd, &str_join, 1);
 			}
 			str_join =  ft_strjoin(str_cmd, args[i]);
@@ -128,8 +126,9 @@ void	order_info_nodes(t_info *info)
 	t_node *first_node;
 	t_node *next_node;
 
-	current_node = malloc_node();
-	copy_node(current_node, info->first_node, 0);
+	// current_node = malloc_node();
+	// copy_node(current_node, info->first_node, 0);
+	current_node = info->first_node;
 	// current_node = info->first_node;
 	first_node = NULL;
 	next_node = NULL;
@@ -140,13 +139,14 @@ void	order_info_nodes(t_info *info)
 		current_node = order_nodes(&current_node);
 		if (!first_node)
 			first_node = current_node;
-		while (current_node)
+		while (current_node->next)
 			current_node = current_node->next;
-		current_node = next_node;
+		current_node->next = next_node;
+		current_node = current_node->next;
 		if (current_node)
 			next_node = current_node->next;
 	}
-
+	info->first_node = NULL;
 	info->first_node = first_node;
 }
 
