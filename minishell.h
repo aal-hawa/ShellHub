@@ -70,7 +70,7 @@ int     is_operator_fun(char *str);
 void	free_fun(char **str);
 char	**add_in_split(char **split, char *add_str, int is_alpha);
 char	**marge_2_splits(char **first_split, char **second_split);
-char 	**del_from_split(char **split, char *del_str);
+char	**del_str_from_array2d(char **array2d, char *del_str, int size_str);
 size_t	ft_strclen(const char *s, char to_char);
 char	*ft_strccpy(char *str, char to_char);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -87,7 +87,7 @@ t_node	*malloc_node();
 int		len_split(char **split);
 char	**copy_split(char **split);
 void	copy_node(t_node *to_node, t_node *from_node, int is_free_before);
-int		is_exit_str_in_split(char **split, char *del_str);
+int		is_exist_str_in_2array(char **array2d, char *del_str, int size_str);
 
 
 
