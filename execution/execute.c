@@ -7,6 +7,8 @@ int	direct_fun(t_node *node, t_info *info)
 		info->fd_file_w = open_file_w(node->args[0]);
 		info->is_for_w = 1;
 		node->fd_file = info->fd_file_w;
+		if (!node->next)
+			node->is_do_execute = 1;
 	}
 	else if (!ft_strcmp(node->type_before,">>"))
 	{
@@ -57,10 +59,57 @@ char	*builtins_fun(t_node *node, t_info *info)
 	return (result);
 }
 
+void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
+{
+	if (!cmd_node[0])
+		return ;
+	if (cmd_node[0]->is_dir_bilt_cmd == 2 || cmd_node[0]->is_do_execute == 1) 
+	{
+		if (cmd_node[0]->is_do_execute == 1)
+		{
+			printf ("cmd_node[0]->is_do_execute %d\n",cmd_node[0]->is_do_execute);
+			free(*cmd_node[0]->args);
+			cmd_node[0]->args++;
+		}
+		// printf ("info->fd_file_r %d\n",info->fd_file_r);
+		if (!ft_strcmp(cmd_node[0]->type_after, "|"))
+		{
+			info->is_for_w = 2;
+			printf ("aaaaaaaaaa\n");
+		}
+		frs[info->i_childs] = fork();
+		if (frs[info->i_childs] == 0)
+		{
+			close_fds_childs(fd1, info);
+			childs(cmd_node[0], fd1, frs, info);
+		}
+		info->i_childs++;
+		*cmd_node = NULL;
+	}
+}
+int	is_can_do_execve(t_node **node,t_node **cmd_node)
+{
+	if (is_operator_output_fun(node[0]->type_after) || !ft_strcmp(node[0]->type_after, "|")
+	|| !ft_strcmp(node[0]->type_after, "end") || node[0]->is_dir_bilt_cmd == 2)
+	{
+		if(!cmd_node[0])
+			cmd_node[0] = *node;
+		if (is_operator_output_fun(node[0]->type_after))
+		{
+			*node = node[0]->next;
+			if (*node)
+				return (0);
+		}
+	}
+	return (1);
+}
+
 void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 {
 	char	*result_blts;
-
+	t_node	*cmd_node;
+	
+	cmd_node = NULL;
 	info->i_childs = 0;
 	if (info->fd_file_r == -1)
 		info->i_childs = 1;
@@ -78,29 +127,11 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 			if (result_blts && is_operator_fun(node->type_after) == 1)
 				init_files_biultins(result_blts, info);
 		}
-		if (node->is_dir_bilt_cmd == 2 || node->is_do_execute == 1) 
-		{
-			if (node->is_do_execute == 1)
-			{
-				printf ("node->is_do_execute %d\n",node->is_do_execute);
-				free(*node->args);
-				node->args++;
-			}
-			// printf ("info->fd_file_r %d\n",info->fd_file_r);
-			if (!ft_strcmp(node->type_after, "|"))
-			{
-				info->is_for_w = 2;
-				printf ("aaaaaaaaaa\n");
-			}
-			frs[info->i_childs] = fork();
-			if (frs[info->i_childs] == 0)
-			{
-				close_fds_childs(fd1, info);
-				childs(node, fd1, frs, info);
-			}
-			info->i_childs++;
-		}
-		node = node->next;
+		if (!is_can_do_execve(&node, &cmd_node))
+			continue;
+		do_execve_fun(&cmd_node, fd1, frs, info);
+		if (node)
+			node = node->next;
 	}
 }
 
