@@ -23,6 +23,8 @@ int	direct_fun(t_node *node, t_info *info)
 		info->is_exit_one = 1;
 		return (1);
 	}
+	if (node->args[1])
+		node->is_do_execute = 1;
 	return (0);
 }
 
@@ -47,7 +49,7 @@ char	*builtins_fun(t_node *node, t_info *info)
 	else if (!ft_strcmp(node->args[0], "unset"))
 		unset_func(node->args[1], info);
 	else if (!ft_strcmp(node->args[0], "pwd"))
-		result = pwd_fun(info);
+		result = pwd_fun(info, 1);
 	else if (!ft_strcmp(node->args[0], "exit"))
 		exit_fun();
 	// if (result && is_operator_fun(node->type_after) == 0)
@@ -76,8 +78,15 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 			if (result_blts && is_operator_fun(node->type_after) == 1)
 				init_files_biultins(result_blts, info);
 		}
-		else 
+		if (node->is_dir_bilt_cmd == 2 || node->is_do_execute == 1) 
 		{
+			if (node->is_do_execute == 1)
+			{
+				printf ("node->is_do_execute %d\n",node->is_do_execute);
+				free(*node->args);
+				node->args++;
+			}
+			// printf ("info->fd_file_r %d\n",info->fd_file_r);
 			if (!ft_strcmp(node->type_after, "|"))
 			{
 				info->is_for_w = 2;
@@ -112,7 +121,7 @@ int	execute_fun(t_info *info)
 				return (error_pipe(fd1, --info->i_fds, info, NULL),
 					de_allocate(&fd1, &frs, info->str_i), exit(1), 1);
 	}
-	info->curent_path = pwd_fun(info);
+	info->curent_path = pwd_fun(info, 0);
 	// init_childs(str, fd1, frs, info);
 	order_execve_fun(info->first_node, fd1, frs, info);
 	return (finish_parent(&fd1, &frs, info));

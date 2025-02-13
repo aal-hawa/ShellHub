@@ -22,6 +22,7 @@ void	free_nodes(t_node **nodes)
 }
 void	free_node(t_node **nodes)
 {
+
 	int	i;
 
 	i = 0;
@@ -39,7 +40,7 @@ void	free_node(t_node **nodes)
 	nodes[0]->type_before = free_char(&(nodes[0]->type_before));
 	nodes[0]->type_after = free_char(&(nodes[0]->type_after));
 	nodes[0]->last_fd_name = free_char(&(nodes[0]->last_fd_name));
-	nodes[0]->type_after = free_char(&(nodes[0]->type_after));
+	nodes[0]->next = NULL;
 	free(*nodes);
 	*nodes = NULL;
 }

@@ -11,7 +11,7 @@ LDFLAGS = -lreadline -lncurses
 SRC_MAIN = main.c
 SRC = minishell.c \
 	builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builtins/export.c builtins/pwd.c builtins/status_program.c builtins/unset.c \
-	parsing/readline.c 	parsing/tokens.c parsing/double_qoutes.c parsing/nodes_cmd.c parsing/new_node_2.c \
+	parsing/readline.c 	parsing/tokens.c parsing/double_qoutes.c parsing/nodes_cmd.c parsing/new_node_2.c parsing/order_nodes.c \
 	parsing/operators.c parsing/single_quotes.c parsing/syntax_errors.c parsing/variable_expansion.c \
 	utils/free_malloc.c	utils/edit_in_split.c utils/ft_strclen.c \
 	utils/ft_strccpy.c utils/ft_strcmp.c utils/ft_strlchr.c utils/malloc_node.c \

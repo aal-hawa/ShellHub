@@ -36,18 +36,11 @@ void	minishell(t_info *info)
 		if (ft_strlen(line) == 0)
 			continue ;
 		create_nodes(line, info);
-		// tokens = tokens_fun(line);
-		// while(*tokens)
-		// 	printf("the tokens: %s\n", *tokens++);
-		
-		// nodes = nodes_init(tokens, info);
-		// printf("outside if in minishell file\n");
+
 		if (info->first_node)
 		{
 			print_nodes(info->first_node);
 			is_error_127 = execute_fun(info);
-			// if (ft_strncmp(arg[1], "here_doc", 8) == 0 && info->fd_file_w != -1)
-			// 	unlink ("/tmp/tmp_pipe");
 			unlink_files(info);
 			// free_nodes(&nodes);
 			if (is_error_127 == 1)

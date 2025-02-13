@@ -22,6 +22,7 @@ typedef struct s_node
     int is_dir_bilt_cmd;
 	int	fd_file;
 	char	*last_fd_name;
+	int	is_do_execute;
     struct s_node *next;
 } t_node;
 
@@ -59,7 +60,7 @@ void	minishell(t_info *info);
 char	*readline_fun();
 char	**tokens_fun(char *line);
 char	*cd_fun(char *cd, t_info *info);
-char	*pwd_fun(t_info *info);
+char	*pwd_fun(t_info *info, int is_print);
 void	exit_fun();
 char	*echo_n_fun(char *str);
 char	*echo_with_line_fun(char *str);
@@ -86,10 +87,10 @@ void	reset_info(t_info *info);
 t_node	*malloc_node();
 int		len_split(char **split);
 char	**copy_split(char **split);
-void	copy_node(t_node *to_node, t_node *from_node, int is_free_before);
+void	copy_node(t_node **to_node, t_node **from_node, int is_free_before);
 int		is_exist_str_in_2array(char **array2d, char *del_str, int size_str);
-
-
+void	order_info_nodes(t_info *info);
+void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info);
 
 
 size_t		ft_strlen(const char *s);

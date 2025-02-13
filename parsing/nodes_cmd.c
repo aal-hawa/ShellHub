@@ -51,7 +51,7 @@ void	print_nodes(t_node *nodes)
 		printf("%s ", nodes->args[i]);
 		printf("\nType Before: %s, Type After: %s, is_dir_bilt_cmd: %d\n",
 			nodes->type_before, nodes->type_after, nodes->is_dir_bilt_cmd);
-			nodes = nodes->next;
+		nodes = nodes->next;
 		}
 	printf("\n-----------------------------\n");
 }
