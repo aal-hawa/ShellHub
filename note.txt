@@ -1,7 +1,11 @@
 ls | grep a
 ls | grep a | wc -l
 ls | grep a | wc -l > kk
-ls > kk | grep a | wc -l 
+ls > kk | grep a | wc -l
+ls > kjgbjk > kk | grep a | wc -l
 < Makefile < README.md < note.txt < main.c cat
 < Makefile < README.md < note.txt < main.c cat > hhhh
 
+< Makefile < README.md < note.txt < main.c cat > hhhh | ls > asa
+< Makefile < README.md < note.txt < main.c cat | cat > qq
+ls > dd | ls > asa | ls > ss  | ls < mm < nn

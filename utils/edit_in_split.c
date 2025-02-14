@@ -80,30 +80,33 @@ char	**del_str_from_array2d(char **array2d, char *del_str, int size_str)
 
 char	**add_in_split(char **split, char *add_str, int is_alpha)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		j;
+	int		len;
 	char	**new_split;
 
 	i = 0;
-	len = len_split(split);
-	len++;
+	j = 0;
+	len = len_split(split) + 1;
 	new_split = malloc(sizeof(char *) * (len + 1));
-	if (is_alpha == 1)
-		is_alpha++;
 	if (!new_split)
 		return (NULL);
 	while (split[i])
 	{
-		new_split[i] = ft_strdup(split[i]);
-		if (!new_split[i])
-			return(free_split(new_split, i - 1), NULL);
-		i++;
+		if (is_alpha == 1 && ft_strcmp(split[i], add_str) > 0 && is_alpha++)
+			new_split[j] = ft_strdup(add_str);
+		else
+			new_split[j] = ft_strdup(split[i++]);
+		if (!new_split[j++])
+			return(free_split(new_split, j - 2), NULL);
 	}
-	new_split[i] = ft_strdup(add_str);
-	new_split[i++] = NULL;
+	if (is_alpha < 2)
+		new_split[j++] = ft_strdup(add_str);
+	new_split[j] = NULL;
 	free_split(split, len - 1);
 	return (new_split);
 }
+
 char	**marge_2_splits(char **first_split, char **second_split)
 {
 	int		i;
@@ -138,6 +141,5 @@ char	**marge_2_splits(char **first_split, char **second_split)
 	new_split[i] = NULL;
 	free_split(first_split, len1);
 	free_split(second_split, len2);
-
 	return (new_split);
 }

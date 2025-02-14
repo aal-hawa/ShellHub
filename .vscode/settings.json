@@ -5,6 +5,7 @@
 		"ft_strccpy": "cpp",
 		"sstream": "c",
 		"__locale": "c",
-		"__node_handle": "c"
+		"__node_handle": "c",
+		"qq": "cpp"
 	}
 }
