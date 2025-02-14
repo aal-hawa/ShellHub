@@ -9,7 +9,7 @@ FLAGS = $(CFLAGS) -I$(LIBFT)/headers -L$(LIBFT) -lft
 LDFLAGS = -lreadline -lncurses
 
 SRC_MAIN = main.c
-SRC = minishell.c \
+SRC = minishell.c init_colors.c \
 	builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builtins/export.c builtins/pwd.c builtins/status_program.c builtins/unset.c \
 	parsing/readline.c 	parsing/tokens.c parsing/double_qoutes.c parsing/nodes_cmd.c parsing/new_node_2.c parsing/order_nodes.c \
 	parsing/operators.c parsing/single_quotes.c parsing/syntax_errors.c parsing/variable_expansion.c \

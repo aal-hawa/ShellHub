@@ -1,7 +1,7 @@
-init info
-< Makefile < README.md < note.txt < main.c cat
 ls | grep a
 ls | grep a | wc -l
 ls | grep a | wc -l > kk
- < Makefile < README.md < note.txt < main.c cat
- < Makefile < README.md < note.txt < main.c cat > hhhh
+ls > kk | grep a | wc -l 
+< Makefile < README.md < note.txt < main.c cat
+< Makefile < README.md < note.txt < main.c cat > hhhh
+

@@ -26,6 +26,29 @@ typedef struct s_node
     struct s_node *next;
 } t_node;
 
+typedef struct s_node_order
+{
+	t_node	*nodes_input;
+	t_node	*nodes_output;
+	t_node	*first_input;
+	t_node	*first_output;
+	char	**args;
+	char	*str_cmd;
+	char	*str_join;
+	int		i;
+} t_node_order;
+
+typedef	struct s_colors
+{
+	char	*green_color;
+	char	*default_color;
+	char	*red_color;
+	char	*blue_color;
+	char	*yellow_color;
+	char	*magenta_color;
+	char	*cyan_color;
+	char	*white_color;
+}	t_colors;
 
 typedef struct s_info
 {
@@ -54,6 +77,7 @@ typedef struct s_info
     char    *curent_path;
 	int		index_files_crt;
 	t_node	*first_node;
+	t_colors	*colors;
 }					t_info;
 
 void	minishell(t_info *info);
@@ -93,6 +117,8 @@ void	order_info_nodes(t_info *info);
 void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info);
 int		is_operator_input_fun(char *str);
 int		is_operator_output_fun(char *str);
+void	init_colors(t_colors *colors, t_info *info);
+
 
 size_t		ft_strlen(const char *s);
 char		**ft_split_p(char const *s, char c, t_info *info);
@@ -117,7 +143,7 @@ void		free_split(char **dst, size_t i);
 char		*ft_strdup(const char *str);
 void		get_path_command(char **strs, t_info *info);
 void		allocate_fds(int ***fd, pid_t **frs, int j);
-void		print_nodes(t_node *nodes);
+void		print_nodes(t_node *nodes, t_colors *colors);
 void		childs(t_node *node, int **fd1, pid_t *frs, t_info *info);
 void		close_fds_childs(int **fd1, t_info *info);
 int			execute_fun(t_info *info);

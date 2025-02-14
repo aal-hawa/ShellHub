@@ -32,14 +32,15 @@ void	minishell(t_info *info)
 		// char **tokens;
 		// readLine && hestory
 		line = readline_fun();
-		printf("the input: %s\n", line);
+		
+		printf("%sthe input: %s%s\n",info->colors->cyan_color, info->colors->default_color, line);
 		if (ft_strlen(line) == 0)
 			continue ;
 		create_nodes(line, info);
 
 		if (info->first_node)
 		{
-			print_nodes(info->first_node);
+			print_nodes(info->first_node, info->colors);
 			is_error_127 = execute_fun(info);
 			unlink_files(info);
 			// free_nodes(&nodes);
