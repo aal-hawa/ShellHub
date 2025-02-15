@@ -40,7 +40,6 @@ void	minishell(t_info *info)
 
 		if (info->first_node)
 		{
-			printf("print node after finish order\n");
 			print_nodes(info->first_node, info->colors);
 			is_error_127 = execute_fun(info);
 			unlink_files(info);
@@ -51,6 +50,7 @@ void	minishell(t_info *info)
 				exit(1);
 		}
 		line = free_char(&line);
+		free_node(&info->first_node);
 		reset_info(info);
 		// nodes
 		// syntax error

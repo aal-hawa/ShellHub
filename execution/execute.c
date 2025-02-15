@@ -71,12 +71,8 @@ void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
 			free(*cmd_node[0]->args);
 			cmd_node[0]->args++;
 		}
-		// printf ("info->fd_file_r %d\n",info->fd_file_r);
-		if (!ft_strcmp(cmd_node[0]->type_after, "|"))
-		{
+		if (!ft_strcmp(cmd_node[0]->type_after, "|") && ft_strcmp(cmd_node[0]->type_before, ">")) //!!?? //&& ft_strcmp(cmd_node[0]->type_before, ">")
 			info->is_for_w = 2;
-			printf ("aaaaaaaaaa\n");
-		}
 		frs[info->i_childs] = fork();
 		if (frs[info->i_childs] == 0)
 		{

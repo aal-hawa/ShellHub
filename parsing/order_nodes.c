@@ -96,7 +96,12 @@ void	change_default_value(t_node_order *node_order,t_node **current_node, t_info
 	if (node_order->nodes_output && node_order->nodes_output->type_before && node_order->nodes_output->is_dir_bilt_cmd == -1)
 		dir_bilt_fun(&(node_order->nodes_output), node_order->nodes_output->type_before, info);
 	if (!node_order->nodes_input->type_after)
-		node_order->nodes_input->type_after = ft_strdup(current_node[0]->type_after);
+	{
+		if (node_order->first_output->type_before)
+			node_order->nodes_input->type_after = ft_strdup(node_order->first_output->type_before);
+		else
+			node_order->nodes_input->type_after = ft_strdup(current_node[0]->type_after);
+	}
 	if (node_order->nodes_input && node_order->nodes_input->type_before && node_order->nodes_input->is_dir_bilt_cmd == -1)
 		dir_bilt_fun(&(node_order->nodes_input), node_order->nodes_input->type_before, info);
 }
