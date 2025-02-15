@@ -22,7 +22,7 @@ void	init_info(int ac, char *env, char **envp, t_info *info)
 	info->fd_file_r = -2;
 	info->offset = 0;
 	info->i_limiter = 0;
-	info->home = NULL;
+	// info->home = NULL;
 	info->status_exit = 0;
 	info->curent_path = NULL;
 	info->index_files_crt = 0;

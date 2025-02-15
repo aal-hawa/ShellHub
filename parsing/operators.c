@@ -8,7 +8,13 @@ int	is_operator_fun(char *str)
 	if (!ft_strcmp(str, "|") || !ft_strcmp(str, ">")
 		|| !ft_strcmp(str, "<")
 		|| !ft_strcmp(str, ">>") || !ft_strcmp(str, "<<"))
-		return (1);
+		{
+			if (ft_strcmp(str, "|"))
+				return (2);
+			else
+				return (1);
+
+		}
 	return (0);
 }
 

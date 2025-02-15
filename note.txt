@@ -12,3 +12,5 @@ ls > dd | ls > asa | ls > ss  | ls < mm < nn
 
 
 if the file input not exist stop executing
+ls > bbbbbb |  ls > "> ffff
+   "

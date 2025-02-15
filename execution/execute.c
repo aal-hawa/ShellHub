@@ -63,7 +63,7 @@ void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
 {
 	if (!cmd_node[0])
 		return ;
-	if (cmd_node[0]->is_dir_bilt_cmd == 2 || cmd_node[0]->is_do_execute == 1) 
+	if (cmd_node[0]->is_dir_bilt_cmd == 2 || cmd_node[0]->is_do_execute > 0) 
 	{
 		if (cmd_node[0]->is_do_execute == 1)
 		{
@@ -121,7 +121,10 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 		{
 			result_blts = builtins_fun(node, info);
 			if (result_blts && is_operator_fun(node->type_after) == 1)
-				init_files_biultins(result_blts, info);
+			{
+				node->fd_file = init_files_biultins(result_blts, info);
+				node->is_do_execute = 2;
+			}
 		}
 		if (!is_can_do_execve(&node, &cmd_node))
 			continue;

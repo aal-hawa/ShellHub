@@ -78,7 +78,7 @@ void	make_order_nodes(t_node_order *node_order,t_node **current_node, t_info *in
 	last_order_nodes(node_order, current_node, info);
 }
 
-void	change_default_value(t_node_order *node_order,t_node **current_node, t_info *info)
+void	change_default_value(t_node_order *node_order, t_node **current_node, t_info *info)
 {
 	if (!node_order->first_input->type_after)
 	{
@@ -89,8 +89,9 @@ void	change_default_value(t_node_order *node_order,t_node **current_node, t_info
 	}
 	if (!node_order->first_input->type_before)
 		node_order->first_input->type_before = ft_strdup(current_node[0]->type_before);
-	if (node_order->first_input->is_dir_bilt_cmd == -1)
-		node_order->first_input->is_dir_bilt_cmd = current_node[0]->is_dir_bilt_cmd;
+	if (node_order->first_input->is_dir_bilt_cmd == -1 && node_order->first_input->type_before)
+		// node_order->first_input->is_dir_bilt_cmd = current_node[0]->is_dir_bilt_cmd;
+		dir_bilt_fun(&node_order->first_input, node_order->first_input->type_before, info);
 	if (!node_order->nodes_output->type_after)
 		node_order->nodes_output->type_after = ft_strdup(current_node[0]->type_after);
 	if (node_order->nodes_output && node_order->nodes_output->type_before && node_order->nodes_output->is_dir_bilt_cmd == -1)
@@ -135,6 +136,8 @@ void	order_info_nodes(t_info *info)
 	current_node = malloc_node();
 	first_node = NULL;
 	next_node = NULL;
+	printf("aaaaaaaaaaaaaa\n");
+	print_nodes(info->first_node, info->colors);
 	if (info->first_node)
 		next_node = info->first_node;
 	while (next_node)
