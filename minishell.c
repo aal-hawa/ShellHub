@@ -32,7 +32,7 @@ void	minishell(t_info *info)
 		// char **tokens;
 		// readLine && hestory
 		line = readline_fun();
-		if ( line[0] == '|'  || line[0] == '>' || line[0] == '>>'|| line[0] == '<'|| line[0] == '<<')
+		if ( line[0] == '|'  || line[0] == '>' || line[0] == '<')
 		{
 			if (line[0] == '|' )
 				printf ("bash: syntax error near unexpected token `|'\n");
@@ -42,7 +42,13 @@ void	minishell(t_info *info)
 			line = free_char(&line);
 			continue ;
 		}
-		
+		if (line[strlen(line) - 1] == '|')
+		{
+			if (line[0] == '|' )
+				printf ("error sentax\n");
+			line = free_char(&line);
+			continue ;
+		}
 		printf("%sthe input: %s%s\n", info->colors->cyan_color, info->colors->default_color, line);
 		if (ft_strlen(line) == 0)
 			continue ;

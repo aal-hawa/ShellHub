@@ -70,6 +70,7 @@ typedef struct s_info
 	size_t	i_split;
 	int		env_null;
 	int		is_exit_one;
+	int		is_builtins_file;
 
 	// char	**env;
 	char	*home;

@@ -59,7 +59,7 @@ void		error_pipe(int **fd1, int i, t_info *info, char **strs);
 char		*get_next_line(t_info *info);
 char		*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
 char		*free_char(char *this_string);
-void		ft_putstr_fd(char *s, int fd, int is_malloc);
+void		char *s, int fd, int is_malloc);
 int			finish_parent(int ***fd, pid_t **frs, t_info *info);
 void		de_allocate(int ***fd, pid_t **frs, int i);
 void		free_split(char **dst, size_t i);
