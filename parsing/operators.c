@@ -1,6 +1,7 @@
 
 # include "../minishell.h"
 
+// return zero if not, two if pipe, one if else operators
 int	is_operator_fun(char *str)
 {
 	if (!str)
@@ -31,7 +32,7 @@ int	is_operator_output_fun(char *str)
 {
 	if (!str)
 	{
-		printf("\n-----------------------------ERROR-----------------------------n");
+		printf("\n-----------------------------ERROR-----------------------------\n");
 		return (0);
 	}
 	if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>"))
