@@ -61,9 +61,12 @@ char	*builtins_fun(t_node *node, t_info *info)
 
 void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
 {
+	int	i;
+
+	i = 0;
 	if (!cmd_node[0])
 		return ;
-	if (cmd_node[0]->is_dir_bilt_cmd == 2 || cmd_node[0]->is_do_execute == 1) 
+	if (cmd_node[0]->is_dir_bilt_cmd == 2 || cmd_node[0]->is_do_execute > 0) 
 	{
 		if (cmd_node[0]->is_do_execute == 1)
 		{
@@ -73,6 +76,20 @@ void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
 		}
 		if (!ft_strcmp(cmd_node[0]->type_after, "|") && ft_strcmp(cmd_node[0]->type_before, ">")) //!!?? //&& ft_strcmp(cmd_node[0]->type_before, ">")
 			info->is_for_w = 2;
+		printf("info->is_builtins_file  %d\n", info->is_builtins_file);
+		printf("is_operator_output_fun(cmd_node[0]->type_after)  %d\n", is_operator_output_fun(cmd_node[0]->type_after));
+		printf("cmd_node[0]->type_after  %s\n", cmd_node[0]->type_after);
+		printf("cmd_node[0]->args[0]  %s\n", cmd_node[0]->args[0]);
+		printf("cmd_node[0]->is_dir_bilt_cmd: %d\n", cmd_node[0]->is_dir_bilt_cmd);
+
+		// if (info->is_builtins_file == 1 && !is_operator_output_fun(cmd_node[0]->type_after))
+		// {
+		// 	printf("\niiiiiiiiiiiiiiiiiiii\n");
+		// 	info->is_builtins_file = 0;
+		// 	while(cmd_node[0]->args[i])
+		// 		ft_putstr_fd(cmd_node[0]->args[i++], info->fd_file_w);
+		// 	return ;
+		// }
 		frs[info->i_childs] = fork();
 		if (frs[info->i_childs] == 0)
 		{
@@ -83,14 +100,14 @@ void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
 		*cmd_node = NULL;
 	}
 }
-int	is_can_do_execve(t_node **node,t_node **cmd_node)
+int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
 {
 	if (is_operator_output_fun(node[0]->type_after) || !ft_strcmp(node[0]->type_after, "|")
 	|| !ft_strcmp(node[0]->type_after, "end") || node[0]->is_dir_bilt_cmd == 2)
 	{
 		if(!cmd_node[0])
 			cmd_node[0] = *node;
-		if (is_operator_output_fun(node[0]->type_after))
+		if (is_operator_output_fun(node[0]->type_after) && info->is_builtins_file == 0) // new
 		{
 			*node = node[0]->next;
 			if (*node)
@@ -120,12 +137,32 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 		else if (node->is_dir_bilt_cmd == 1)
 		{
 			result_blts = builtins_fun(node, info);
+			printf("result_blts: %s\n", result_blts);
+			printf("is_operator_fun(node->type_after): %d\n", is_operator_fun(node->type_after));
+
 			if (result_blts && is_operator_fun(node->type_after) == 1)
-				init_files_biultins(result_blts, info);
+			{
+				node->fd_file = init_files_biultins(result_blts, info);
+				node->is_do_execute = 2;
+				info->is_builtins_file = 1;
+				printf("kkkkkkkkkkk\n");
+			}
 		}
-		if (!is_can_do_execve(&node, &cmd_node))
+		if (!is_can_do_execve(&node, &cmd_node, info))
 			continue;
-		do_execve_fun(&cmd_node, fd1, frs, info);
+		if (node->is_dir_bilt_cmd != 1)
+			do_execve_fun(&cmd_node, fd1, frs, info);
+		else
+		{
+			if (info->is_builtins_file == 1 && !is_operator_output_fun(node->type_after))
+			{
+				printf("\niiiiiiiiiiiiiiiiiiii\n");
+				info->is_builtins_file = 0;
+				// while(get_next_line(info))
+				// 	ft_putstr_fd(cmd_node[0]->args[i++], info->fd_file_w);
+				// return ;
+			}
+		}
 		if (node)
 			node = node->next;
 	}

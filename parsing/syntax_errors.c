@@ -9,8 +9,8 @@ int	check_error_operators(char **tokens)
 	i = 0;
 	while (tokens[i])
 	{
-		if (is_operator_fun(tokens[i]) == 1
-			&& (!tokens[i + 1] || is_operator_fun(tokens[i + 1]) == 1))
+		if (is_operator_fun(tokens[i]) > 0
+			&& (!tokens[i + 1] || is_operator_fun(tokens[i + 1]) > 0))
 			return(1);
 		i++;
 	}

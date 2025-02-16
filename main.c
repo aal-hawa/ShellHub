@@ -12,7 +12,7 @@ int	main(int ac, char **arg, char **envp)
 	{
 		env_data(envp, &env, &info);
 		init_colors(&colors, &info);
-		init_info(ac, env, envp, &info);
+		init_info(ac, env, envp, &info); // make it before env_data()
 		if (!env)
 			info.env_null = 1;
 		minishell(&info);

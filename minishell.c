@@ -32,8 +32,24 @@ void	minishell(t_info *info)
 		// char **tokens;
 		// readLine && hestory
 		line = readline_fun();
-		
-		printf("%sthe input: %s%s\n",info->colors->cyan_color, info->colors->default_color, line);
+		if ( line[0] == '|'  || line[0] == '>' || line[0] == '<')
+		{
+			if (line[0] == '|' )
+				printf ("bash: syntax error near unexpected token `|'\n");
+			else
+				printf ("bash: syntax error near unexpected token `newline'");
+
+			line = free_char(&line);
+			continue ;
+		}
+		if (line[strlen(line) - 1] == '|')
+		{
+			if (line[0] == '|' )
+				printf ("error sentax\n");
+			line = free_char(&line);
+			continue ;
+		}
+		printf("%sthe input: %s%s\n", info->colors->cyan_color, info->colors->default_color, line);
 		if (ft_strlen(line) == 0)
 			continue ;
 		create_nodes(line, info);
@@ -50,7 +66,7 @@ void	minishell(t_info *info)
 				exit(1);
 		}
 		line = free_char(&line);
-		free_node(&info->first_node);
+		// free_node(&info->first_node);
 		reset_info(info);
 		// nodes
 		// syntax error

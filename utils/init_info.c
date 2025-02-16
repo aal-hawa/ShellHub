@@ -15,7 +15,7 @@ void	init_info(int ac, char *env, char **envp, t_info *info)
 	info->is_for_w = 0;
 	info->fd_file_w = -2;
 	info->is_exit_one = 0;
-
+	info->is_builtins_file = 0;
 
 	info->i_fds = 0;
 	info->i_childs = 0;
@@ -23,7 +23,7 @@ void	init_info(int ac, char *env, char **envp, t_info *info)
 	info->fd_file_r = -2;
 	info->offset = 0;
 	info->i_limiter = 0;
-	info->home = NULL;
+	// info->home = NULL;
 	info->status_exit = 0;
 	info->curent_path = NULL;
 	info->index_files_crt = 0;
@@ -39,4 +39,5 @@ void	reset_info(t_info *info)
 	info->is_for_w = 0;
 	info->fd_file_w = -2;
 	info->is_exit_one = 0;
+	info->is_builtins_file = 0;
 }

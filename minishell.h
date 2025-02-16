@@ -71,6 +71,7 @@ typedef struct s_info
 	size_t	i_split;
 	int		env_null;
 	int		is_exit_one;
+	int		is_builtins_file;
 
 	// char	**env;
 	char	*home;
@@ -119,7 +120,7 @@ void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info);
 int		is_operator_input_fun(char *str);
 int		is_operator_output_fun(char *str);
 void	init_colors(t_colors *colors, t_info *info);
-
+int		parsing_input(char **line);
 
 size_t		ft_strlen(const char *s);
 char		**ft_split_p(char const *s, char c, t_info *info);
