@@ -7,13 +7,15 @@
 char *ft_strccpy(char *str, char to_char)
 {
 	char	*dest;
-	size_t	i;
+	ssize_t	i;
 
 	if (!str)
 		return (NULL);
 	i = ft_strclen(str, to_char);
 	if (i == 0)
 		return (NULL);
+	if (i == -1)
+		return (ft_strdup(""));
 	dest = malloc(sizeof(char) * (i + 1));
 	if (!dest)
 		return (NULL);
