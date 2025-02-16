@@ -6,58 +6,98 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:45:13 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/16 17:41:41 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/02/16 21:09:45 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-
-int check_is_valide(char *str)
+int check_valid_alpha_(char c)
 {
-	int i = 0;
-	if(!((str[0] >=  65 && str[0] <= 90) || (str[0] >=  97 && str[0] <= 122) || str[0] == '_'))
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
+		return (1);
+	return (0);
+}
+
+int check_valid_num(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int check_is_valid(char *str)
+{
+	int i = 1;
+
+	if (!str || str[0] == '\0' || !check_valid_alpha_(str[0]))
 		return (0);
-	while(str[i])
+	while (str[i])
 	{
-			
+		if (!(check_valid_alpha_(str[i]) || check_valid_num(str[i]) || str[i] == '='))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+//export hello from 42AD We @re So H@ppy here live here=everything
+
+int is_env(char *str)
+{
+	while(*str)
+	{
+		if(*str == '=')
+			return(1);
+		str++;
+	}
+	return (0);
+}
+
+void check_and_add(t_info *info, char *arg, int add_to_env)
+{
+	(void) add_to_env;
+	if(is_exist_str_in_2array(info->export, arg, 0))
+	{
+		printf("Exist");
+		//delete
+		//add
+	}
+	else
+	{
+		printf("notExist");
+		//add
 	}
 }
 
 char	**export_fun(char **args, t_info *info, int is_print)
 {
-	int i = 0;
+	int i = 1;
 	//delete (void) when create the function
 	(void)is_print;
 	if (!info)
 		return (NULL);
-	while(args[i])
-    {
-     	printf("from export =[%d]=> here is the args: %s \n", i, args[i]);
-		i++;
-    }
-// int i = 0;
-    // if(!name)
-    // {
-    //  printf("print export output\n");
-    //  return (1);
-    // }
-    // else
-    // {
-    //  printf("from export => here is the name: %s\n", name);
-    //  args = ft_split(name, ' ');
-    //  printf("here is arg[1]: %s\n", args[1]);
-    //  // while(args[i])
-    //  // {
-    //  // printf("from export => here is the args: %s \n", args[i++]);
-    //  // }
-    // }
 
-	
-	// if (!getenv(args))
-	// {
-	// 	info->envp = add_in_split(info->envp, args, 1);
-	// 	return (0);
-	// }
+	while (args[i])
+	{
+		if (check_is_valid(args[i]))
+		{
+			printf("\n\nValid str: %s \n\n", args[i]);
+			if(is_env(args[i]))
+			{
+				printf("Add to env\n");
+				check_and_add(info, args[i], 1);
+			}	
+			else
+			{
+				check_and_add(info, args[i], 0);
+				printf("Don't add to env\n");
+			}
+		}
+		else
+			printf("\nNot Valid str: %s\n", args[i]);
+		i++;
+	}
+
 	return (NULL);
 }
