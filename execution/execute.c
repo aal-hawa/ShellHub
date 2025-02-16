@@ -166,6 +166,11 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 		if (node)
 			node = node->next;
 	}
+	if (result_blts)
+	{
+		free_split(result_blts, 0);
+		result_blts = NULL;
+	}
 }
 
 int	execute_fun(t_info *info)

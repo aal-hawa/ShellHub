@@ -13,10 +13,11 @@ char	**cd_fun(char **args, t_info *info, int is_print)
 	{
 		if (is_print == 1)
 			printf ("bash: cd: too many arguments\n");
-		result = malloc(sizeof(char *));
+		result = malloc(sizeof(char *) * 2);
 		if (!result)
 			return (NULL);
 		result[0] = ft_strdup("bash: cd: too many arguments\n");
+		result[1] = NULL;
 		return(result);
 	}
 	if (!cd || (cd && ft_strcmp(cd, "~")))

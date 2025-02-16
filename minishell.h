@@ -121,6 +121,10 @@ void	init_colors(t_colors *colors, t_info *info);
 int		parsing_input(char **line);
 void	print_array2d(char **array2d);
 void	print_array2d_fd(char **array2d, int fd);
+int		check_valid_line(char **line);
+char	*double_quot_fun(char *str);
+char	*single_quot_fun(char *str);
+
 
 
 size_t		ft_strlen(const char *s);

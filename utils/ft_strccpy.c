@@ -1,12 +1,16 @@
 
 #include "../minishell.h"
 
-// copy str to char
+// copy char *str to first char of char to_char
+// if didnt have the char to_char inside the char *str it will return NULL
+// if have it will return malloc char	*
 char *ft_strccpy(char *str, char to_char)
 {
 	char	*dest;
 	size_t	i;
 
+	if (!str)
+		return (NULL);
 	i = ft_strclen(str, to_char);
 	if (i == 0)
 		return (NULL);
