@@ -47,11 +47,11 @@ void	builtins_fun(char	***result, t_node *node, t_info *info)
 			result[0] = echo_with_line_fun(node->args[1], is_print);
 	}
 	else if (!ft_strcmp(node->args[0], "env"))
-		result[0] = env_fun(node->args[1], is_print);
+		result[0] = env_fun(node->args, is_print);
 	else if (!ft_strcmp(node->args[0], "export"))
-		result[0] = export_fun(node->args[1], info, is_print);
+		result[0] = export_fun(node->args, info, is_print);
 	else if (!ft_strcmp(node->args[0], "unset"))
-	result[0] = unset_func(node->args[1], info);
+		result[0] = unset_func(node->args, info);
 	else if (!ft_strcmp(node->args[0], "pwd"))
 		result[0] = pwd_fun(info, is_print);
 	else if (!ft_strcmp(node->args[0], "exit"))
