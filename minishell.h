@@ -72,8 +72,6 @@ typedef struct s_info
 	int		env_null;
 	int		is_exit_one;
 	int		is_builtins_file;
-
-	// char	**env;
 	char	*home;
     int     status_exit;
     char    *curent_path;
@@ -85,14 +83,14 @@ typedef struct s_info
 void	minishell(t_info *info);
 char	*readline_fun();
 char	**tokens_fun(char *line);
-char	*cd_fun(char *cd, t_info *info);
-char	*pwd_fun(t_info *info, int is_print);
+char	**cd_fun(char **args, t_info *info, int is_print);
+char	**pwd_fun(t_info *info, int is_print);
 void	exit_fun();
-char	*echo_n_fun(char *str);
-char	*echo_with_line_fun(char *str);
-char	*env_fun(char *name);
-int		export_fun(char *name, t_info *info);
-int		unset_func(char *name, t_info *info);
+char	**echo_n_fun(char *str, int is_print);
+char	**echo_with_line_fun(char *str, int is_print);
+char	**env_fun(char **args, int is_print);
+char	**export_fun(char **args, t_info *info, int is_print);
+char	**unset_func(char **args, t_info *info);
 int     is_operator_fun(char *str);
 void	free_fun(char **str);
 char	**add_in_split(char **split, char *add_str, int is_alpha);
@@ -121,6 +119,9 @@ int		is_operator_input_fun(char *str);
 int		is_operator_output_fun(char *str);
 void	init_colors(t_colors *colors, t_info *info);
 int		parsing_input(char **line);
+void	print_array2d(char **array2d);
+void	print_array2d_fd(char **array2d, int fd);
+
 
 size_t		ft_strlen(const char *s);
 char		**ft_split_p(char const *s, char c, t_info *info);
@@ -132,7 +133,7 @@ int			open_file_w_b(char *name_file);
 void		env_data(char **envp, char **env, t_info *info);
 // int			init_files(char **str, t_info *info);
 void		init_files(t_node *node, t_info *info);
-int			init_files_biultins(char *str, t_info *info);
+int			init_files_biultins(char **str, t_info *info);
 void		init_here_doc(t_node *node, t_info *info);
 void		error_pipe(int **fd1, int i, t_info *info, char **strs);
 char		*get_next_line(t_info *info);

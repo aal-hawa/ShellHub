@@ -6,39 +6,27 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:33:53 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/16 14:21:38 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:04:36 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*env_fun(char *name)
+char	**env_fun(char **args, int is_print)
 {
-	
-	return (getenv(name));
+	(void)args;
+	(void)is_print;
+	// return (getenv(name));
+	return (args);
 }
+// char **result = funcName(str, c);
+// if(result == null)
+// 	ToDo
+// else
+// Continue work
 
-
-
-
-// HOME=99=99
-
-
-// search about charcter, if exist split to two sections (before the chracter) (After the chracter)
-/* 
-char **funcName (char *str, char c)
-{
-	ft_split
-	ft_strjoin
-}
-char **result = funcName(str, c);
-if(result == null)
-	ToDo
-else
-Continue work
-
-int funcName (char *str, char c, char **before_sign, char **after_sign)
-*/
+// int funcName (char *str, char c, char **before_sign, char **after_sign)
+// */
 
 // char **split_export_input()
 // {

@@ -31,12 +31,14 @@ size_t	count_sub(char const *s, char c)
 	}
 	return (count);
 }
-
+// free array2d by the size, if size equal zero it will auto get size
 void	free_split(char **dst, size_t i)
 {
 
 	if (!dst)
 		return ;
+	if (i == 0)
+		i = len_split(dst);
 	while (i > 0)
 	{
 		i--;
