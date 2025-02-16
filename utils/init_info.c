@@ -5,7 +5,8 @@ void	init_info(int ac, char *env, char **envp, t_info *info)
 	info->ac = ac;
 	info->env = env;
 	info->str_i = 0; //ac - 3
-	info->envp = envp;
+	info->envp = copy_split(envp);
+	info->export = copy_split(envp);
 	info->is_bonus = 1;
 	info->limiter = NULL;
 	info->i_split = 0;

@@ -65,6 +65,7 @@ typedef struct s_info
 	int		i_limiter;
 	char	*path_commd;
 	char	**envp;
+	char	**export;
 	int		is_for_w;
 	int		is_bonus;
 	size_t	i_split;

@@ -12,3 +12,39 @@ ls > dd | ls > asa | ls > ss  | ls < mm < nn
 
 
 if the file input not exist stop executing
+
+When add any variable to env using export
+	the output of env will be key=value, but the output of export will be key="value"
+
+
+2 in one
+2 to 2
+
+2 in one
+	split
+
+🔹 كيف تتحقق من صحة المدخلات عند تنفيذ export؟
+✅ شروط قبول المتغير في Minishell
+قبل إضافة المتغير، تحقق من:
+
+الاسم يبدأ بحرف أو _
+
+لا يمكن أن يبدأ المتغير برقم أو رمز خاص مثل 1var=74 ❌
+صحيح: Var=74 ✅ أو _var=74 ✅
+يحتوي الاسم على حروف، أرقام أو _ فقط
+
+غير مسموح: @var=74 ❌ أو var-name=74 ❌
+صحيح: var_1=74 ✅
+هل يحتوي على = أم لا؟
+
+إذا لم يكن هناك =، فهو متغير بيئي فقط ولن يظهر في env.
+إذا وجد =، قم بفصل الاسم عن القيمة
+
+تأكد أن الاسم صحيح قبل =.
+
+1- check errors in key 
+2- add variable
+3- edit values
+4- delete
+5- show => export and env
+6- sorting in export and env
