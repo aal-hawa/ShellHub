@@ -6,7 +6,7 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:45:13 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/16 21:09:45 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/02/16 21:27:48 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,26 @@ int is_env(char *str)
 void check_and_add(t_info *info, char *arg, int add_to_env)
 {
 	(void) add_to_env;
-	if(is_exist_str_in_2array(info->export, arg, 0))
+	if(is_exist_str_in_2array(info->export, arg, 0) || is_exist_str_in_2array(info->export, arg, ft_strlen(arg)))
 	{
-		printf("Exist");
+		printf("\n------\ndeleting {{%s}}, adding with new value{{%s}}\n------\n", arg, arg);
 		//delete
 		//add
 	}
 	else
 	{
-		printf("notExist");
+		printf("\n------\nadding{{%s}}\n------\n",arg);
 		//add
+	}
+}
+
+void print_export(t_info *info)
+{
+	int i = 0;
+	
+	while(info->export[i])
+	{
+		printf("%s\n", info->export[i++]);
 	}
 }
 
@@ -77,7 +87,10 @@ char	**export_fun(char **args, t_info *info, int is_print)
 	(void)is_print;
 	if (!info)
 		return (NULL);
-
+    if(!args[i])
+    {
+     print_export(info);
+    }
 	while (args[i])
 	{
 		if (check_is_valid(args[i]))
