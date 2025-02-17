@@ -39,3 +39,10 @@ int	is_operator_output_fun(char *str)
 		return (1);
 	return (0);
 }
+
+int	is_char_operator_fun(char c)
+{
+	if (c == '>' || c == '<' || c == '|')
+		return (1);
+	return (0);
+}

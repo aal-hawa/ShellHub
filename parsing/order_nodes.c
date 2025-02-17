@@ -53,6 +53,9 @@ void	last_order_nodes(t_node_order *node_order, t_node **current_node, t_info *i
 
 void	make_order_nodes(t_node_order *node_order,t_node **current_node, t_info *info)
 {
+	// int	is_qout;
+
+	// is_qout = 0;
 	while (node_order->args[node_order->i])
 	{
 		if (is_operator_fun(node_order->args[node_order->i]) > 0)
@@ -136,7 +139,7 @@ void	order_info_nodes(t_info *info)
 	current_node = malloc_node();
 	first_node = NULL;
 	next_node = NULL;
-	print_nodes(info->first_node, info->colors);
+	// print_nodes(info->first_node, info->colors);
 	if (info->first_node)
 		next_node = info->first_node;
 	while (next_node)

@@ -91,7 +91,6 @@ char	**echo_with_line_fun(char *str, int is_print);
 char	**env_fun(char **args, int is_print);
 char	**export_fun(char **args, t_info *info, int is_print);
 char	**unset_func(char **args, t_info *info);
-int     is_operator_fun(char *str);
 void	free_fun(char **str);
 char	**add_in_split(char **split, char *add_str, int is_alpha);
 char	**marge_2_splits(char **first_split, char **second_split);
@@ -115,8 +114,13 @@ void	copy_node(t_node **to_node, t_node **from_node, int is_free_before);
 int		is_exist_str_in_2array(char **array2d, char *del_str, int size_str);
 void	order_info_nodes(t_info *info);
 void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info);
+int     is_operator_fun(char *str);
 int		is_operator_input_fun(char *str);
 int		is_operator_output_fun(char *str);
+int		is_char_operator_fun(char c);
+int	is_qout_fun(int last_is_qout, char c);
+
+
 void	init_colors(t_colors *colors, t_info *info);
 int		parsing_input(char **line);
 void	print_array2d(char **array2d);
@@ -124,6 +128,7 @@ void	print_array2d_fd(char **array2d, int fd);
 int		check_valid_line(char **line);
 char	*double_quot_fun(char *str);
 char	*single_quot_fun(char *str);
+void	fixed_line_spaces(char **line);
 
 
 

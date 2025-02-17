@@ -66,9 +66,11 @@ void	create_nodes(char *line, t_info *info)
 	char	*before_tybe;
 	int		i;
 	int		j;
+	int		is_qout;
 
 	j = 0;
 	i = 0;
+	is_qout = 0;
 	node = malloc_node();
 	if (!node)
 	{
@@ -80,7 +82,7 @@ void	create_nodes(char *line, t_info *info)
 	node->last_fd_name = NULL;
 	while (line[i])
 	{
-		if (line[i] == '|')
+		if (line[i] == '|' && is_qout == 0)
 		{
 			type_after_fun(&node, &line, i);
 			before_tybe = insert_node(&node, &line, i, j);
@@ -91,6 +93,7 @@ void	create_nodes(char *line, t_info *info)
 			node = node->next;
 			node->type_before = ft_strdup(before_tybe);
 		}
+		is_qout = is_qout_fun(is_qout, line[i]);
 		i++;
 	}
 	node->type_after = ft_strdup("end");

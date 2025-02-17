@@ -35,6 +35,7 @@ void	minishell(t_info *info)
 		printf("%sthe input: %s%s\n", info->colors->cyan_color, info->colors->default_color, line);
 		if (!check_valid_line(&line))
 			continue ;
+		fixed_line_spaces(&line);
 		create_nodes(line, info);
 
 		if (info->first_node)

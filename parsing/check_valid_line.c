@@ -33,7 +33,7 @@ int	check_valid_line(char **line)
 {
 	if (ft_strlen(line[0]) == 0)
 		return (0);
-	if ( line[0][0] == '|' || line[0][0] == '>' || line[0][0] == '<')
+	if (line[0][0] == '|')
 	{
 		if (line[0][0] == '|' )
 			printf ("bash: syntax error near unexpected token `|'\n");
