@@ -45,13 +45,13 @@ int	check_valid_line(char **line)
 	if (line[0][strlen(line[0]) - 1] == '|')
 	{
 		if (line[0][0] == '|')
-			printf ("error sentax\n");
+			printf ("error syntax\n");
 		line[0] = free_char(line);
 		return (0);
 	}
 	if(!is_valid_qout(line))
 	{
-		printf ("error sentax qoutition\n");
+		printf ("error syntax qoutition\n");
 		line[0] = free_char(line);
 		return (0);
 	}

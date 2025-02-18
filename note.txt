@@ -12,7 +12,6 @@ ls > dd | ls > asa | ls > ss  | ls < mm < nn
 
 
 if the file input not exist stop executing
-<<<<<<< HEAD
 
 When add any variable to env using export
 	the output of env will be key=value, but the output of export will be key="value"
@@ -49,7 +48,3 @@ When add any variable to env using export
 4- delete
 5- show => export and env
 6- sorting in export and env
-=======
-ls > bbbbbb |  ls > "> ffff
-   "
->>>>>>> 3713603dca7278e7b8161adbe368276fe23d4db3
