@@ -7,6 +7,8 @@ char	*value_fun(char *str, char devide_char)
 	int	y;
 	char	*dest;
 
+	if (!str)
+		return (NULL);
 	i = 0;
 	while (str[i] && str[i] != devide_char)
 		i++;
@@ -24,30 +26,7 @@ char	*value_fun(char *str, char devide_char)
 	return (dest);
 }
 
-char *varible_fun(char *str, char devide_char)
-{
-	int	i;
-	char	*dest;
-
-	i = 0;
-	while (str[i] && str[i] != devide_char)
-		i++;
-	if (!str[i])
-		return (NULL);
-	dest = malloc(sizeof(char) * (i + 1));
-	if (!dest)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != devide_char)
-	{
-		dest[i] = str[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-char	*doller_sign_fun(char *str, t_info *info)
+char	*doller_sign_fun(char **str, t_info *info)
 {
 	int	i;
 	char	*varible;
@@ -55,17 +34,61 @@ char	*doller_sign_fun(char *str, t_info *info)
 	i = 0;
 	while (info->envp[i])
 	{
-		varible = varible_fun(info->envp[i], '=');
+		varible = ft_strccpy(info->envp[i], '=');
 		if (!varible)
 		{
 			i++;
 			continue ;
 		}
-		if (varible == str)
+		if (varible == *str)
+		{
+			*str = free_char(str);
 			return (value_fun(info->envp[i], '='));
+		}
 		free (varible);
 		varible = NULL;
 		i++;
+	}
+	*str = free_char(str);
+	return (NULL);
+}
+
+char	*find_doller_sign_fun(char **str, t_info *info)
+{
+	char	*dst;
+	// char	*result;
+	int		i;
+	int		j;
+	int		len;
+
+	if (!str || !*str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	dst = NULL;
+	// result = NULL;
+	while (str[i])
+	{
+		if (str[0][i] == '$')
+		{
+			j++;
+			i++;
+			while(str[0][i] && (str[0][i] != '$' || str[0][i] != ' '))
+			{
+				j++;
+				i++;
+			}
+			dst = malloc(sizeof(char) * (i - j + 1));
+			ft_strlcat(dst, str[i], j);
+			dst = doller_sign_fun(&dst, info);
+			if (dst)
+			{
+				len = strlen(dst);
+				len += i - j;
+				
+			}
+		}
+
 	}
 	return (NULL);
 }

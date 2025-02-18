@@ -42,9 +42,9 @@ void	builtins_fun(char	***result, t_node *node, t_info *info)
 	else if (!ft_strcmp(node->args[0], "echo"))
 	{
 		if (!ft_strcmp(node->args[1], "-n"))
-			result[0] = echo_n_fun(node->args[2], is_print);
+			result[0] = echo_n_fun(node->args, is_print);
 		else
-			result[0] = echo_with_line_fun(node->args[1], is_print);
+			result[0] = echo_with_line_fun(node->args, is_print);
 	}
 	else if (!ft_strcmp(node->args[0], "env"))
 		result[0] = env_fun(node->args, is_print);

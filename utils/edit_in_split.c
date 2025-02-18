@@ -55,6 +55,7 @@ char	**del_str_from_array2d(char **array2d, char *del_str, int size_str)
 	int		y;
 	int		len;
 	char	**new_split;
+	char	*str_zero;
 
 	if (!is_exist_str_in_2array(array2d, del_str, size_str))
 		return (array2d); 
@@ -66,13 +67,15 @@ char	**del_str_from_array2d(char **array2d, char *del_str, int size_str)
 		return (NULL);
 	while (array2d[++i])
 	{
-		if ((size_str == 0 && !ft_strcmp(array2d[i], del_str))
-			|| (size_str != 0 && !ft_strncmp(array2d[i], del_str, size_str)))
+		str_zero = ft_strccpy(array2d[i],'=');
+		if ((size_str == 0 && ft_strcmp(str_zero, del_str))
+			|| (size_str != 0 && ft_strncmp(array2d[i], del_str, size_str)))
 		{
 			new_split[++y] = ft_strdup(array2d[i]);
 			if (!new_split[y])
-				return (free_split(new_split, y - 1), NULL);
+				return (free_char(&str_zero), free_split(new_split, y - 1), NULL);
 		}
+		str_zero = free_char(&str_zero);
 	}
 	new_split[++y] = NULL;
 	return (free_split(array2d, len), new_split);
@@ -89,7 +92,7 @@ char	**add_in_split(char **split, char *add_str, int is_alpha)
 	j = 0;
 	len = len_split(split) + 1;
 	new_split = malloc(sizeof(char *) * (len + 1));
-	if (!new_split)
+	if (!new_split || !split)
 		return (NULL);
 	while (split[i])
 	{
