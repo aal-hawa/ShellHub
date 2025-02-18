@@ -6,7 +6,7 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:45:13 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/18 16:04:13 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:25:02 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,26 @@ void check_and_add(t_info *info, char *arg, int add_to_env)
 	(void) add_to_env;
 	if(is_exist_str_in_2array(info->export, arg, 0) || is_exist_str_in_2array(info->export, arg, ft_strlen(arg)))
 	{
+		info->export = del_str_from_array2d(info->export, arg, ft_strlen(arg));
 		info->export = add_in_split(info->export, arg, 0);
 		printf("\n------\ndeleting {{%s}}, adding with new value{{%s}}\n------\n", arg, arg);
+		// if(add_to_env &&(is_exist_str_in_2array(info->envp, arg, 0) || is_exist_str_in_2array(info->envp, arg, ft_strlen(arg))))
+		// {
+		// 	info->envp = del_str_from_array2d(info->envp, arg, 0);
+		// 	info->envp = add_in_split(info->envp, arg, 0);
+		// } 
+		// else
+		// {
+		// 	info->envp = add_in_split(info->envp, arg, 0);
+		// }
 		//delete
 		//add
 	}
 	else
 	{
 		info->export = add_in_split(info->export, arg, 1);
+		if(add_to_env)
+			info->envp = add_in_split(info->envp, arg, 0);
 		printf("\n------\nadding{{%s}}\n------\n",arg);
 		//add
 	}
