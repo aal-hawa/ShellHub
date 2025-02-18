@@ -6,7 +6,7 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:45:13 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/16 21:27:48 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:49:48 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int check_is_valid(char *str)
 	return (1);
 }
 
-//export hello from 42AD We @re So H@ppy here live here=everything
+//export hello from 42AD We @re So H@ppy here live here=everything USER
 
 int is_env(char *str)
 {
@@ -59,12 +59,14 @@ void check_and_add(t_info *info, char *arg, int add_to_env)
 	(void) add_to_env;
 	if(is_exist_str_in_2array(info->export, arg, 0) || is_exist_str_in_2array(info->export, arg, ft_strlen(arg)))
 	{
+		add_in_split(info->export, arg, 0);
 		printf("\n------\ndeleting {{%s}}, adding with new value{{%s}}\n------\n", arg, arg);
 		//delete
 		//add
 	}
 	else
 	{
+		is_exist_str_in_2array(info->export, arg, 0);
 		printf("\n------\nadding{{%s}}\n------\n",arg);
 		//add
 	}

@@ -77,7 +77,7 @@ char	**del_str_from_array2d(char **array2d, char *del_str, int size_str)
 	new_split[++y] = NULL;
 	return (free_split(array2d, len), new_split);
 }
-
+// alpha:
 char	**add_in_split(char **split, char *add_str, int is_alpha)
 {
 	int		i;
