@@ -119,7 +119,7 @@ int		is_operator_input_fun(char *str);
 int		is_operator_output_fun(char *str);
 int		is_char_operator_fun(char c);
 int		is_qout_fun(int last_is_qout, char c);
-
+void	del_qout_nodes(t_node *node);
 
 void	init_colors(t_colors *colors, t_info *info);
 int		parsing_input(char **line);

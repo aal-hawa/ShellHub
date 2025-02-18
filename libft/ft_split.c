@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:04:01 by tmahmoud          #+#    #+#             */
-/*   Updated: 2024/07/17 13:41:11 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:39:43 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,10 @@
 
 int	is_qout_fun1(int last_is_qout, char c)
 {
-	printf("last_is_qout %d ", last_is_qout);
-
 	if (last_is_qout == 0 && (c == '\"' || c == '\''))
 		last_is_qout = 1;
 	else if (last_is_qout == 1 && (c == '\"' || c == '\''))
 		last_is_qout = 0;
-	printf("is_qout %d c %c\n", last_is_qout, c);
-
 	return (last_is_qout);
 }
 
@@ -67,7 +63,6 @@ int	fill(char **result, char const *s, char c)
 				return (1);
 		}
 		ft_strlcpy(result[i], s - len, len + 1);
-		printf("result[i] %s\n", result[i]);
 		i++;
 	}
 	return (0);
@@ -116,9 +111,7 @@ char	**ft_split(char const *s, char c)
 	if (!result)
 		return (NULL);
 	result[words] = NULL;
-	printf("---------this split---------\n");
 	if (fill(result, s, c))
 		return (NULL);
-	printf("---------finish split---------\n");
 	return (result);
 }

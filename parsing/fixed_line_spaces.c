@@ -13,7 +13,7 @@ int		add_more_spaces(char **line)
 	is_qout = 0;
 	while(line[0][i])
 	{
-		if (is_qout == 0 && is_char_operator_fun(line[0][i]) && line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i])
+		if (i != 0 && is_qout == 0 && is_char_operator_fun(line[0][i]) && line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i])
 			j++;
 		if (is_qout == 0 && is_char_operator_fun(line[0][i]) && line[0][i + 1] != ' ' && line[0][i + 1] != line[0][i])
 			j++;
@@ -46,7 +46,7 @@ void	fixed_line_spaces(char **line)
 		return ;
 	while(line[0][i])
 	{
-		if (is_qout == 0 && i != 0 && is_char_operator_fun(line[0][i])
+		if (i != 0 && is_qout == 0 && i != 0 && is_char_operator_fun(line[0][i])
 			&& line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i])
 			dest[j++] = ' ';
 		dest[j++] = line[0][i];

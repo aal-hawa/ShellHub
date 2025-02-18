@@ -145,6 +145,8 @@ void	order_info_nodes(t_info *info)
 	while (next_node)
 	{
 		order_nodes(&current_node, &next_node, info);
+		del_qout_nodes(current_node);
+
 		if (!first_node)
 			first_node = current_node;
 		while (current_node->next)

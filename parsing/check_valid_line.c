@@ -35,17 +35,16 @@ int	check_valid_line(char **line)
 		return (0);
 	if (line[0][0] == '|')
 	{
-		if (line[0][0] == '|' )
-			printf ("bash: syntax error near unexpected token `|'\n");
-		else
-			printf ("bash: syntax error near unexpected token `newline'");
+		printf ("bash: syntax error near unexpected token `|'\n");
 		line[0] = free_char(&line[0]);
 		return (0);
 	}
-	if (line[0][strlen(line[0]) - 1] == '|')
+	if (line[0][strlen(line[0]) - 1] == '|' || line[0][strlen(line[0]) - 1] == '>' || line[0][strlen(line[0]) - 1] == '<')
 	{
 		if (line[0][0] == '|')
 			printf ("error syntax\n");
+		else
+			printf ("bash: syntax error near unexpected token `newline'\n");
 		line[0] = free_char(line);
 		return (0);
 	}

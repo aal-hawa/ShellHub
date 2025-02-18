@@ -25,7 +25,7 @@ void	unlink_files(t_info *info)
 void	minishell(t_info *info)
 {
 	char	*line;
-	int		is_error_127;
+	// int		is_error_127;
 
 	while (1)
 	{
@@ -41,13 +41,14 @@ void	minishell(t_info *info)
 		if (info->first_node)
 		{
 			print_nodes(info->first_node, info->colors);
-			is_error_127 = execute_fun(info);
+			// is_error_127 = execute_fun(info);
+			execute_fun(info);
 			unlink_files(info);
 			// free_nodes(&nodes);
-			if (is_error_127 == 1)
-				exit(127);
-			if (info->is_exit_one == 1)
-				exit(1);
+			// if (is_error_127 == 1)
+			// 	exit(127);
+			// if (info->is_exit_one == 1)
+			// 	exit(1);
 		}
 		line = free_char(&line);
 		// free_node(&info->first_node);
