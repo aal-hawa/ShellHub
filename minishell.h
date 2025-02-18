@@ -122,7 +122,7 @@ int		is_char_operator_fun(char c);
 int		is_qout_fun(int last_is_qout, char c);
 void	del_qout_nodes(t_node *node);
 char	*doller_sign_fun(char **str, t_info *info);
-
+char	*find_doller_sign_fun(char **str, t_info *info);
 
 void	init_colors(t_colors *colors, t_info *info);
 int		parsing_input(char **line);

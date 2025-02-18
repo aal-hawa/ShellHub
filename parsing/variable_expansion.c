@@ -40,7 +40,7 @@ char	*doller_sign_fun(char **str, t_info *info)
 			i++;
 			continue ;
 		}
-		if (varible == *str)
+		if (varible == *(str + 1))
 		{
 			*str = free_char(str);
 			return (value_fun(info->envp[i], '='));
@@ -50,45 +50,31 @@ char	*doller_sign_fun(char **str, t_info *info)
 		i++;
 	}
 	*str = free_char(str);
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 char	*find_doller_sign_fun(char **str, t_info *info)
 {
 	char	*dst;
-	// char	*result;
 	int		i;
-	int		j;
-	int		len;
+	char **split_str;
 
 	if (!str || !*str)
 		return (NULL);
 	i = 0;
-	j = 0;
 	dst = NULL;
-	// result = NULL;
-	while (str[i])
+	split_str = ft_split(*str, '$');
+	if (len_split(split_str) < 2)
 	{
-		if (str[0][i] == '$')
-		{
-			j++;
-			i++;
-			while(str[0][i] && (str[0][i] != '$' || str[0][i] != ' '))
-			{
-				j++;
-				i++;
-			}
-			dst = malloc(sizeof(char) * (i - j + 1));
-			ft_strlcat(dst, str[i], j);
-			dst = doller_sign_fun(&dst, info);
-			if (dst)
-			{
-				len = strlen(dst);
-				len += i - j;
-				
-			}
-		}
-
+		free_split(split_str, 0);
+		return (*str);
 	}
-	return (NULL);
+	while (split_str[++i])
+		split_str[i] = doller_sign_fun(&str[i], info);
+	i = -1;
+	while (split_str[++i])
+		dst = ft_strjoin(dst, split_str[i]);
+	free_split(split_str, 0);
+	*str = free_char(str);
+	return (dst);
 }
