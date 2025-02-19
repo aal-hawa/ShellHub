@@ -123,14 +123,14 @@ int		is_qout_fun(int last_is_qout, char c);
 void	del_qout_nodes(t_node *node);
 char	*doller_sign_fun(char **str, t_info *info);
 char	*find_doller_sign_fun(char **str, t_info *info);
-
+char	*marge_doller_sign(char *str_dollersign, char *str);
 void	init_colors(t_colors *colors, t_info *info);
 int		parsing_input(char **line);
 void	print_array2d(char **array2d, int is_with_newline);
 void	print_array2d_fd(char **array2d, int fd);
-int		check_valid_line(char **line);
+int		check_valid_line(char **line, t_info *info);
 char	*double_quot_fun(char *str);
-char	*single_quot_fun(char *str);
+char	*single_quot_fun(char *str, t_info *info);
 void	fixed_line_spaces(char **line);
 
 

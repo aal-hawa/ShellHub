@@ -1,6 +1,6 @@
 # include "../minishell.h"
 
-int	is_valid_qout(char **line)
+int	is_valid_qout(char **line, t_info *info)
 {
 	char	*dest;
 	int		i;
@@ -18,7 +18,7 @@ int	is_valid_qout(char **line)
 		}
 		else if (line[0][i] == '\'')
 		{
-			dest = single_quot_fun(&line[0][++i]);
+			dest = single_quot_fun(&line[0][++i], info);
 			if (!dest)
 				return (0);
 			i += ft_strlen(dest);
@@ -29,7 +29,7 @@ int	is_valid_qout(char **line)
 	return (1);
 }
 
-int	check_valid_line(char **line)
+int	check_valid_line(char **line, t_info *info)
 {
 	if (ft_strlen(line[0]) == 0)
 		return (0);
@@ -48,7 +48,7 @@ int	check_valid_line(char **line)
 		line[0] = free_char(line);
 		return (0);
 	}
-	if(!is_valid_qout(line))
+	if(!is_valid_qout(line, info))
 	{
 		printf ("error syntax qoutition\n");
 		line[0] = free_char(line);

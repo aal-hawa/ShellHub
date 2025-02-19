@@ -33,17 +33,11 @@ void	minishell(t_info *info)
 		// readLine && hestory
 		line = readline_fun();
 		printf("%sthe input: %s%s\n", info->colors->cyan_color, info->colors->default_color, line);
-		if (!check_valid_line(&line))
+		if (!check_valid_line(&line, info))
 			continue ;
 		fixed_line_spaces(&line);
-		printf("line %s\n", line);
-		printf("aaaaaaaaaaaaaaaaaaaaaa\n");
 		line = find_doller_sign_fun(&line, info);
-		
-		printf("line %s\n", line);
-		printf("ssssssssssssssssssssss\n");
 		create_nodes(line, info);
-		printf("ddddddddddddddddddddddd\n");
 
 		if (info->first_node)
 		{

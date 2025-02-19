@@ -26,6 +26,21 @@ char	*value_fun(char *str, char devide_char)
 	return (dest);
 }
 
+char	*marge_doller_sign(char *str_dollersign, char *str)
+{
+	char	*dst;
+	char	*str_join;
+
+	dst = value_fun(str, ' ');
+	if (dst)
+	{
+		str_join = ft_strjoin(" ", dst);
+		dst =ft_restore_value(&dst, &str_join, 1);
+		str_dollersign = ft_restore_value(&str_dollersign, &dst, 1);
+	}
+	return (str_dollersign);
+}
+
 char	*doller_sign_fun(char **str, t_info *info)
 {
 	int		i;
@@ -44,7 +59,12 @@ char	*doller_sign_fun(char **str, t_info *info)
 		if (!ft_strcmp(varible, str_sign))
 		{
 			str_sign = free_char(&str_sign);
-			str_sign = ft_strjoin(value_fun(info->envp[i], '='), value_fun(*str, ' '));
+			varible = free_char(&varible);
+			// varible = value_fun(*str, ' ');
+			// if (varible)
+			// 	varible = ft_strjoin(" ",varible);
+			// str_sign = ft_strjoin(value_fun(info->envp[i], '='), varible);
+			str_sign = marge_doller_sign(value_fun(info->envp[i], '='), *str);
 			*str = free_char(str);
 			*str = str_sign;
 			return (str_sign);
@@ -53,8 +73,8 @@ char	*doller_sign_fun(char **str, t_info *info)
 		varible = NULL;
 	}
 	str_sign = free_char(&str_sign);
-	*str = free_char(str);
 	str_sign = value_fun(*str, ' ');
+	*str = free_char(str);
 	if (!str_sign)
 		str_sign = ft_strdup("");
 	return (str_sign);
@@ -84,13 +104,12 @@ char	*find_doller_sign_fun(char **str, t_info *info)
 		return (*str);
 	}
 	while (split_str[++i])
-		split_str[i] = doller_sign_fun(&str[i], info);
+		split_str[i] = doller_sign_fun(&split_str[i], info);
 	i = -1;
 	while (split_str[++i])
 		dst = ft_strjoin(dst, split_str[i]);
 	free_split(split_str, 0);
 	*str = free_char(str);
 	*str = dst;
-	printf ("dst %s\n", dst);
 	return (dst);
 }
