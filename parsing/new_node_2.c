@@ -71,6 +71,8 @@ void	create_nodes(char *line, t_info *info)
 	j = 0;
 	i = 0;
 	is_qout = 0;
+	if (!line)
+		return ;
 	node = malloc_node();
 	if (!node)
 	{

@@ -36,7 +36,14 @@ void	minishell(t_info *info)
 		if (!check_valid_line(&line))
 			continue ;
 		fixed_line_spaces(&line);
+		printf("line %s\n", line);
+		printf("aaaaaaaaaaaaaaaaaaaaaa\n");
+		line = find_doller_sign_fun(&line, info);
+		
+		printf("line %s\n", line);
+		printf("ssssssssssssssssssssss\n");
 		create_nodes(line, info);
+		printf("ddddddddddddddddddddddd\n");
 
 		if (info->first_node)
 		{

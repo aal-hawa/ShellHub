@@ -28,43 +28,57 @@ char	*value_fun(char *str, char devide_char)
 
 char	*doller_sign_fun(char **str, t_info *info)
 {
-	int	i;
+	int		i;
 	char	*varible;
+	char	*str_sign;
 
-	i = 0;
-	while (info->envp[i])
+	i = -1;
+	str_sign = ft_strccpy(*str, ' ');
+	if (!str_sign)
+		str_sign = ft_strdup(*str);
+	while (info->envp[++i])
 	{
 		varible = ft_strccpy(info->envp[i], '=');
 		if (!varible)
-		{
-			i++;
 			continue ;
-		}
-		if (varible == *(str + 1))
+		if (!ft_strcmp(varible, str_sign))
 		{
+			str_sign = free_char(&str_sign);
+			str_sign = ft_strjoin(value_fun(info->envp[i], '='), value_fun(*str, ' '));
 			*str = free_char(str);
-			return (value_fun(info->envp[i], '='));
+			*str = str_sign;
+			return (str_sign);
 		}
 		free (varible);
 		varible = NULL;
-		i++;
 	}
+	str_sign = free_char(&str_sign);
 	*str = free_char(str);
-	return (ft_strdup(""));
+	str_sign = value_fun(*str, ' ');
+	if (!str_sign)
+		str_sign = ft_strdup("");
+	return (str_sign);
 }
 
 char	*find_doller_sign_fun(char **str, t_info *info)
 {
 	char	*dst;
 	int		i;
+	int		allow_find;
 	char **split_str;
 
 	if (!str || !*str)
 		return (NULL);
 	i = 0;
 	dst = NULL;
+	allow_find = 2;
+	if (str[0][0] == '$')
+	{
+		i = -1;
+		allow_find = 1;
+	}
 	split_str = ft_split(*str, '$');
-	if (len_split(split_str) < 2)
+	if (len_split(split_str) < allow_find)
 	{
 		free_split(split_str, 0);
 		return (*str);
@@ -76,5 +90,7 @@ char	*find_doller_sign_fun(char **str, t_info *info)
 		dst = ft_strjoin(dst, split_str[i]);
 	free_split(split_str, 0);
 	*str = free_char(str);
+	*str = dst;
+	printf ("dst %s\n", dst);
 	return (dst);
 }

@@ -20,27 +20,29 @@ void	free_nodes(t_node **nodes)
 		free(temp);
 	}
 }
-void	free_node(t_node **nodes)
+void	free_node(t_node **node)
 {
 
 	int	i;
 
 	i = 0;
-	if (nodes[0]->args)
+	if (!node || !*node)
+		return ;
+	if (node[0]->args)
 	{
-		while (nodes[0]->args[i])
+		while (node[0]->args[i])
 		{
-			free(nodes[0]->args[i]);
-			nodes[0]->args[i] = NULL;
+			free(node[0]->args[i]);
+			node[0]->args[i] = NULL;
 			i++;
 		}
-		free(nodes[0]->args);
-		nodes[0]->args = NULL;
+		free(node[0]->args);
+		node[0]->args = NULL;
 	}
-	nodes[0]->type_before = free_char(&(nodes[0]->type_before));
-	nodes[0]->type_after = free_char(&(nodes[0]->type_after));
-	nodes[0]->last_fd_name = free_char(&(nodes[0]->last_fd_name));
-	nodes[0]->next = NULL;
-	free(*nodes);
-	*nodes = NULL;
+	node[0]->type_before = free_char(&(node[0]->type_before));
+	node[0]->type_after = free_char(&(node[0]->type_after));
+	node[0]->last_fd_name = free_char(&(node[0]->last_fd_name));
+	node[0]->next = NULL;
+	free(*node);
+	*node = NULL;
 }

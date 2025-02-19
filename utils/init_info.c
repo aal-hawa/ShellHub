@@ -27,7 +27,7 @@ void	init_info(int ac, char *env, char **envp, t_info *info)
 	info->status_exit = 0;
 	info->curent_path = NULL;
 	info->index_files_crt = 0;
-	// info->first_node = NULL;
+	info->first_node = NULL;
 }
 
 void	reset_info(t_info *info)
@@ -40,4 +40,5 @@ void	reset_info(t_info *info)
 	info->fd_file_w = -2;
 	info->is_exit_one = 0;
 	info->is_builtins_file = 0;
+	free_node(&info->first_node);
 }
