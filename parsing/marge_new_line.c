@@ -1,7 +1,5 @@
 #include "../minishell.h"
 
-
-
 char	*marge_new_line(char **line, char **str_be4, char **str_after, char *str_changed)
 {
 	char	*str_join;

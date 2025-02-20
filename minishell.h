@@ -129,11 +129,12 @@ int		parsing_input(char **line);
 void	print_array2d(char **array2d, int is_with_newline);
 void	print_array2d_fd(char **array2d, int fd);
 int		check_valid_line(char **line, t_info *info);
-char	*double_quot_fun(char *str);
-char	*single_quot_fun(char **line, int i, char *str, t_info *info);
+char	*double_quot_fun(char **line, int i, char *str, t_info *info);
+char	*single_quot_fun(char *str);
 void	fixed_line_spaces(char **line);
 char	*marge_new_line(char **line, char **str_be4, char **str_after, char *str_changed);
 char	*tilde(char **line, char *str_home);
+char	*status_program_fun(char **str, t_info *info);
 
 
 size_t		ft_strlen(const char *s);
