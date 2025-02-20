@@ -18,7 +18,8 @@ int	is_valid_qout(char **line, t_info *info)
 		}
 		else if (line[0][i] == '\'')
 		{
-			dest = single_quot_fun(&line[0][++i], info);
+			i++;
+			dest = single_quot_fun(line, i, &line[0][i], info);
 			if (!dest)
 				return (0);
 			i += ft_strlen(dest);

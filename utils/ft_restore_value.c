@@ -14,11 +14,11 @@
 
 char	*ft_restore_value(char **dest, char **str, int is_str_malloc)
 {
-	free_fun(dest);
+	*dest = free_char(dest);
 	*dest = ft_strdup(*str);
 	if (!*dest)
 		return (NULL);
 	if (is_str_malloc == 1)
-		free_fun(str);
+		*str = free_char(str);
 	return (*dest);
 }

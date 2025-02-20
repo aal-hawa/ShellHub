@@ -36,7 +36,8 @@ char	*marge_doller_sign(char *str_dollersign, char *str)
 	{
 		str_join = ft_strjoin(" ", dst);
 		dst =ft_restore_value(&dst, &str_join, 1);
-		str_dollersign = ft_restore_value(&str_dollersign, &dst, 1);
+		str_join = ft_strjoin(str_dollersign, dst);
+		return (str_join);
 	}
 	return (str_dollersign);
 }
@@ -58,13 +59,13 @@ char	*doller_sign_fun(char **str, t_info *info)
 			continue ;
 		if (!ft_strcmp(varible, str_sign))
 		{
+			printf("str_sign0: %s::\n", value_fun(info->envp[i],'='));
+
 			str_sign = free_char(&str_sign);
 			varible = free_char(&varible);
-			// varible = value_fun(*str, ' ');
-			// if (varible)
-			// 	varible = ft_strjoin(" ",varible);
-			// str_sign = ft_strjoin(value_fun(info->envp[i], '='), varible);
 			str_sign = marge_doller_sign(value_fun(info->envp[i], '='), *str);
+			printf("str_sign1: %s::\n", str_sign);
+			
 			*str = free_char(str);
 			*str = str_sign;
 			return (str_sign);
@@ -103,6 +104,9 @@ char	*find_doller_sign_fun(char **str, t_info *info)
 		free_split(split_str, 0);
 		return (*str);
 	}
+	printf("---------___----------\n");
+	print_array2d(split_str, 1);
+	printf("---------___----------\n");
 	while (split_str[++i])
 		split_str[i] = doller_sign_fun(&split_str[i], info);
 	i = -1;

@@ -39,7 +39,7 @@ int	fill(char **result, char const *s, char c)
 		len = 0;
 		while (*s == c && *s)
 			++s;
-		while ((*s != c || is_qout == 1) && *s)
+		while ((*s != c || is_qout != 0) && *s)
 		{
 			is_qout = is_qout_fun(is_qout, *s);
 			len++;
@@ -74,7 +74,7 @@ size_t	wordscount(char const *s, char c)
 		while (s[i] == c && s[i])
 			i++;
 			// "a ll"
-		while ((s[i] != c || is_qout == 1) && s[i])
+		while ((s[i] != c || is_qout != 0) && s[i])
 		{
 			if (new == 0)
 			{

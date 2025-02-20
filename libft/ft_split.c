@@ -15,9 +15,13 @@
 
 int	is_qout_fun1(int last_is_qout, char c)
 {
-	if (last_is_qout == 0 && (c == '\"' || c == '\''))
+	if (last_is_qout == 0 && c == '\'')
 		last_is_qout = 1;
-	else if (last_is_qout == 1 && (c == '\"' || c == '\''))
+	else if (last_is_qout == 0 && c == '\"')
+		last_is_qout = 2;
+	else if (last_is_qout == 1 && c == '\'')
+		last_is_qout = 0;
+	else if (last_is_qout == 2 &&  c == '\"')
 		last_is_qout = 0;
 	return (last_is_qout);
 }
@@ -51,7 +55,7 @@ int	fill(char **result, char const *s, char c)
 		len = 0;
 		while (*s == c && *s)
 			++s;
-		while ((*s != c || is_qout == 1) && *s)
+		while ((*s != c || is_qout != 0) && *s)
 		{
 			is_qout = is_qout_fun1(is_qout, *s);
 			len++;
@@ -84,7 +88,7 @@ size_t	wordscount(char const *s, char c)
 		new = 0;
 		while (s[i] == c && s[i])
 			i++;
-		while ((s[i] != c || is_qout == 1) && s[i])
+		while ((s[i] != c || is_qout != 0) && s[i])
 		{
 			if (new == 0)
 			{
