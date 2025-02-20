@@ -1,69 +1,76 @@
 # include "../minishell.h"
 
-int	before_qout(char **line, char **str, int i, int y)
+void	before_qout(char **line, int i)
 {
-	int	j;
+	int		j;
+	char 	*str;
 
 	if ( i != 0 && line[0][i - 1] != ' ')
 	{
-		j = i - 1;
-		while (j > 0 && line[0][j] != ' ')
+		printf ("before_qout\n");
+		str = ft_strdup(*line);
+		j = i;
+		while (j > 0 && line[0][j - 1] && line[0][j - 1] != ' ')
+		{
+			str[j] = line[0][j - 1];
 			j--;
-		while (++y <= j)
-			str[0][y] = line[0][y];
-		str[0][y] = line[0][i];
-		while (++y < i)
-			str[0][y] = line[0][y];
+		}
+		str[j] = line[0][i];
+		ft_restore_value(line, &str, 1);
+		printf ("line[0]: %s\n", line[0]);
 	}
-	return (y);
 }
 
-int	after_qout(char **line, char **str, int i, int y)
+void	after_qout(char **line, int *adress_i)
 {
-	int	j;
+	int		j;
+	int		i;
+	char 	*str;
 
+	i = *(adress_i);
 	if (line[0][i + 1] && line[0][i + 1] != ' ')
 	{
-		j = i + 1;
-		while (line[0][j] && line[0][j] != ' ')
+		printf ("after_qout\n");
+
+		str = ft_strdup(*line);
+		j = i;
+		while (line[0][j + 1] && line[0][j + 1] != ' ')
+		{
+			str[j] = line[0][j + 1];
 			j++;
-		while (++y < j)
-			str[0][y] = line[0][y + 1];
-		str[0][y] = line[0][i];
-		// while (++y < i)
-		// 	str[0][y] = line[0][y];
+		}
+		str[j] = line[0][i];
+		ft_restore_value(line, &str, 1);
+		printf ("line[0]: %s\n", line[0]);
+		*(adress_i) = j;
 	}
-	return (y);
 }
 
 
 char	*chck_spacesbetween_qout(char **line)
 {
-	char	*str;
 	int		i;
-	int		y;
 	int		is_qout;
+	char	c;
 
 	i = -1;
-	y = ft_strlen(*line);
-	str = malloc(sizeof(char) * (y + 1));
-	y = -1;
 	is_qout = 0;
 	while (line[0][++i])
 	{
+		c = line[0][i];
 		if (line[0][i] == '\'' || line[0][i] == '\"')
 		{
 			if (is_qout == 0)
-				y = before_qout(line, &str, i, y);
+				before_qout(line, i);
 			else
-				y = after_qout(line, &str, i, y);
+				after_qout(line, &i);
 		}
-		is_qout = is_qout_fun(is_qout, line[0][i]);
+		is_qout = is_qout_fun(is_qout, c);
+		printf("line[0][i]: %c ", c);
+		printf("is_qout: %d\n", is_qout);
 	}
-	while (++y < i)
-		str[y] = line[0][y];
-	str[y] = '\0';
-	return (ft_restore_value(line, &str, 1));
+	printf("str: %s\n", *line);
+	return (*line);
 }
 
 int	is_valid_qout(char **line, t_info *info)
