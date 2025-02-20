@@ -132,7 +132,8 @@ int		check_valid_line(char **line, t_info *info);
 char	*double_quot_fun(char *str);
 char	*single_quot_fun(char **line, int i, char *str, t_info *info);
 void	fixed_line_spaces(char **line);
-
+char	*marge_new_line(char **line, char **str_be4, char **str_after, char *str_changed);
+char	*tilde(char **line, char *str_home);
 
 
 size_t		ft_strlen(const char *s);

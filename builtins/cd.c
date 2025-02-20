@@ -20,8 +20,10 @@ char	**cd_fun(char **args, t_info *info, int is_print)
 		result[1] = NULL;
 		return(result);
 	}
-	if (!cd || (cd && ft_strcmp(cd, "~")))
+	if (!cd) // || (cd && ft_strcmp(cd, "~"))
 		info->curent_path = ft_restore_value(&info->curent_path, &info->home, 0);
+	else if (cd[0] == '/')
+		info->curent_path = ft_restore_value(&info->curent_path, &cd, 0);
 	else if (!ft_strcmp(cd,".."))
 		info->curent_path = ft_strlchr(&info->curent_path, '/', 1);
 	else

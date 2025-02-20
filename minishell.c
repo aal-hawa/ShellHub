@@ -37,6 +37,7 @@ void	minishell(t_info *info)
 			continue ;
 		fixed_line_spaces(&line);
 		line = find_doller_sign_fun(&line, info);
+		line = tilde(&line, info->home);
 		create_nodes(line, info);
 
 		if (info->first_node)
