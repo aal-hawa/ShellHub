@@ -121,8 +121,8 @@ int	check_valid_line(char **line, t_info *info)
 		line[0] = free_char(line);
 		return (0);
 	}
-	*line = chck_spacesbetween_qout(line);
-	printf ("line %s\n", *line);
+	//*line = chck_spacesbetween_qout(line);
+	//printf ("line %s\n", *line);
 
 	if(!is_valid_qout(line, info))
 	{
