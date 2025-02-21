@@ -99,6 +99,7 @@ ssize_t	ft_strclen(const char *s, char to_char);
 char	*ft_strccpy(char *str, char to_char);
 void	ft_strccpy_free(char **str, char to_char);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strccmp(const char *s1, const char *s2, char c);
 char	*ft_restore_value(char **dest, char **str, int is_str_malloc);
 char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
 // void	free_split(char **split, int len);
