@@ -135,7 +135,8 @@ void	fixed_line_spaces(char **line);
 char	*marge_new_line(char **line, char **str_be4, char **str_after, char *str_changed);
 char	*tilde(char **line, char *str_home);
 char	*status_program_fun(char **str, t_info *info);
-
+char	*chck_spacesbetween_qout(char **line);
+int		is_valid_qout(char **line, t_info *info);
 
 size_t		ft_strlen(const char *s);
 char		**ft_split_p(char const *s, char c, t_info *info);

@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:57:52 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/18 16:41:30 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/02/21 19:29:04 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,4 @@ char	**echo_with_line_fun(char **args, int is_print)
 	if (is_print == 1)
 		print_array2d(result, 0);
 	return (result);
-	// char	**result;
-
-	// if (!args)
-	// 	return (NULL);
-	// result = malloc (sizeof(char *));
-	// if (!result)
-	// 	return (NULL);
-	// result[0] = ft_strjoin(args, "\n");
-	// if (is_print == 1)
-	// 	printf("%s\n", args);
-	// return (result);
 }
