@@ -4,9 +4,7 @@
 int	is_exist_str_in_2array(char **array2d, char *del_str, int size_str)
 {
 	int		i;
-	// char	*str_zero;
-	// char	*str_array2d;
-
+	
 	i = -1;
 	while (array2d && array2d[++i])
 	{
@@ -14,18 +12,6 @@ int	is_exist_str_in_2array(char **array2d, char *del_str, int size_str)
 		{
 			if (!ft_strccmp(array2d[i], del_str, '='))
 				return (i);
-			// str_array2d = ft_strccpy(array2d[i],'=');
-			// if (!str_array2d)
-			// 	str_array2d = ft_strdup(array2d[i]);
-			// str_zero = ft_strccpy(del_str,'=');
-			// if (!str_zero)
-			// 	str_zero = ft_strdup(del_str);
-			// if (!ft_strcmp(str_array2d, str_zero))
-			// 	i = -1;
-			// str_zero = free_char(&str_zero);
-			// str_array2d = free_char(&str_array2d);
-			// if (i == -1)
-			// 	return (1);
 		}
 		else if (!ft_strncmp(array2d[i], del_str, size_str))
 			return (i);
@@ -73,7 +59,6 @@ char	**del_str_from_array2d(char **array2d, char *del_str, int size_str)
 	int		len;
 	char	**new_split;
 	char	*str_zero;
-	// char	*str_array2d;
 	int		z;
 
 	z = is_exist_str_in_2array(array2d, del_str, 0);
@@ -87,23 +72,6 @@ char	**del_str_from_array2d(char **array2d, char *del_str, int size_str)
 		return (NULL);
 	while (array2d[++i])
 	{
-		// if (size_str == 0)
-		// {
-		// 	str_array2d = ft_strccpy(array2d[i],'=');
-		// 	if (!str_array2d)
-		// 		str_array2d = ft_strdup(array2d[i]);
-		// 	str_zero = ft_strccpy(del_str,'=');
-		// 	if (!str_zero)
-		// 		str_zero = ft_strdup(del_str);
-		// 	if (ft_strcmp(str_array2d, str_zero))
-		// 	{
-		// 		new_split[++y] = ft_strdup(array2d[i]);
-		// 		if (!new_split[y])
-		// 			return (free_char(&str_zero), free_split(new_split, y - 1), NULL);
-		// 	}
-		// 	str_zero = free_char(&str_zero);
-		// 	str_array2d = free_char(&str_array2d);
-		// }
 		if (size_str == 0)
 		{
 			if (i != z)

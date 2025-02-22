@@ -28,5 +28,7 @@ int	ft_strccmp(const char *s1, const char *s2, char c)
 	i = 0;
 	while (s1[i] && s2[i] && (s1[i] == s2[i]) && s1[i] != c && s2[i] != c)
 		i++;
+	if ((!s1[i] && s2[i] == c) || (!s2[i] && s1[i] == c))
+		return (0);
 	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }
