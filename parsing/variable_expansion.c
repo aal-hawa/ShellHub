@@ -103,7 +103,7 @@ char	*find_doller_sign_fun(char **str, t_info *info)
 	split_str = ft_split(*str, '$');
 	if (len_split(split_str) < allow_find)
 	{
-		free_split(split_str, 0);
+		free_array2d(split_str, 0);
 		return (*str);
 	}
 	while (split_str[++i])
@@ -111,7 +111,7 @@ char	*find_doller_sign_fun(char **str, t_info *info)
 	i = -1;
 	while (split_str[++i])
 		dst = ft_strjoin(dst, split_str[i]);
-	free_split(split_str, 0);
+	free_array2d(split_str, 0);
 	*str = free_char(str);
 	*str = dst;
 	return (dst);

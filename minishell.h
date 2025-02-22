@@ -68,7 +68,7 @@ typedef struct s_info
 	char	**export;
 	int		is_for_w;
 	int		is_bonus;
-	size_t	i_split;
+	// size_t	i_split;
 	int		env_null;
 	int		is_exit_one;
 	int		is_builtins_file;
@@ -142,6 +142,8 @@ int		is_valid_qout(char **line, t_info *info);
 char	*builtins_error_message(char *str_tybe_builtins, char *str_input);
 char	**builtins_Message(char **str_massege, int is_print, int is_malloc);
 
+
+
 size_t		ft_strlen(const char *s);
 char		**ft_split_p(char const *s, char c, t_info *info);
 int			open_file_w(char *name_file);
@@ -154,20 +156,20 @@ void		env_data(char **envp, char **env, t_info *info);
 void		init_files(t_node *node, t_info *info);
 int			init_files_biultins(char **str, t_info *info);
 void		init_here_doc(t_node *node, t_info *info);
-void		error_pipe(int **fd1, int i, t_info *info, char **strs);
+void		error_pipe(int **fds, int i, t_info *info, char **strs);
 char		*get_next_line(t_info *info);
 char		*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
 char		*free_char(char **this_string);
 void		ft_putstr_fd_p(char *s, int fd, int is_malloc);
 int			finish_parent(int ***fd, pid_t **frs, t_info *info);
 void		de_allocate(int ***fd, pid_t **frs, int i);
-void		free_split(char **dst, size_t i);
+void		free_array2d(char **dst, size_t i);
 char		*ft_strdup(const char *str);
 void		get_path_command(char **strs, t_info *info);
 void		allocate_fds(int ***fd, pid_t **frs, int j);
 void		print_nodes(t_node *nodes, t_colors *colors);
-void		childs(t_node *node, int **fd1, pid_t *frs, t_info *info);
-void		close_fds_childs(int **fd1, t_info *info);
+void		childs(t_node *node, int **fds, pid_t *frs, t_info *info);
+void		close_fds_childs(int **fds, t_info *info);
 int			execute_fun(t_info *info);
 void		create_nodes(char *line, t_info *info);
 #endif

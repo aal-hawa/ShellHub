@@ -78,18 +78,18 @@ char	**del_str_from_array2d(char **array2d, char *del_str, int size_str)
 			{
 				new_split[++y] = ft_strdup(array2d[i]);
 				if (!new_split[y])
-					return (free_char(&str_zero), free_split(new_split, y - 1), NULL);
+					return (free_char(&str_zero), free_array2d(new_split, y - 1), NULL);
 			}
 		}
 		else if (ft_strncmp(array2d[i], del_str, size_str))
 		{
 			new_split[++y] = ft_strdup(array2d[i]);
 			if (!new_split[y])
-				return (free_char(&str_zero), free_split(new_split, y - 1), NULL);
+				return (free_char(&str_zero), free_array2d(new_split, y - 1), NULL);
 		}
 	}
 	new_split[++y] = NULL;
-	return (free_split(array2d, len), new_split);
+	return (free_array2d(array2d, len), new_split);
 }
 // alpha:
 char	**add_in_split(char **split, char *add_str, int is_alpha)
@@ -112,12 +112,12 @@ char	**add_in_split(char **split, char *add_str, int is_alpha)
 		else
 			new_split[j] = ft_strdup(split[i++]);
 		if (!new_split[j++])
-			return(free_split(new_split, j - 2), NULL);
+			return(free_array2d(new_split, j - 2), NULL);
 	}
 	if (is_alpha < 2)
 		new_split[j++] = ft_strdup(add_str);
 	new_split[j] = NULL;
-	free_split(split, len - 1);
+	free_array2d(split, len - 1);
 	return (new_split);
 }
 
@@ -140,7 +140,7 @@ char	**marge_2_splits(char **first_split, char **second_split)
 	{
 		new_split[i] = ft_strdup(first_split[i]);
 		if (!new_split[i])
-			return(free_split(new_split, i - 1), NULL);
+			return(free_array2d(new_split, i - 1), NULL);
 		i++;
 	}
 	j = 0;
@@ -148,12 +148,12 @@ char	**marge_2_splits(char **first_split, char **second_split)
 	{
 		new_split[i] = ft_strdup(second_split[j]);
 		if (!new_split[i])
-			return(free_split(new_split, i - 1), NULL);
+			return(free_array2d(new_split, i - 1), NULL);
 		i++;
 		j++;
 	}
 	new_split[i] = NULL;
-	free_split(first_split, len1);
-	free_split(second_split, len2);
+	free_array2d(first_split, len1);
+	free_array2d(second_split, len2);
 	return (new_split);
 }

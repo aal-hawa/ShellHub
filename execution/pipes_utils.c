@@ -18,17 +18,17 @@ void	free_splits(char **strs)
 	}
 }
 
-void	error_pipe(int **fd1, int i, t_info *info, char **strs)
+void	error_pipe(int **fds, int i, t_info *info, char **strs)
 {
 	if (i == -3)
 	{
-		close(fd1[info->i_childs][0]);
-		close(fd1[info->i_childs + 1][1]);
+		close(fds[info->i_childs][0]);
+		close(fds[info->i_childs + 1][1]);
 	}
 	while (i >= 0)
 	{
-		close(fd1[i][0]);
-		close(fd1[i][1]);
+		close(fds[i][0]);
+		close(fds[i][1]);
 		i--;
 	}
 	if (info->fd_file_r >= 0)

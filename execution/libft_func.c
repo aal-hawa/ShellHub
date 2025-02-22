@@ -12,16 +12,16 @@ char	*ft_strjoin_p(char const *s1, char const *s2, int is_path)
 		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
 	dst = (char *)malloc(sizeof(char) * (len + 2));
-	i = 0;
-	j = 0;
 	if (!dst)
 		return (NULL);
-	while (s1[i])
+	i = 0;
+	j = 0;
+	while (s1 && s1[i])
 		dst[j++] = s1[i++];
 	if (is_path == 1)
 		dst[j++] = '/';
 	i = 0;
-	while (s2[i])
+	while (s2 && s2[i])
 		dst[j++] = s2[i++];
 	dst[j] = '\0';
 	return (dst);

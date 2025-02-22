@@ -8,7 +8,7 @@ void	init_info_main(int ac, char *env, char **envp, t_info *info)
 	info->envp = envp;
 	info->is_bonus = 0;
 	info->limiter = NULL;
-	info->i_split = 0;
+	// info->i_split = 0;
 	info->path_commd = NULL;
 	info->env_null = 0;
 	info->is_for_w = 0;

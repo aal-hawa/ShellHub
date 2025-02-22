@@ -66,14 +66,11 @@ void	builtins_fun(char	***result, t_node *node, t_info *info)
 		exit_fun();
 }
 
-void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
+void	do_execve_fun(t_node **cmd_node, int **fds, pid_t *frs, t_info *info)
 {
-	// int	i;
-
-	// i = 0;
 	if (!cmd_node[0])
 		return ;
-	if (cmd_node[0]->is_dir_bilt_cmd == 2 || cmd_node[0]->is_do_execute > 0) 
+	if (cmd_node[0]->is_dir_bilt_cmd == 2 || cmd_node[0]->is_do_execute > 0)
 	{
 		if (cmd_node[0]->is_do_execute == 1)
 		{
@@ -82,21 +79,11 @@ void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
 		}
 		if (!ft_strcmp(cmd_node[0]->type_after, "|") && ft_strcmp(cmd_node[0]->type_before, ">")) //!!?? //&& ft_strcmp(cmd_node[0]->type_before, ">")
 			info->is_for_w = 2;
-
-		// if (info->is_builtins_file == 1 && !is_operator_output_fun(cmd_node[0]->type_after))
-		// {
-		// 	printf("\niiiiiiiiiiiiiiiiiiii\n");
-		// 	info->is_builtins_file = 0;
-		// 	while(cmd_node[0]->args[i])
-		// 		ft_putstr_fd(cmd_node[0]->args[i++], info->fd_file_w);
-		// 	return ;
-		// }
-		
 		frs[info->i_childs] = fork();
 		if (frs[info->i_childs] == 0)
 		{
-			close_fds_childs(fd1, info);
-			childs(cmd_node[0], fd1, frs, info);
+			close_fds_childs(fds, info);
+			childs(cmd_node[0], fds, frs, info);
 		}
 		info->i_childs++;
 		*cmd_node = NULL;
@@ -133,7 +120,44 @@ int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
 	return (1);
 }
 
-void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
+void	do_builtins(t_node *node, char ***result_blts, t_info *info)
+{
+	if (*result_blts)
+	{
+		free_array2d(*result_blts, 0);
+		*result_blts = NULL;
+	}
+	builtins_fun(result_blts, node, info);
+	if (*result_blts && is_operator_fun(node->type_after) > 0)
+	{
+		if (is_operator_fun(node->type_after) == 2)
+		{
+			info->is_builtins_file = 2;
+			node->fd_file = init_files_biultins(*result_blts, info);
+		}
+		else
+			info->is_builtins_file = 1;
+		node->is_do_execute = 2;
+	}
+}
+
+void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result_blts, t_node **cmd_node)
+{
+	if (node->is_dir_bilt_cmd != 1)
+	{
+		if (info->is_builtins_file == 1
+			&& !is_operator_output_fun(node->type_after)
+			&& is_operator_output_fun(node->type_before))
+		{
+			info->is_builtins_file = 0;
+			print_array2d_fd(result_blts, info->fd_file_w);
+		}
+		else
+			do_execve_fun(cmd_node, fds, frs, info);
+	}
+}
+
+void	order_execve_fun(t_node *node, int **fds, pid_t *frs, t_info *info)
 {
 	char	**result_blts;
 	t_node	*cmd_node;
@@ -149,68 +173,37 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 		if (node->is_dir_bilt_cmd == 0)
 			direct_fun(node, info);
 		else if (node->is_dir_bilt_cmd == 1)
-		{
-			if (result_blts)
-			{
-				free_split(result_blts, 0);
-				result_blts = NULL;
-			}
-			builtins_fun(&result_blts, node, info);
-			// printf("result_blts: %s\n", result_blts);
-			if (result_blts && is_operator_fun(node->type_after) > 0)
-			{
-				if (is_operator_fun(node->type_after) == 2)
-				{
-					info->is_builtins_file = 2;
-					node->fd_file = init_files_biultins(result_blts, info);
-				}
-				else
-					info->is_builtins_file = 1;
-				node->is_do_execute = 2;
-			}
-		}
+			do_builtins(node, &result_blts, info);
 		if (!is_can_do_execve(&node, &cmd_node, info))
 			continue;
-		if (node->is_dir_bilt_cmd != 1)
-		{
-		
-			if (info->is_builtins_file == 1 && !is_operator_output_fun(node->type_after) && is_operator_output_fun(node->type_before))
-			{
-				info->is_builtins_file = 0;
-				print_array2d_fd(result_blts, info->fd_file_w);
-			}
-			else
-				do_execve_fun(&cmd_node, fd1, frs, info);
-		}
+		for_execve(node, fds, frs, info, result_blts, &cmd_node);
 		if (node)
 			node = node->next;
 	}
 	if (result_blts)
 	{
-		free_split(result_blts, 0);
+		free_array2d(result_blts, 0);
 		result_blts = NULL;
 	}
 }
 
 int	execute_fun(t_info *info)
 {
-	int		**fd1;
+	int		**fds;
 	pid_t	*frs;
 
-	fd1 = NULL;
+	fds = NULL;
 	frs = NULL;
 	if (info->str_i > 0)
 	{
-		allocate_fds(&fd1, &frs, info->str_i);
-		// info->offset = init_files(str, info);
+		allocate_fds(&fds, &frs, info->str_i);
 		info->i_fds = 0;
 		while (info->i_fds < info->str_i + 1)
-			if (pipe(fd1[info->i_fds++]) == -1)
-				return (error_pipe(fd1, --info->i_fds, info, NULL),
-					de_allocate(&fd1, &frs, info->str_i), exit(1), 1);
+			if (pipe(fds[info->i_fds++]) == -1)
+				return (error_pipe(fds, --info->i_fds, info, NULL),
+					de_allocate(&fds, &frs, info->str_i), exit(1), 1);
 	}
 	pwd_fun(info, 0);
-	// init_childs(str, fd1, frs, info);
-	order_execve_fun(info->first_node, fd1, frs, info);
-	return (finish_parent(&fd1, &frs, info));
+	order_execve_fun(info->first_node, fds, frs, info);
+	return (finish_parent(&fds, &frs, info));
 }

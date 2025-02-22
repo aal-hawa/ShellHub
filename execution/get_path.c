@@ -20,33 +20,48 @@ void	env_data(char **envp, char **env, t_info *info)
 	}
 }
 
-char	*get_from_env(char *env, char *str, t_info *info)
+int	is_access_str_cmd(char ***env_split, char *str_joined, char *str)
+{
+	if (!str_joined)
+	{
+		ft_putstr_fd_p(ft_strjoin("zsh: command not found: ", str), 2, 2);
+		free_array2d(*env_split, 0);
+		return (-1);
+	}
+	if (!access(str_joined, R_OK))
+	{
+		free_array2d(*env_split, 0);
+		return (1);
+	}
+	return (0);
+}
+
+char	*get_from_env(char *env, char *str)
 {
 	int		i;
 	char	**env_split;
-	char	*joined;
+	char	*str_joined;
+	int		is_access;
 
 	if (!env)
 		return (NULL);
-	i = 0;
-	env_split = ft_split_p(env, ':', info);
+	i = -1;
+	env_split = ft_split(env, ':');
 	if (!env_split)
 		return (NULL);
-	while (env_split[i])
+	while (env_split[++i])
 	{
-		joined = ft_strjoin_p(env_split[i], str, 1);
-		if (!joined)
-			return (ft_putstr_fd_p(
-					ft_strjoin_p("zsh: command not found: ", str, 0), 2, 2),
-				free_split(env_split, info->i_split), NULL);
-		if (!access(joined, R_OK))
-			return (free_split(env_split, info->i_split), joined);
-		joined = free_char(&joined);
-		i++;
+		str_joined = ft_strjoin_p(env_split[i], str, 1);
+		is_access = is_access_str_cmd(&env_split, str_joined, str);
+		if (is_access == -1)
+			return (NULL);
+		if (is_access == 1)
+			return (str_joined);
+		str_joined = free_char(&str_joined);
 	}
-	free_split(env_split, info->i_split);
-	return (ft_putstr_fd_p(ft_strjoin_p("zsh: command not found: ", str, 0), 2, 2),
-		NULL);
+	free_array2d(env_split, 0);
+	ft_putstr_fd_p(ft_strjoin("zsh: command not found: ", str), 2, 2);
+	return (NULL);
 }
 
 void	get_path_command(char **strs, t_info *info)
@@ -66,6 +81,6 @@ void	get_path_command(char **strs, t_info *info)
 			i++;
 		}
 		if (!strs[0][i])
-			info->path_commd = get_from_env(info->env, strs[0], info);
+			info->path_commd = get_from_env(info->env, strs[0]);
 	}
 }
