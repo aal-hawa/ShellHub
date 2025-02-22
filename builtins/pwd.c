@@ -8,6 +8,11 @@ char	**pwd_fun(t_info *info, int is_print)
 	char	**result;
 
 	cur_path = getcwd(NULL, 0);
+	if (!cur_path)
+	{
+		info->status_exit = 1;
+		return (NULL);
+	}
 	info->curent_path = ft_restore_value(&info->curent_path, &cur_path, 1);
 	if (is_print == 1)
 	printf("%s\n",info->curent_path);

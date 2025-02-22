@@ -38,6 +38,7 @@ void	reset_info(t_info *info)
 	info->env_null = 0; //
 	info->is_for_w = 0;
 	info->fd_file_w = -2;
+	info->fd_file_r = -2;
 	info->is_exit_one = 0;
 	info->is_builtins_file = 0;
 	free_node(&info->first_node);

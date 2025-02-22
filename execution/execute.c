@@ -20,13 +20,20 @@ int	direct_fun(t_node *node, t_info *info)
 		init_files(node, info);
 	else if (!ft_strcmp(node->type_before, "<<"))
 		init_here_doc(node, info);
-	if (info->fd_file_w == -1)
+	if (info->fd_file_w == -1 || info->fd_file_r == -1)
 	{
+		info->status_exit = 1;
 		info->is_exit_one = 1;
 		return (1);
 	}
+	info->status_exit = 0;
 	if (node->args[1])
-		node->is_do_execute = 1;
+	{
+		if (is_biult_fun(node->args[1]) == 1)
+			node->is_do_execute = -1;
+		else
+			node->is_do_execute = 1;
+	}
 	return (0);
 }
 
@@ -45,6 +52,7 @@ void	builtins_fun(char	***result, t_node *node, t_info *info)
 			result[0] = echo_n_fun(node->args, is_print);
 		else
 			result[0] = echo_with_line_fun(node->args, is_print);
+		info->status_exit = 0;
 	}
 	else if (!ft_strcmp(node->args[0], "env"))
 		result[0] = env_fun(node->args, is_print);
@@ -69,7 +77,7 @@ void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
 	{
 		if (cmd_node[0]->is_do_execute == 1)
 		{
-			free(*cmd_node[0]->args);
+			free(*(cmd_node[0]->args));
 			cmd_node[0]->args++;
 		}
 		if (!ft_strcmp(cmd_node[0]->type_after, "|") && ft_strcmp(cmd_node[0]->type_before, ">")) //!!?? //&& ft_strcmp(cmd_node[0]->type_before, ">")
@@ -96,6 +104,14 @@ void	do_execve_fun(t_node **cmd_node, int **fd1, pid_t *frs, t_info *info)
 }
 int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
 {
+	if (node[0]->is_do_execute == -1)
+	{
+		free(*(cmd_node[0]->args));
+		cmd_node[0]->args++;
+		node[0]->is_do_execute = 0;
+		node[0]->is_dir_bilt_cmd = 1;
+		return (0);
+	}
 	if (is_operator_output_fun(node[0]->type_after) || !ft_strcmp(node[0]->type_after, "|")
 	|| !ft_strcmp(node[0]->type_after, "end") || node[0]->is_dir_bilt_cmd == 2)
 	{
@@ -107,6 +123,12 @@ int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
 			if (*node)
 				return (0);
 		}
+		if ((info->fd_file_w == -1 || info->fd_file_r == -1) && ft_strcmp(node[0]->type_after, "|"))
+		{
+			*node = node[0]->next;
+			if (*node)
+				return (0);
+		};
 	}
 	return (1);
 }
@@ -125,10 +147,7 @@ void	order_execve_fun(t_node *node, int **fd1, pid_t *frs, t_info *info)
 	{
 		info->is_for_w = 0;
 		if (node->is_dir_bilt_cmd == 0)
-		{
-			if (direct_fun(node, info) == 1)
-				break ;
-		}
+			direct_fun(node, info);
 		else if (node->is_dir_bilt_cmd == 1)
 		{
 			if (result_blts)

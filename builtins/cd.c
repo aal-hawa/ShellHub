@@ -29,8 +29,10 @@ char	**change_path(char *cd, t_info *info, int is_print)
 		str_massege = ft_strjoin("bash: cd: ", cd);
 		result = ft_strjoin(str_massege, ": No such file or directory\n");
 		str_massege = ft_restore_value(&str_massege, &result, 1);
+		info->status_exit = 1;
 		return(more_args_Massege(&str_massege, is_print, 1));
 	}
+	info->status_exit = 0;
 	return(NULL);
 }
 

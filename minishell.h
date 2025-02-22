@@ -116,6 +116,7 @@ void	copy_node(t_node **to_node, t_node **from_node, int is_free_before);
 int		is_exist_str_in_2array(char **array2d, char *del_str, int size_str);
 void	order_info_nodes(t_info *info);
 void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info);
+int		is_biult_fun(char *first_arg);
 int     is_operator_fun(char *str);
 int		is_operator_input_fun(char *str);
 int		is_operator_output_fun(char *str);

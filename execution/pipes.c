@@ -14,9 +14,9 @@ void	close_fds_childs(int **fd1, t_info *info)
 			close(fd1[j][1]);
 		j++;
 	}
-	if (info->i_childs == 0 && info->fd_file_r != -1)
+	if (info->i_childs == 0 && info->fd_file_r >= 0)
 		dup2(info->fd_file_r, STDIN_FILENO);
-	if (info->fd_file_r != -1)
+	if (info->fd_file_r >= 0)
 		close(info->fd_file_r);
 }
 

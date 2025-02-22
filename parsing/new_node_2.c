@@ -1,17 +1,24 @@
 #include "../minishell.h"
 
+int	is_biult_fun(char *first_arg)
+{
+	if (!ft_strcmp(first_arg, "cd")
+		|| !ft_strcmp(first_arg, "pwd") 
+		|| !ft_strcmp(first_arg, "echo")
+		|| !ft_strcmp(first_arg, "env") 
+		|| !ft_strcmp(first_arg, "export")
+		|| !ft_strcmp(first_arg, "unset")
+		|| !ft_strcmp(first_arg, "exit"))
+		return (1);
+	return (0);
+}
+
 void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info)
 {
 	if (!ft_strcmp(before_tybe, "<") || !ft_strcmp(before_tybe,"<<")
 	 || !ft_strcmp(before_tybe,">") || !ft_strcmp(before_tybe,">>"))
 		node[0]->is_dir_bilt_cmd = 0;
-	else if (!ft_strcmp(node[0]->args[0], "cd")
-		|| !ft_strcmp(node[0]->args[0], "pwd") 
-		|| !ft_strcmp(node[0]->args[0], "echo")
-		|| !ft_strcmp(node[0]->args[0], "env") 
-		|| !ft_strcmp(node[0]->args[0], "export")
-		|| !ft_strcmp(node[0]->args[0], "unset")
-		|| !ft_strcmp(node[0]->args[0], "exit"))
+	else if (is_biult_fun(node[0]->args[0]) == 1)
 		node[0]->is_dir_bilt_cmd = 1;
 	else
 	{

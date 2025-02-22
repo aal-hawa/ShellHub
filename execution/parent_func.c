@@ -10,6 +10,7 @@ int	wait_fun(t_info *info)
 	while (info->i_wait < info->str_i)
 	{
 		wait(&exit_child);
+		info->status_exit = exit_child % 255;
 		if (exit_child % 255 == 127)
 			is_error_127 = 1;
 		info->i_wait++;
@@ -28,9 +29,9 @@ void	close_fds_parent(int **fd1, t_info *info)
 		close(fd1[i][1]);
 		i++;
 	}
-	if (info->fd_file_r != -1)
+	if (info->fd_file_r >= 0)
 		close(info->fd_file_r);
-	if (info->fd_file_w != -1)
+	if (info->fd_file_w >= 0)
 		close(info->fd_file_w);
 	if (info->limiter != NULL)
 		free_char(&info->limiter);
