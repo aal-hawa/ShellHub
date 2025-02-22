@@ -46,6 +46,5 @@ int	finish_parent(int ***fd, pid_t **frs, t_info *info)
 	close_fds_parent(*fd, info);
 	is_error_127 = wait_fun(info);
 	de_allocate(fd, frs, info->str_i);
-
 	return (is_error_127);
 }

@@ -31,8 +31,7 @@ void	copy_node(t_node **to_node, t_node **from_node, int is_free_before)
 	if (is_free_before == 1 && to_node[0]->last_fd_name)
 		to_node[0]->last_fd_name = free_char(&to_node[0]->last_fd_name);
 	if (is_free_before == 1 && to_node[0]->args)
-		free_array2d(to_node[0]->args, len_split(to_node[0]->args));
-	
+		free_array2d(&(to_node[0]->args), len_split(to_node[0]->args));
 	to_node[0]->type_after = ft_strdup(from_node[0]->type_after);
 	to_node[0]->type_before = ft_strdup(from_node[0]->type_before);
 	to_node[0]->last_fd_name = ft_strdup(from_node[0]->last_fd_name);

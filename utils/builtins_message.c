@@ -16,18 +16,18 @@ char	*builtins_error_message(char *str_tybe_builtins, char *str_input)
 	return (str_message);
 }
 
-char	**builtins_Message(char **str_massege, int is_print, int is_malloc)
+char	**builtins_Message(char **str_message, int is_print, int is_malloc)
 {
 	char	**result;
 
 	if (is_print == 1)
-		printf ("%s", *str_massege);
+		printf ("%s", *str_message);
 	result = malloc(sizeof(char *) * 2);
 	if (!result)
 		return (NULL);
-	result[0] = ft_strdup(*str_massege);
+	result[0] = ft_strdup(*str_message);
 	result[1] = NULL;
 	if (is_malloc == 1)
-		*str_massege = free_char(str_massege);
+		*str_message = free_char(str_message);
 	return (result);
 }

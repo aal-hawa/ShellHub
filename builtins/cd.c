@@ -1,8 +1,6 @@
 
 # include "../minishell.h"
 
-
-
 char	**change_path(char *cd, t_info *info, int is_print)
 {
 	// char	*result;
@@ -24,12 +22,12 @@ char	**cd_fun(char **args, t_info *info, int is_print)
 {
 	char	*str;
 	char	*cd;
-	char	*str_massege;
+	char	*str_message;
 
 	cd = args[1];
-	str_massege = "bash: cd: too many arguments\n";
+	str_message = "bash: cd: too many arguments\n";
 	if (len_split(args) > 2)
-		return (builtins_Message(&str_massege, is_print, 0));
+		return (builtins_Message(&str_message, is_print, 0));
 	if (!cd)
 		info->curent_path = ft_restore_value(&info->curent_path, &info->home, 0);
 	else if (cd[0] == '/' || (!ft_strncmp(cd,"..", 2) && ft_strlen(cd) > 2))
@@ -39,7 +37,7 @@ char	**cd_fun(char **args, t_info *info, int is_print)
 		if (!ft_strcmp(cd,".."))
 			str = ft_strdup("../");
 		else
-			str = ft_strjoin_p(info->curent_path, cd, 1);
+			str = ft_strjoin_path(info->curent_path, cd, 1);
 		info->curent_path = ft_restore_value(&info->curent_path, &str, 1);
 	}
 	return(change_path(cd, info, is_print));

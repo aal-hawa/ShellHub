@@ -141,7 +141,10 @@ char	*chck_spacesbetween_qout(char **line);
 int		is_valid_qout(char **line, t_info *info);
 char	*builtins_error_message(char *str_tybe_builtins, char *str_input);
 char	**builtins_Message(char **str_massege, int is_print, int is_malloc);
-
+int		direct_fun(t_node *node, t_info *info);
+void	do_builtins(t_node *node, char ***result_blts, t_info *info);
+int		is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info);
+void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result_blts, t_node **cmd_node);
 
 
 size_t		ft_strlen(const char *s);
@@ -149,7 +152,7 @@ char		**ft_split_p(char const *s, char c, t_info *info);
 int			open_file_w(char *name_file);
 // int			execute_fun(char **str, t_info *info);
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
-char		*ft_strjoin_p(char const *s1, char const *s2, int is_path);
+char		*ft_strjoin_path(char const *s1, char const *s2, int is_path);
 int			open_file_w_b(char *name_file);
 void		env_data(char **envp, char **env, t_info *info);
 // int			init_files(char **str, t_info *info);
@@ -160,10 +163,10 @@ void		error_pipe(int **fds, int i, t_info *info, char **strs);
 char		*get_next_line(t_info *info);
 char		*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
 char		*free_char(char **this_string);
-void		ft_putstr_fd_p(char *s, int fd, int is_malloc);
+void		ft_putstr_fd_malloc(char *s, int fd, int is_malloc);
 int			finish_parent(int ***fd, pid_t **frs, t_info *info);
 void		de_allocate(int ***fd, pid_t **frs, int i);
-void		free_array2d(char **dst, size_t i);
+void		free_array2d(char ***dst, size_t i);
 char		*ft_strdup(const char *str);
 void		get_path_command(char **strs, t_info *info);
 void		allocate_fds(int ***fd, pid_t **frs, int j);

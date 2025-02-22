@@ -1,7 +1,6 @@
+#include "../minishell.h"
 
-# include "../minishell.h"
-
-char	*ft_strjoin_p(char const *s1, char const *s2, int is_path)
+char	*ft_strjoin_path(char const *s1, char const *s2, int is_path)
 {
 	size_t	len;
 	char	*dst;
@@ -25,22 +24,4 @@ char	*ft_strjoin_p(char const *s1, char const *s2, int is_path)
 		dst[j++] = s2[i++];
 	dst[j] = '\0';
 	return (dst);
-}
-
-void	ft_putstr_fd_p(char *s, int fd, int is_malloc)
-{
-	int	i;
-
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
-	if (is_malloc == 2 || is_malloc -1)
-		write(fd, "\n", 1);
-	if (is_malloc == 1 || is_malloc == 2)
-		free_char(&s);
 }

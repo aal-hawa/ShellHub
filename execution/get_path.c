@@ -24,13 +24,13 @@ int	is_access_str_cmd(char ***env_split, char *str_joined, char *str)
 {
 	if (!str_joined)
 	{
-		ft_putstr_fd_p(ft_strjoin("zsh: command not found: ", str), 2, 2);
-		free_array2d(*env_split, 0);
+		ft_putstr_fd_malloc(ft_strjoin("zsh: command not found: ", str), 2, 2);
+		free_array2d(env_split, 0);
 		return (-1);
 	}
 	if (!access(str_joined, R_OK))
 	{
-		free_array2d(*env_split, 0);
+		free_array2d(env_split, 0);
 		return (1);
 	}
 	return (0);
@@ -51,7 +51,7 @@ char	*get_from_env(char *env, char *str)
 		return (NULL);
 	while (env_split[++i])
 	{
-		str_joined = ft_strjoin_p(env_split[i], str, 1);
+		str_joined = ft_strjoin_path(env_split[i], str, 1);
 		is_access = is_access_str_cmd(&env_split, str_joined, str);
 		if (is_access == -1)
 			return (NULL);
@@ -59,8 +59,8 @@ char	*get_from_env(char *env, char *str)
 			return (str_joined);
 		str_joined = free_char(&str_joined);
 	}
-	free_array2d(env_split, 0);
-	ft_putstr_fd_p(ft_strjoin("zsh: command not found: ", str), 2, 2);
+	free_array2d(&env_split, 0);
+	ft_putstr_fd_malloc(ft_strjoin("zsh: command not found: ", str), 2, 2);
 	return (NULL);
 }
 
