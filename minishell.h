@@ -139,6 +139,8 @@ char	*tilde(char **line, char *str_home);
 char	*status_program_fun(char **str, t_info *info);
 char	*chck_spacesbetween_qout(char **line);
 int		is_valid_qout(char **line, t_info *info);
+char	*builtins_error_message(char *str_tybe_builtins, char *str_input);
+char	**builtins_Message(char **str_massege, int is_print, int is_malloc);
 
 size_t		ft_strlen(const char *s);
 char		**ft_split_p(char const *s, char c, t_info *info);

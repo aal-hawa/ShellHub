@@ -13,6 +13,7 @@ char	**pwd_fun(t_info *info, int is_print)
 		info->status_exit = 1;
 		return (NULL);
 	}
+	info->status_exit = 0;
 	info->curent_path = ft_restore_value(&info->curent_path, &cur_path, 1);
 	if (is_print == 1)
 	printf("%s\n",info->curent_path);
