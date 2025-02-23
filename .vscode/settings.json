@@ -6,6 +6,7 @@
 		"sstream": "c",
 		"__locale": "c",
 		"__node_handle": "c",
-		"qq": "cpp"
+		"qq": "cpp",
+		"libft.h": "c"
 	}
 }
