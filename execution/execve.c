@@ -18,6 +18,7 @@ void	do_execve_fun(t_node **cmd_node, int **fds, pid_t *frs, t_info *info)
 			close_fds_childs(fds, info);
 			childs(cmd_node[0], fds, frs, info);
 		}
+		info->is_builtins_file = 0;
 		info->i_childs++;
 		*cmd_node = NULL;
 	}
@@ -75,11 +76,14 @@ void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result
 		}
 		else
 		{
-			// if (cmd_node[0]->is_dir_bilt_cmd == 1)
-			// {
-			// 	printf("ssssssssssssssssssss\n");
-			// 	cmd_node[0]->result_builtins = result_blts;
-			// }
+			if (info->is_builtins_file == 2)
+			{
+				// print_array2d(result_blts, 1);
+				// cmd_node[0]->result_builtins = result_blts;
+				// print_array2d(node->args, 1);
+				copy_node(cmd_node, &node, 0);
+				// info->is_builtins_file = 0;
+			}
 			do_execve_fun(cmd_node, fds, frs, info);
 		}
 	}

@@ -149,7 +149,7 @@ void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result
 char	**move2next_arg(t_node **cmd_node);
 int		open_file_r_w(char *name_file);
 int		open_file_r(char *name_file);
-
+int		close_fd_fun(int fd2close);
 
 size_t		ft_strlen(const char *s);
 // char		**ft_split_p(char const *s, char c, t_info *info);
