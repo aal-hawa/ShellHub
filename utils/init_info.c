@@ -41,5 +41,7 @@ void	reset_info(t_info *info)
 	info->fd_file_r = -2;
 	info->is_exit_one = 0;
 	info->is_builtins_file = 0;
+	info->i_fds = 0;
+
 	free_node(&info->first_node);
 }
