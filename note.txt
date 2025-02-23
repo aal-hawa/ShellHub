@@ -18,6 +18,12 @@ pwd | cat
 pwd | ls
 pwd > hhi
 
+< Makefile | ls | cat > ll
+< Makefile cat | cat | cat > ll
+< Makefile | cat | cat > ll
+pwd | ls | cat > ll
+pwd | cat | cat > ll
+ < Makefile | ls
 
 if the file input not exist stop executing
 

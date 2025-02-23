@@ -29,10 +29,12 @@ void	close_fds_parent(int **fd1, t_info *info)
 		close(fd1[i][1]);
 		i++;
 	}
-	if (info->fd_file_r >= 0)
-		close(info->fd_file_r);
-	if (info->fd_file_w >= 0)
-		close(info->fd_file_w);
+	info->fd_file_r = close_fd_fun(info->fd_file_r);
+	info->fd_file_w = close_fd_fun(info->fd_file_w);
+	// if (info->fd_file_r >= 0)
+	// 	close(info->fd_file_r);
+	// if (info->fd_file_w >= 0)
+	// 	close(info->fd_file_w);
 	if (info->limiter != NULL)
 		free_char(&info->limiter);
 }

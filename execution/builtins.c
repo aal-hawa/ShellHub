@@ -40,6 +40,7 @@ void	do_builtins(t_node *node, char ***result_blts, t_info *info)
 		{
 			info->is_builtins_file = 2;
 			node->fd_file = init_files_biultins(*result_blts, info);
+			info->fd_file_r = node->fd_file;
 		}
 		else
 			info->is_builtins_file = 1;
