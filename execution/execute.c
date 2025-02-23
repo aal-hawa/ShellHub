@@ -1,5 +1,22 @@
 # include "../minishell.h"
 
+void	str_i_count(t_info *info)
+{
+	t_node	*node;
+
+	node = info->first_node;
+	while (node)
+	{
+		if (node->is_dir_bilt_cmd == 2
+			||(node->is_dir_bilt_cmd == 0
+			&& len_split(node->args) > 1
+			&& !is_biult_fun(node->args[1])))
+			info->str_i++;
+		node = node->next;
+	}
+	printf ("info->str_i: %d\n", info->str_i);
+}
+
 void	dir_blt_execve_fun(t_node *node, int **fds, pid_t *frs, t_info *info)
 {
 	char	**result_blts;
@@ -34,6 +51,7 @@ int	execute_fun(t_info *info)
 
 	fds = NULL;
 	frs = NULL;
+	str_i_count(info);
 	if (info->str_i > 0)
 	{
 		allocate_fds(&fds, &frs, info->str_i);

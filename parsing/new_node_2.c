@@ -13,19 +13,19 @@ int	is_biult_fun(char *first_arg)
 	return (0);
 }
 
-void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info)
+void	dir_bilt_fun(t_node **node)
 {
-	if (!ft_strcmp(before_tybe, "<") || !ft_strcmp(before_tybe,"<<")
-	 || !ft_strcmp(before_tybe,">") || !ft_strcmp(before_tybe,">>"))
+	if (!ft_strcmp(node[0]->type_before, "<")
+		|| !ft_strcmp(node[0]->type_before,"<<")
+		|| !ft_strcmp(node[0]->type_before,">")
+		|| !ft_strcmp(node[0]->type_before,">>"))
 		node[0]->is_dir_bilt_cmd = 0;
 	else if (is_biult_fun(node[0]->args[0]) == 1)
 		node[0]->is_dir_bilt_cmd = 1;
 	else
-	{
 		node[0]->is_dir_bilt_cmd = 2;
-		info->str_i++;
-	}
 }
+
 void	type_after_fun(t_node **node, char **line, int i)
 {
 	if (line[0][i] != '|' && line[0][i + 1])
@@ -95,7 +95,7 @@ void	create_nodes(char *line, t_info *info)
 		{
 			type_after_fun(&node, &line, i);
 			before_tybe = insert_node(&node, &line, i, j);
-			dir_bilt_fun(&node, before_tybe, info);
+			// dir_bilt_fun(&node, before_tybe);
 			j = i;
 			// node->next = NULL;
 			node->next = malloc_node();
@@ -107,7 +107,7 @@ void	create_nodes(char *line, t_info *info)
 	}
 	node->type_after = ft_strdup("end");
 	before_tybe = insert_node(&node, &line, i, j);
-	dir_bilt_fun(&node, before_tybe, info);
+	// dir_bilt_fun(&node, before_tybe);
 	node->next = NULL;
 	order_info_nodes(info);
 }

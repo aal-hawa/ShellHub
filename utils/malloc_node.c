@@ -13,6 +13,7 @@ t_node	*malloc_node()
 	node->next = NULL;
 	node->type_after = NULL;
 	node->type_before = NULL;
+	node->result_builtins = NULL;
 	node->is_do_execute = 0;
 	return (node);
 }

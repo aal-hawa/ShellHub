@@ -1,5 +1,6 @@
 # include "../minishell.h"
 
+
 void	do_execve_fun(t_node **cmd_node, int **fds, pid_t *frs, t_info *info)
 {
 	if (!cmd_node[0])
@@ -7,11 +8,9 @@ void	do_execve_fun(t_node **cmd_node, int **fds, pid_t *frs, t_info *info)
 	if (cmd_node[0]->is_dir_bilt_cmd == 2 || cmd_node[0]->is_do_execute > 0)
 	{
 		if (cmd_node[0]->is_do_execute == 1)
-		{
-			free(*(cmd_node[0]->args));
-			cmd_node[0]->args++;
-		}
-		if (!ft_strcmp(cmd_node[0]->type_after, "|") && ft_strcmp(cmd_node[0]->type_before, ">")) //!!?? //&& ft_strcmp(cmd_node[0]->type_before, ">")
+			cmd_node[0]->args = move2next_arg(cmd_node);
+		if (!ft_strcmp(cmd_node[0]->type_after, "|") && ft_strcmp(cmd_node[0]->type_before, ">") 
+			&& cmd_node[0]->is_dir_bilt_cmd != 1) //!!?? //&& ft_strcmp(cmd_node[0]->type_before, ">")
 			info->is_for_w = 2;
 		frs[info->i_childs] = fork();
 		if (frs[info->i_childs] == 0)
@@ -26,10 +25,17 @@ void	do_execve_fun(t_node **cmd_node, int **fds, pid_t *frs, t_info *info)
 
 int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
 {
+	if (info->is_exit_one == 1)
+	{
+		if (!ft_strcmp(node[0]->type_after, "|"))
+		info->is_exit_one = 0;
+		*node = node[0]->next;
+		// if (*node)
+			return (0);
+	}
 	if (node[0]->is_do_execute == -1)
 	{
-		free(*(cmd_node[0]->args));
-		cmd_node[0]->args++;
+		cmd_node[0]->args = move2next_arg(cmd_node);
 		node[0]->is_do_execute = 0;
 		node[0]->is_dir_bilt_cmd = 1;
 		return (0);
@@ -38,8 +44,8 @@ int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
 	|| !ft_strcmp(node[0]->type_after, "end") || node[0]->is_dir_bilt_cmd == 2)
 	{
 		if(!cmd_node[0])
-			cmd_node[0] = *node;
-		if (is_operator_output_fun(node[0]->type_after) && info->is_builtins_file == 0) // new
+		cmd_node[0] = *node;
+		if (is_operator_output_fun(node[0]->type_after) && info->is_builtins_file == 0)
 		{
 			*node = node[0]->next;
 			if (*node)
@@ -68,6 +74,13 @@ void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result
 			print_array2d_fd(result_blts, info->fd_file_w);
 		}
 		else
+		{
+			// if (cmd_node[0]->is_dir_bilt_cmd == 1)
+			// {
+			// 	printf("ssssssssssssssssssss\n");
+			// 	cmd_node[0]->result_builtins = result_blts;
+			// }
 			do_execve_fun(cmd_node, fds, frs, info);
+		}
 	}
 }

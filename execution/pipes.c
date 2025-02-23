@@ -1,6 +1,26 @@
 
 # include "../minishell.h"
 
+void	builtins2pipe(char **result_array2d, t_info *info)
+{
+	char	*str;
+	
+	str = "/tmp/tmp_shell_builtins";
+	info->fd_file_r = open_file_r_w(str);
+	print_array2d_fd(result_array2d, info->fd_file_r);
+	if (info->fd_file_r >= 0)
+		close(info->fd_file_r);
+	info->fd_file_r = open_file_r(str);
+	if (info->fd_file_r >= 0)
+		dup2(info->fd_file_r, STDIN_FILENO);
+	if (info->fd_file_r >= 0)
+		close(info->fd_file_r);
+	print_array2d(result_array2d, 0);
+	printf ("aaaaaaaaaaaaaaaaaaaaaa\n");
+	// info->fd_file_r = 0;
+
+}
+
 void	close_fds_childs(int **fds, t_info *info)
 {
 	int	j;
@@ -22,13 +42,17 @@ void	close_fds_childs(int **fds, t_info *info)
 
 void	child_execve(int **fds, char **strs, pid_t *frs, t_info *info)
 {
+	// printf ("info->is_for_w: %d\n", info->is_for_w);
 	if (info->is_for_w == 2)
 		dup2(fds[info->i_childs + 1][1], STDOUT_FILENO);
 	else if (info->is_for_w == 1)
 		dup2(info->fd_file_w, STDOUT_FILENO);
+	// else
+	// 	dup2(1, STDOUT_FILENO);
 	close(fds[info->i_childs + 1][1]);
 	if (info->is_for_w == 1)
 		close(info->fd_file_w);
+	// printf ("bjdbvjsvjbjvnbklc\n");
 	execve(info->path_commd, strs, info->envp);
 	perror(info->path_commd);
 	de_allocate(&fds, &frs, info->str_i);
@@ -58,7 +82,10 @@ void	childs(t_node *node, int **fds, pid_t *frs, t_info *info)
 		de_allocate(&fds, &frs, info->str_i);
 		return (exit(127));
 	}
-	if (info->i_childs != 0)
+	// if (node->is_dir_bilt_cmd == 1)
+	// 	builtins2pipe(node->result_builtins, info); // change node->args
+	// else
+	 if (info->i_childs != 0)
 		dup2(fds[info->i_childs][0], STDIN_FILENO);
 	close(fds[info->i_childs][0]);
 	child_execve(fds, strs, frs, info);

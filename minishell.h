@@ -23,6 +23,7 @@ typedef struct s_node
 	int	fd_file;
 	char	*last_fd_name;
 	int	is_do_execute;
+	char	**result_builtins;
     struct s_node *next;
 } t_node;
 
@@ -104,8 +105,8 @@ char	*ft_restore_value(char **dest, char **str, int is_str_malloc);
 char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
 // void	free_split(char **split, int len);
 char    *pre_split(char **s, const char *ops);
-t_node	*nodes_init(char **tokens, t_info *info);
-void    free_nodes(t_node **nodes);
+// t_node	*nodes_init(char **tokens, t_info *info);
+// void    free_nodes(t_node **nodes);
 void	free_node(t_node **node);
 void	init_info(int ac, char *env, char **envp, t_info *info);
 void	reset_info(t_info *info);
@@ -115,7 +116,7 @@ char	**copy_split(char **split);
 void	copy_node(t_node **to_node, t_node **from_node, int is_free_before);
 int		is_exist_str_in_2array(char **array2d, char *del_str, int size_str);
 void	order_info_nodes(t_info *info);
-void	dir_bilt_fun(t_node **node, char *before_tybe, t_info *info);
+void	dir_bilt_fun(t_node **node);
 int		is_biult_fun(char *first_arg);
 int     is_operator_fun(char *str);
 int		is_operator_input_fun(char *str);
@@ -145,10 +146,13 @@ int		direct_fun(t_node *node, t_info *info);
 void	do_builtins(t_node *node, char ***result_blts, t_info *info);
 int		is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info);
 void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result_blts, t_node **cmd_node);
+char	**move2next_arg(t_node **cmd_node);
+int		open_file_r_w(char *name_file);
+int		open_file_r(char *name_file);
 
 
 size_t		ft_strlen(const char *s);
-char		**ft_split_p(char const *s, char c, t_info *info);
+// char		**ft_split_p(char const *s, char c, t_info *info);
 int			open_file_w(char *name_file);
 // int			execute_fun(char **str, t_info *info);
 int			ft_strncmp(const char *str1, const char *str2, size_t n);

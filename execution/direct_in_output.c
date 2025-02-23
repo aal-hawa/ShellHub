@@ -24,9 +24,10 @@ int	direct_fun(t_node *node, t_info *info)
 	{
 		info->status_exit = 1;
 		info->is_exit_one = 1;
-		return (1);
+		// return (1);
 	}
-	info->status_exit = 0;
+	else
+		info->status_exit = 0;
 	if (node->args[1])
 	{
 		if (is_biult_fun(node->args[1]) == 1)
