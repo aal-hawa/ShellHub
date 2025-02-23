@@ -11,12 +11,13 @@ LDFLAGS = -lreadline -lncurses
 SRC_MAIN = main.c
 SRC = minishell.c init_colors.c \
 	builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builtins/export.c builtins/pwd.c builtins/status_program.c builtins/unset.c \
-	parsing/readline.c 	parsing/tokens.c parsing/double_qoutes.c parsing/nodes_cmd.c parsing/new_node_2.c parsing/order_nodes.c parsing/check_valid_line.c \
+	parsing/readline.c 	parsing/tokens.c parsing/double_qoutes.c parsing/new_node_2.c parsing/order_nodes.c parsing/check_valid_line.c \
 	parsing/operators.c parsing/single_quotes.c parsing/syntax_errors.c parsing/variable_expansion.c parsing/fixed_line_spaces.c parsing/tilde.c parsing/marge_new_line.c parsing/check_valid_qout.c \
 	utils/free_malloc.c	utils/edit_in_split.c utils/ft_strclen.c \
 	utils/ft_strccpy.c utils/ft_strcmp.c utils/ft_strlchr.c utils/malloc_node.c utils/del_qout_nodes.c utils/ft_strjoin_path.c utils/ft_putstr_fd_malloc.c \
 	utils/free_nodes.c utils/free_array2d.c utils/ft_restore_value.c utils/init_info.c utils/pre_split.c utils/print_array2d.c utils/is_qout.c utils/builtins_message.c \
-    execution/r_wr_func.c execution/pipes.c execution/parent_func.c execution/execve.c execution/builtins.c execution/direct_in_output.c \
+    utils/print_node.c \
+	execution/r_wr_func.c execution/pipes.c execution/parent_func.c execution/execve.c execution/builtins.c execution/direct_in_output.c \
 	execution/pipes_utils.c execution/get_path.c  execution/get_next_line.c execution/get_next_line_utils.c execution/execute.c \
 
 OBJS = $(SRC:.c=.o) $(SRC_MAIN:.c=.o)

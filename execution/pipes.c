@@ -43,8 +43,11 @@ void	childs(t_node *node, int **fds, pid_t *frs, t_info *info)
 
 	strs = node->args;
 	if (!strs)
-		return (error_pipe(fds, -3, info, NULL),
-			de_allocate(&fds, &frs, info->str_i), exit(1));
+	{
+		error_pipe(fds, -3, info, NULL);
+		de_allocate(&fds, &frs, info->str_i);
+		return (exit(1));
+	}
 	get_path_command(strs, info);
 	if (!info->path_commd)
 	{

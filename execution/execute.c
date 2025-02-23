@@ -39,12 +39,14 @@ int	execute_fun(t_info *info)
 		allocate_fds(&fds, &frs, info->str_i);
 		info->i_fds = 0;
 		while (info->i_fds < info->str_i + 1)
-		if (pipe(fds[info->i_fds++]) == -1)
 		{
-			error_pipe(fds, --info->i_fds, info, NULL);
-			de_allocate(&fds, &frs, info->str_i);
-			exit(1);
-			return (1);
+			if (pipe(fds[info->i_fds++]) == -1)
+			{
+				error_pipe(fds, --info->i_fds, info, NULL);
+				de_allocate(&fds, &frs, info->str_i);
+				exit(1);
+				return (1);
+			}
 		}
 	}
 	pwd_fun(info, 0);
