@@ -77,7 +77,7 @@ typedef struct s_info
     int     status_exit;
     char    *curent_path;
 	int		index_files_crt;
-	int		is_no_outpipe;
+	int		is_no_inpipe;
 	t_node	*first_node;
 	t_colors	*colors;
 }					t_info;

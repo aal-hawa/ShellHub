@@ -1,32 +1,11 @@
 
 # include "../minishell.h"
 
-void	builtins2pipe(char **result_array2d, t_info *info)
-{
-	char	*str;
-	
-	str = "/tmp/tmp_shell_builtins";
-	info->fd_file_r = open_file_r_w(str);
-	print_array2d_fd(result_array2d, info->fd_file_r);
-	info->fd_file_r = close_fd_fun(info->fd_file_r);
-	// if (info->fd_file_r >= 0)
-	// 	close(info->fd_file_r);
-	info->fd_file_r = open_file_r(str);
-	dup2(info->fd_file_r, STDIN_FILENO);
-	if (info->fd_file_r >= 0)
-		info->fd_file_r = close_fd_fun(info->fd_file_r);
-	// if (info->fd_file_r >= 0)
-	// 		close(info->fd_file_r);
-
-	print_array2d(result_array2d, 0);
-	// printf ("aaaaaaaaaaaaaaaaaaaaaa\n");
-	// info->fd_file_r = 0;
-
-}
 int	close_fd_fun(int fd2close)
 {
 	if (fd2close >= 0)
 	{
+		printf ("closed fd_file_r\n");
 		close(fd2close);
 		return (-2);
 	}
@@ -46,16 +25,14 @@ void	close_fds_childs(int **fds, t_info *info)
 			close(fds[j][1]);
 		j++;
 	}
-	if (info->i_childs == 0 && info->fd_file_r >= 0 && info->is_no_outpipe == 0) //info->i_childs == 0 && 
-		dup2(info->fd_file_r, STDIN_FILENO);
-	info->fd_file_r = close_fd_fun(info->fd_file_r);
-	// if (info->fd_file_r >= 0)
-	// 	close(info->fd_file_r);
+	// if (info->fd_file_r >= 0) //info->i_childs == 0 && 
+	// 	dup2(info->fd_file_r, STDIN_FILENO);
+ 	// info->fd_file_r = close_fd_fun(info->fd_file_r);
 }
 
 void	child_execve(int **fds, char **strs, pid_t *frs, t_info *info)
 {
-	printf ("info->is_for_w: %d\n", info->is_for_w);
+	// printf ("info->is_for_w: %d\n", info->is_for_w);
 	if (info->is_for_w == 2)
 		dup2(fds[info->i_childs + 1][1], STDOUT_FILENO);
 	else if (info->is_for_w == 1)
@@ -80,6 +57,8 @@ void	childs(t_node *node, int **fds, pid_t *frs, t_info *info)
 {
 	char	**strs;
 
+	printf ("info->is_builtins_file: %d\n", info->is_builtins_file);
+	printf ("info->fd_file_r: %d\n", info->fd_file_r);
 	strs = node->args;
 	if (!strs)
 	{
@@ -97,17 +76,20 @@ void	childs(t_node *node, int **fds, pid_t *frs, t_info *info)
 		de_allocate(&fds, &frs, info->str_i);
 		return (exit(127));
 	}
-	if (info->is_builtins_file == 2 && info->fd_file_r >= 0)
+
+
+	if (info->fd_file_r >= 0) //info->is_builtins_file == 2 && 
 	{
 		dup2(info->fd_file_r, STDIN_FILENO);
 		info->fd_file_r = close_fd_fun(info->fd_file_r);
 		info->is_builtins_file = 0;
-		// builtins2pipe(node->result_builtins, info); // change node->args
 	}
-	else
-	//  if (info->i_childs != 0)
-	 if (info->i_childs != 0)
+	else //if (info->i_childs != 0 && info->is_no_inpipe == 0) //&& info->is_no_inpipe == 0
+	{
+		printf ("aaaaaaaaaaaaaaaaaaaaaaaaa1\n");
 		dup2(fds[info->i_childs][0], STDIN_FILENO);
+	}
+	info->is_no_inpipe = 0;
 	close(fds[info->i_childs][0]);
 	child_execve(fds, strs, frs, info);
 	exit(0);
