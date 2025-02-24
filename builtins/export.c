@@ -74,7 +74,7 @@ void	check_and_add(t_info *info, char *arg)
 	i = 0;
 	while (arg[i] && arg[i] != '=')
 		i++;
-	key = strndup(arg, i);
+	key = ft_strndup(arg, i);
 	value = NULL;
 	if (arg[i] == '=')
 		value = strdup(arg + i + 1);
@@ -86,7 +86,10 @@ void	check_and_add(t_info *info, char *arg)
 			free(value);
 		return ;
 	}
-	printf("Adding key: %s, value: %s\n", key, value ? value : "(null)");
+	if(value)
+		printf("Adding key: %s, value: %s\n", key, value ? value : "(null)");
+	else
+		printf("Adding key: %s, value: (null)\n", key);
 	free(key);
 	if (value)
 		free(value);
