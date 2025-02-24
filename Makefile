@@ -17,7 +17,7 @@ SRC = minishell.c init_colors.c \
 	utils/free_malloc.c	utils/edit_in_split.c utils/ft_strclen.c \
 	utils/ft_strccpy.c utils/ft_strcmp.c utils/ft_strlchr.c utils/malloc_node.c utils/del_qout_nodes.c utils/ft_strjoin_path.c utils/ft_putstr_fd_malloc.c \
 	utils/free_nodes.c utils/free_array2d.c utils/ft_restore_value.c utils/init_info.c utils/pre_split.c utils/print_array2d.c utils/is_qout.c utils/builtins_message.c \
-    utils/print_node.c utils/move2next_arg.c \
+    utils/print_node.c utils/move2next_arg.c utils/ft_strndup.c \
 	execution/r_wr_func.c execution/pipes.c execution/parent_func.c execution/execve.c execution/builtins.c execution/direct_in_output.c \
 	execution/pipes_utils.c execution/get_path.c  execution/get_next_line.c execution/get_next_line_utils.c execution/execute.c \
 

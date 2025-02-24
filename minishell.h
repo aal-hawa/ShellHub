@@ -180,4 +180,5 @@ void		childs(t_node *node, int **fds, pid_t *frs, t_info *info);
 void		close_fds_childs(int **fds, t_info *info);
 int			execute_fun(t_info *info);
 void		create_nodes(char *line, t_info *info);
+char		*ft_strndup(const char *s, size_t n);
 #endif
