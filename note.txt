@@ -18,12 +18,13 @@ pwd | cat
 pwd | ls
 pwd > hhi
 
-< Makefile | ls | cat > ll
+< Makefile | ls | cat > ll		// this error output
+< Makefile cat | ls | cat > ll
 < Makefile cat | cat | cat > ll
-< Makefile | cat | cat > ll
+< Makefile | cat | cat > ll		// this error output in bash, the result empty file
 pwd | ls | cat > ll
 pwd | cat | cat > ll
- < Makefile | ls
+ < Makefile | ls		// this error output
 
 if the file input not exist stop executing
 
@@ -78,4 +79,6 @@ When add any variable to env using export
 	pwd | cat
 	pwd | ls
 	didnt make after the pipe for example output of ls didnt showing
+2:-
+	in cd there is no many args, you have to git the first arg
 ----------------------------------------------------------------------

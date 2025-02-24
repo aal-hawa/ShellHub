@@ -38,7 +38,7 @@ void	close_fds_childs(int **fds, t_info *info)
 	int	j;
 
 	j = 0;
-	while (j < info->str_i + 1)
+	while (j < info->str_i + 1) // why with plus one
 	{
 		if (info->i_childs != j)
 			close(fds[j][0]);
@@ -46,7 +46,7 @@ void	close_fds_childs(int **fds, t_info *info)
 			close(fds[j][1]);
 		j++;
 	}
-	if (info->i_childs == 0 && info->fd_file_r >= 0) //info->i_childs == 0 && 
+	if (info->i_childs == 0 && info->fd_file_r >= 0 && info->is_no_outpipe == 0) //info->i_childs == 0 && 
 		dup2(info->fd_file_r, STDIN_FILENO);
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	// if (info->fd_file_r >= 0)
@@ -55,7 +55,7 @@ void	close_fds_childs(int **fds, t_info *info)
 
 void	child_execve(int **fds, char **strs, pid_t *frs, t_info *info)
 {
-	// printf ("info->is_for_w: %d\n", info->is_for_w);
+	printf ("info->is_for_w: %d\n", info->is_for_w);
 	if (info->is_for_w == 2)
 		dup2(fds[info->i_childs + 1][1], STDOUT_FILENO);
 	else if (info->is_for_w == 1)

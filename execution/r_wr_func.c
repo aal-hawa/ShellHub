@@ -43,7 +43,6 @@ int	open_file_r_w(char *name_file)
 void	init_files(t_node *node, t_info *info)
 {
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
-
 	info->fd_file_r = open_file_r(node->args[0]);
 	node->fd_file = info->fd_file_r; 
 }

@@ -35,5 +35,7 @@ int	direct_fun(t_node *node, t_info *info)
 		else
 			node->is_do_execute = 1;
 	}
+	else if (is_operator_fun(node->type_after) == 2)
+		node->next->is_do_execute = 3;
 	return (0);
 }
