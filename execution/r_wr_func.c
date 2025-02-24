@@ -75,13 +75,10 @@ int	init_files_biultins(char **str, t_info *info)
 
 	i = 0;
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
-
 	info->fd_file_r = open_file_r_w("/tmp/tmp_biultins");
 	while(str[i])
 		ft_putstr_fd(str[i++], info->fd_file_r);
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
-	// if (info->fd_file_r >= 0)
-	// 	close(info->fd_file_r);
 	info->fd_file_r = open_file_r("/tmp/tmp_biultins");
 	printf("opopopoopo\n");
 	return (info->fd_file_r);
