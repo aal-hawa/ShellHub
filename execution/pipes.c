@@ -79,20 +79,33 @@ void	childs(t_node *node, int **fds, pid_t *frs, t_info *info)
 	// printf ("node->args[0]: %s\n", node->args[0]);
 	// printf ("info->i_childs: %d\n", info->i_childs);
 
-	if (info->fd_file_r >= 0) //info->is_builtins_file == 2 && 
+	if (node->is_no_inpipe == 1)
 	{
-		dup2(info->fd_file_r, STDIN_FILENO);
-		info->fd_file_r = close_fd_fun(info->fd_file_r);
-		info->is_builtins_file = 0;
+		// printf ("qqqqqqqqqqqqqqqqqqqqqqqqqqqq\n");
+		info->fd_file_w = open_file_r_w("/tmp/tmp_no_inpipe");
+		dup2(info->fd_file_w, STDIN_FILENO);
+		info->fd_file_w = close_fd_fun(info->fd_file_w);
+		node->is_no_inpipe = 0;
+		// unlink("/tmp/tmp_no_inpipe");
 	}
-	else if (info->i_childs != 0 || (info->i_childs == 0 && node->is_no_inpipe == 1)) //info->i_childs != 0
+	else
 	{
-		dup2(fds[info->i_childs][0], STDIN_FILENO);
-	}
-	else if (node->is_no_inpipe == 1)
-	{
-		printf ("aaaaaaaaaaaaaaaaaaaaaaaaa1\n");
-		// close(STDIN_FILENO);
+		if (info->fd_file_r >= 0) //info->is_builtins_file == 2 && 
+		{
+			dup2(info->fd_file_r, STDIN_FILENO);
+			info->fd_file_r = close_fd_fun(info->fd_file_r);
+			info->is_builtins_file = 0;
+		}
+		else if (info->i_childs != 0 || (info->i_childs == 0 && node->is_no_inpipe == 1)) //info->i_childs != 0
+		{
+			dup2(fds[info->i_childs][0], STDIN_FILENO);
+		}
+		else if (node->is_no_inpipe == 1)
+		{
+			printf ("aaaaaaaaaaaaaaaaaaaaaaaaa1\n");
+			// close(STDIN_FILENO);
+		}
+
 	}
 	// info->is_no_inpipe = 0;
 	close(fds[info->i_childs][0]);

@@ -26,7 +26,7 @@ void	builtins_fun(char	***result, t_node *node, t_info *info)
 	else if (!ft_strcmp(node->args[0], "pwd"))
 		result[0] = pwd_fun(info, is_print);
 	else if (!ft_strcmp(node->args[0], "exit"))
-		exit_fun();
+		exit_fun(node->args[1], info);
 }
 
 void	do_builtins(t_node *node, char ***result_blts, t_info *info)

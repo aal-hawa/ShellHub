@@ -26,6 +26,8 @@ void	free_node(t_node **node)
 		return ;
 	if (node[0]->args)
 		free_array2d(&(node[0]->args), 0);
+	if (node[0]->result_builtins)
+		free_array2d(&(node[0]->result_builtins), 0);
 	node[0]->type_before = free_char(&(node[0]->type_before));
 	node[0]->type_after = free_char(&(node[0]->type_after));
 	node[0]->last_fd_name = free_char(&(node[0]->last_fd_name));

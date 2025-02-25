@@ -48,6 +48,7 @@ int	execute_fun(t_info *info)
 {
 	int		**fds;
 	pid_t	*frs;
+	char	**array_pwd;
 
 	fds = NULL;
 	frs = NULL;
@@ -67,7 +68,8 @@ int	execute_fun(t_info *info)
 			}
 		}
 	}
-	pwd_fun(info, 0);
+	array_pwd = pwd_fun(info, 0);
+	free_array2d(&array_pwd, 0);
 	dir_blt_execve_fun(info->first_node, fds, frs, info);
 	return (finish_parent(&fds, &frs, info));
 }

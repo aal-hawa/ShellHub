@@ -36,6 +36,10 @@ int	check_valid_operator(char **line)
 			return (0);
 		if ( line[0][i] == '<' && next_char_not_space(&line[0][i], 0) == '>' )
 			return (0);
+		if ( line[0][i] == '>' && line[0][i + 1] == ' ' && next_char_not_space(&line[0][i], 0) == '>' )
+			return (0);
+		if ( line[0][i] == '<' && line[0][i + 1] == ' ' && next_char_not_space(&line[0][i], 0) == '<' )
+			return (0);
 		i++;
 		while (line[0][i] == ' ')
 			i++;
