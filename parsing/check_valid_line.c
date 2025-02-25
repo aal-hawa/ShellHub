@@ -4,7 +4,7 @@ char	next_char_not_space(char *line, int is_second)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	while(line[++i])
 	{
 		if (line[i] != ' ')
