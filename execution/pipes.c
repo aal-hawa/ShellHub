@@ -5,7 +5,7 @@ int	close_fd_fun(int fd2close)
 {
 	if (fd2close >= 0)
 	{
-		printf ("closed fd_file_r\n");
+		// printf ("closed fd_file_r\n");
 		close(fd2close);
 		return (-2);
 	}
@@ -32,7 +32,7 @@ void	close_fds_childs(int **fds, t_info *info)
 
 void	child_execve(int **fds, char **strs, pid_t *frs, t_info *info)
 {
-	// printf ("info->is_for_w: %d\n", info->is_for_w);
+	printf ("info->is_for_w: %d\n", info->is_for_w);
 	if (info->is_for_w == 2)
 		dup2(fds[info->i_childs + 1][1], STDOUT_FILENO);
 	else if (info->is_for_w == 1)
@@ -57,8 +57,6 @@ void	childs(t_node *node, int **fds, pid_t *frs, t_info *info)
 {
 	char	**strs;
 
-	printf ("info->is_builtins_file: %d\n", info->is_builtins_file);
-	printf ("info->fd_file_r: %d\n", info->fd_file_r);
 	strs = node->args;
 	if (!strs)
 	{
@@ -76,7 +74,10 @@ void	childs(t_node *node, int **fds, pid_t *frs, t_info *info)
 		de_allocate(&fds, &frs, info->str_i);
 		return (exit(127));
 	}
-
+	// printf ("info->fd_file_r: %d\n", info->fd_file_r);
+	// printf ("node->is_no_inpipe: %d\n", node->is_no_inpipe);
+	// printf ("node->args[0]: %s\n", node->args[0]);
+	// printf ("info->i_childs: %d\n", info->i_childs);
 
 	if (info->fd_file_r >= 0) //info->is_builtins_file == 2 && 
 	{
@@ -84,12 +85,16 @@ void	childs(t_node *node, int **fds, pid_t *frs, t_info *info)
 		info->fd_file_r = close_fd_fun(info->fd_file_r);
 		info->is_builtins_file = 0;
 	}
-	else //if (info->i_childs != 0 && info->is_no_inpipe == 0) //&& info->is_no_inpipe == 0
+	else if (info->i_childs != 0 || (info->i_childs == 0 && node->is_no_inpipe == 1)) //info->i_childs != 0
 	{
-		printf ("aaaaaaaaaaaaaaaaaaaaaaaaa1\n");
 		dup2(fds[info->i_childs][0], STDIN_FILENO);
 	}
-	info->is_no_inpipe = 0;
+	else if (node->is_no_inpipe == 1)
+	{
+		printf ("aaaaaaaaaaaaaaaaaaaaaaaaa1\n");
+		// close(STDIN_FILENO);
+	}
+	// info->is_no_inpipe = 0;
 	close(fds[info->i_childs][0]);
 	child_execve(fds, strs, frs, info);
 	exit(0);
