@@ -64,9 +64,9 @@ void	add_double_quotes(char *str)
 	free(new_str);
 }
 
-void	check_and_add(t_info *info, char *arg)
+void	print_value(char *arg)
 {
-	(void) info;
+	// (void) info;
 	int		i;
 	char	*key;
 	char	*value;
@@ -87,13 +87,47 @@ void	check_and_add(t_info *info, char *arg)
 		return ;
 	}
 	if(value)
-		printf("Adding key: %s, value: %s\n", key, value ? value : "(null)");
+	{
+		printf("%s", key);
+		printf("=");
+		add_double_quotes(value);
+	}
 	else
 		printf("Adding key: %s, value: (null)\n", key);
 	free(key);
 	if (value)
 		free(value);
 }
+
+void check_and_add(t_info *info, char *arg, int add_to_env)
+{
+    if(is_exist_str_in_2array(info->export, arg, 0) || is_exist_str_in_2array(info->export, arg, ft_strlen(arg)))
+    {
+        // info->export = del_str_from_array2d(info->export, arg, 0);
+        // info->export = add_in_split(info->export, arg, 0);
+        printf("\n------\ndeleting {{%s}}, adding with new value{{%s}}\n------\n", arg, arg);
+        // if(add_to_env &&(is_exist_str_in_2array(info->envp, arg, 0) || is_exist_str_in_2array(info->envp, arg, ft_strlen(arg))))
+        // {
+        //  info->envp = del_str_from_array2d(info->envp, arg, 0);
+        //  info->envp = add_in_split(info->envp, arg, 0);
+        // } 
+        // else
+        // {
+        //  info->envp = add_in_split(info->envp, arg, 0);
+        // }
+        //delete
+        //add
+    }
+    else
+    {
+        // info->export = add_in_split(info->export, arg, 1);
+        if(add_to_env)
+            // info->envp = add_in_split(info->envp, arg, 0);
+        printf("\n------\nadding{{%s}}\n------\n",arg);
+        //add
+    }
+}
+
 
 void	print_export(t_info *info)
 {
@@ -103,7 +137,7 @@ void	print_export(t_info *info)
 	while (info->export[i])
 	{
 		printf("declare -x ");
-		add_double_quotes(info->export[i]);
+		print_value(info->export[i]);
 		i++;
 	}
 }
@@ -122,7 +156,7 @@ char	**export_fun(char **args, t_info *info, int is_print)
 	{
 		while (args[i])
 		{
-			check_and_add(info, args[i]);
+			// print_value(args[i]);
 			i++;
 		}
 	}
