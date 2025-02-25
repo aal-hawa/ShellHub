@@ -81,4 +81,6 @@ When add any variable to env using export
 	didnt make after the pipe for example output of ls didnt showing
 2:-
 	in cd there is no many args, you have to git the first arg
+3
+	cd with -
 ----------------------------------------------------------------------

@@ -14,7 +14,7 @@ void	str_i_count(t_info *info)
 			info->str_i++;
 		node = node->next;
 	}
-	printf ("info->str_i: %d\n", info->str_i);
+	// printf ("info->str_i: %d\n", info->str_i);
 }
 
 void	dir_blt_execve_fun(t_node *node, int **fds, pid_t *frs, t_info *info)

@@ -27,7 +27,7 @@ char	*tilde(char **line, char *str_home)
 	str_after = NULL;
 	while(line[0][++i])
 	{
-		if (is_qout == 0 && line[0][i] == '~')
+		if (is_qout == 0 && (line[0][i] == '~'))
 		{
 			if ((i == 0 || line[0][i - 1] == ' ') && (line[0][i + 1] == ' ' || line[0][i + 1] == '/' || !line[0][i + 1]))
 			{

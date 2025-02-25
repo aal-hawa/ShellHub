@@ -35,7 +35,13 @@ int	direct_fun(t_node *node, t_info *info)
 		else
 			node->is_do_execute = 1;
 	}
-	else if (is_operator_fun(node->type_after) == 2)
-		node->next->is_do_execute = 3;
+	else if (is_operator_fun(node->type_after) == 2 && info->fd_file_r >= 0)
+	{
+		info->fd_file_r = close_fd_fun(info->fd_file_r);
+		if (node->next)
+			node->next->is_no_inpipe = 1;
+		// node->next->is_do_execute = 3;
+		// node->is_do_execute = 2;
+	}
 	return (0);
 }

@@ -22,8 +22,10 @@ typedef struct s_node
     int is_dir_bilt_cmd;
 	int	fd_file;
 	char	*last_fd_name;
+	//for execute, equal zero nothing, equal one from direct and node next = NULL or only this node have more one args; but if the second args equal builtins it will be equal -1, equal two from builtins and type after = operators
 	int	is_do_execute;
 	char	**result_builtins;
+	int	is_no_inpipe;
     struct s_node *next;
 } t_node;
 
@@ -67,17 +69,19 @@ typedef struct s_info
 	char	*path_commd;
 	char	**envp;
 	char	**export;
+	//for write in pipe, equal zero nothing, equal one for write in file, equal two for pipe
 	int		is_for_w;
 	int		is_bonus;
 	// size_t	i_split;
 	int		env_null;
 	int		is_exit_one;
+	//for builtins, equal zero nothing, equal one type after = operators not pipe, equal two type after = pipe
 	int		is_builtins_file;
 	char	*home;
     int     status_exit;
     char    *curent_path;
 	int		index_files_crt;
-	int		is_no_outpipe;
+	// int		is_no_inpipe;
 	t_node	*first_node;
 	t_colors	*colors;
 }					t_info;
