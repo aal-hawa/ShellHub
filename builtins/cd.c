@@ -5,8 +5,14 @@ char	**change_path(char *cd, t_info *info, int is_print)
 {
 	// char	*result;
 	char	*str_message;
-
 	(void) is_print;
+	char	**args;
+	char	**new_pwd;
+	char *old_path;
+	
+	args = NULL;
+	add_in_split(args, "export", 0);
+	old_path = ft_strjoin("OLDPWD=", info->curent_path);
 	if (chdir(info->curent_path))
 	{
 		printf ("%sError path: %s%s\n",info->colors->red_color, info->curent_path, info->colors->default_color); //delete this line
@@ -16,6 +22,15 @@ char	**change_path(char *cd, t_info *info, int is_print)
 		builtins_Message(&str_message, 1, 1);
 		return (NULL);
 	}
+	args = add_in_split(args, old_path, 0);
+	old_path = free_char(&old_path);
+	export_fun(args, info, 0);
+	new_pwd = pwd_fun(info, 0);
+	args[1] = free_char(&args[1]);
+	args[1] = ft_strjoin("PWD=", info->curent_path);
+	export_fun(args, info, 0);
+	free_array2d(&args, 0);
+	free_array2d(&new_pwd, 0);
 	info->status_exit = 0;
 	return (NULL);
 }

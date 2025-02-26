@@ -103,9 +103,9 @@ char	**add_in_split(char **split, char *add_str, int is_alpha)
 	j = 0;
 	len = len_split(split) + 1;
 	new_split = malloc(sizeof(char *) * (len + 1));
-	if (!new_split || !split)
+	if (!new_split)
 		return (NULL);
-	while (split[i])
+	while (split && split[i])
 	{
 		if (is_alpha == 1 && ft_strcmp(split[i], add_str) > 0 && is_alpha++)
 			new_split[j] = ft_strdup(add_str);
@@ -114,7 +114,7 @@ char	**add_in_split(char **split, char *add_str, int is_alpha)
 		if (!new_split[j++])
 			return(free_array2d(&new_split, j - 2), NULL);
 	}
-	if (is_alpha < 2)
+	if (is_alpha < 2 || !split)
 		new_split[j++] = ft_strdup(add_str);
 	new_split[j] = NULL;
 	free_array2d(&split, len - 1);
