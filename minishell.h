@@ -91,7 +91,7 @@ char	*readline_fun();
 char	**tokens_fun(char *line);
 char	**cd_fun(char **args, t_info *info, int is_print);
 char	**pwd_fun(t_info *info, int is_print);
-void	exit_fun(char *arg, t_info *info);
+void	exit_fun(char **arg, t_info *info);
 char	**echo_n_fun(char **args, int is_print);
 char	**echo_with_line_fun(char **args, int is_print);
 char	**env_fun(char **args, int is_print);
