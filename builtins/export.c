@@ -64,12 +64,30 @@ void	add_double_quotes(char *str)
 	free(new_str);
 }
 
-void	print_value(char *arg)
+void	check_and_add(t_info *info, char *arg, int add_to_env)
 {
-	// (void) info;
+	if (is_exist_str_in_2array(info->export, arg, 0) || 
+		is_exist_str_in_2array(info->export, arg, ft_strlen(arg)))
+	{
+		// printf("\n------\ndeleting {{%s}}, adding with new value{{%s}}\n------\n", arg, arg);
+		info->export = del_str_from_array2d(info->export, arg, 0);
+		info->export = add_in_split(info->export, arg, 0);
+	}
+	else
+	{
+		// printf("\n------\nadding{{%s}}\n------\n", arg);
+		info->export = add_in_split(info->export, arg, 1);
+	}
+	if (add_to_env)
+		info->envp = add_in_split(info->envp, arg, 0);
+}
+
+void	print_value(char *arg, t_info *info, int print)
+{
 	int		i;
 	char	*key;
 	char	*value;
+	char	*new_arg;
 
 	i = 0;
 	while (arg[i] && arg[i] != '=')
@@ -82,50 +100,34 @@ void	print_value(char *arg)
 	{
 		printf("minishell: export: `%s': not a valid identifier\n", key);
 		free(key);
-		if (value)
-			free(value);
+		free(value);
 		return ;
 	}
-	if(value)
+	if (print)
 	{
 		printf("%s", key);
-		printf("=");
-		add_double_quotes(value);
+		if (value)
+		{
+			printf("=");
+			add_double_quotes(value);
+		}
+		else
+			printf("\n");
 	}
 	else
-		printf("Adding key: %s, value: (null)\n", key);
+	{
+		if (value)
+		{
+			new_arg = ft_strjoin(key, "=");
+			new_arg = ft_strjoin(new_arg, value);
+		}
+		else
+			new_arg = ft_strdup(key);
+		check_and_add(info, new_arg, 0);
+		free(new_arg);
+	}
 	free(key);
-	if (value)
-		free(value);
-}
-
-void check_and_add(t_info *info, char *arg, int add_to_env)
-{
-    if(is_exist_str_in_2array(info->export, arg, 0) || is_exist_str_in_2array(info->export, arg, ft_strlen(arg)))
-    {
-        // info->export = del_str_from_array2d(info->export, arg, 0);
-        // info->export = add_in_split(info->export, arg, 0);
-        printf("\n------\ndeleting {{%s}}, adding with new value{{%s}}\n------\n", arg, arg);
-        // if(add_to_env &&(is_exist_str_in_2array(info->envp, arg, 0) || is_exist_str_in_2array(info->envp, arg, ft_strlen(arg))))
-        // {
-        //  info->envp = del_str_from_array2d(info->envp, arg, 0);
-        //  info->envp = add_in_split(info->envp, arg, 0);
-        // } 
-        // else
-        // {
-        //  info->envp = add_in_split(info->envp, arg, 0);
-        // }
-        //delete
-        //add
-    }
-    else
-    {
-        // info->export = add_in_split(info->export, arg, 1);
-        if(add_to_env)
-            // info->envp = add_in_split(info->envp, arg, 0);
-        printf("\n------\nadding{{%s}}\n------\n",arg);
-        //add
-    }
+	free(value);
 }
 
 
@@ -137,7 +139,7 @@ void	print_export(t_info *info)
 	while (info->export[i])
 	{
 		printf("declare -x ");
-		print_value(info->export[i]);
+		print_value(info->export[i], info, 1);
 		i++;
 	}
 }
@@ -156,7 +158,7 @@ char	**export_fun(char **args, t_info *info, int is_print)
 	{
 		while (args[i])
 		{
-			// print_value(args[i]);
+			print_value(args[i], info, 0);
 			i++;
 		}
 	}
