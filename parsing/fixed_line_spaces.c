@@ -13,9 +13,11 @@ int		add_more_spaces(char **line)
 	is_qout = 0;
 	while(line[0][i])
 	{
-		if (i != 0 && is_qout == 0 && is_char_operator_fun(line[0][i]) && line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i])
+		if (i != 0 && is_qout == 0 && is_char_operator_fun(line[0][i])
+			&& line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i])
 			j++;
-		if (is_qout == 0 && is_char_operator_fun(line[0][i]) && line[0][i + 1] != ' ' && line[0][i + 1] != line[0][i])
+		if (is_qout == 0 && is_char_operator_fun(line[0][i])
+			&& line[0][i + 1] != ' ' && line[0][i + 1] != line[0][i])
 			j++;
 		is_qout = is_qout_fun(is_qout, line[0][i]);
 		i++;
@@ -23,40 +25,48 @@ int		add_more_spaces(char **line)
 	return (j);
 }
 
-void	fixed_line_spaces(char **line)
+char	*fill_new_string(char **line, int len)
 {
+	char 	*dst;
 	int		i;
 	int		j;
-	int		len;
 	int		is_qout;
+
+	i = -1;
+	j = 0;
+	is_qout = 0;
+	dst = malloc(sizeof(char) * (len + 1));
+	if (!dst)
+		return (NULL);
+	while(line[0][++i])
+	{
+		if (i != 0 && is_qout == 0 && i != 0
+			&& is_char_operator_fun(line[0][i])
+			&& line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i])
+			dst[j++] = ' ';
+		dst[j++] = line[0][i];
+		if (is_qout == 0 && is_char_operator_fun(line[0][i])
+			&& line[0][i + 1] != ' ' && line[0][i + 1] != line[0][i])
+			dst[j++] = ' ';
+		is_qout = is_qout_fun(is_qout, line[0][i]);
+	}
+	dst[j] = '\0';
+	return (dst);
+}
+
+void	fixed_line_spaces(char **line)
+{
+	int		len;
 	char 	*dest;
 
 	if (!line || !*line)
 		return ;
-	i = 0;
-	j = 0;
-	is_qout = 0;
 	len = add_more_spaces(line);
 	if (len == 0)
 		return ;
 	len += strlen(*line);
 	printf("len %d\n", len);
-	dest = malloc(sizeof(char) * (len + 1));
-	if (!dest)
-		return ;
-	while(line[0][i])
-	{
-		if (i != 0 && is_qout == 0 && i != 0 && is_char_operator_fun(line[0][i])
-			&& line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i])
-			dest[j++] = ' ';
-		dest[j++] = line[0][i];
-		if (is_qout == 0 && is_char_operator_fun(line[0][i])
-			&& line[0][i + 1] != ' ' && line[0][i + 1] != line[0][i])
-			dest[j++] = ' ';
-		is_qout = is_qout_fun(is_qout, line[0][i]);
-		i++;
-	}
-	dest[j] = '\0';
+	dest = fill_new_string(line, len);
 	printf("strlen dest %ld\n",strlen(dest));
 	*line = free_char(line);
 	*line = dest;
