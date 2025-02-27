@@ -82,6 +82,22 @@ void	check_and_add(t_info *info, char *arg, int add_to_env)
 		info->envp = add_in_split(info->envp, arg, 0);
 }
 
+void	check_and_add_env(t_info *info, char *arg, char *key)
+{
+	if (is_exist_str_in_2array(info->envp, key, 0) || 
+		is_exist_str_in_2array(info->envp, key, ft_strlen(arg)))
+	{
+		// printf("\n------\ndeleting {{%s}}, adding with new value{{%s}}\n------\n", arg, arg);
+		info->envp = del_str_from_array2d(info->envp, arg, 0);
+		info->envp = add_in_split(info->envp, arg, 0);
+	}
+	else
+	{
+		// printf("\n------\nadding{{%s}}\n------\n", arg);
+		info->envp = add_in_split(info->envp, arg, 1);
+	}
+}
+
 void	print_value(char *arg, t_info *info, int print)
 {
 	int		i;
@@ -120,10 +136,14 @@ void	print_value(char *arg, t_info *info, int print)
 		{
 			new_arg = ft_strjoin(key, "=");
 			new_arg = ft_strjoin(new_arg, value);
+			check_and_add(info, new_arg, 0);
+			check_and_add_env(info, new_arg, key);
 		}
 		else
+		{
 			new_arg = ft_strdup(key);
-		check_and_add(info, new_arg, 0);
+			check_and_add(info, new_arg, 0);
+		}
 		free(new_arg);
 	}
 	free(key);
@@ -162,5 +182,5 @@ char	**export_fun(char **args, t_info *info, int is_print)
 			i++;
 		}
 	}
-	return (info->export);
+	return (NULL);
 }

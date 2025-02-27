@@ -6,7 +6,7 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:33:53 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/27 14:39:21 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:43:15 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,14 @@ char	**env_fun(char **args, t_info * info, int is_print)
 {
 	(void)args;
 	(void)is_print;
-
+	int i = 0;
+	while(info->envp[i])
+	{
+		printf("%s\n", info->envp[i]);
+		i++;
+	}
 	// return (getenv(name));
-	return (args);
+	return (NULL);
 }
 // char **result = funcName(str, c);
 // if(result == null)
