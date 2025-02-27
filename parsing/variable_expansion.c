@@ -42,39 +42,44 @@ char	*marge_doller_sign(char *str_dollersign, char *str)
 	return (str_dollersign);
 }
 
-
-
-char	*doller_sign_fun(char **str, t_info *info)
+char	*Merge_doller_sign(char **str,char **str_sign, t_info *info)
 {
 	int		i;
 	char	*varible;
+
+	i = -1;
+	while (info->envp[++i])
+	{
+		varible = ft_strccpy(info->envp[i], '=');
+		if (!varible)
+			continue ;
+		if (!ft_strcmp(varible, *str_sign))
+		{
+			*str_sign = free_char(str_sign);
+			varible = free_char(&varible);
+			*str_sign = marge_doller_sign(value_fun(info->envp[i], '='), *str);
+			*str = free_char(str);
+			*str = *str_sign;
+			return (*str_sign);
+		}
+		free (varible);
+		varible = NULL;
+	}
+	return (*str_sign);
+}
+
+char	*doller_sign_fun(char **str, t_info *info)
+{
 	char	*str_sign;
 
 	if (ft_strlen(*str) == 0)
 		return ft_strdup("$");
 	if (str[0][0] == '?')
 		return (status_program_fun(str, info));
-	i = -1;
 	str_sign = ft_strccpy(*str, ' ');
 	if (!str_sign)
 		str_sign = ft_strdup(*str);
-	while (info->envp[++i])
-	{
-		varible = ft_strccpy(info->envp[i], '=');
-		if (!varible)
-			continue ;
-		if (!ft_strcmp(varible, str_sign))
-		{
-			str_sign = free_char(&str_sign);
-			varible = free_char(&varible);
-			str_sign = marge_doller_sign(value_fun(info->envp[i], '='), *str);
-			*str = free_char(str);
-			*str = str_sign;
-			return (str_sign);
-		}
-		free (varible);
-		varible = NULL;
-	}
+	str_sign = Merge_doller_sign(str, &str_sign, info);
 	str_sign = free_char(&str_sign);
 	str_sign = value_fun(*str, ' ');
 	*str = free_char(str);
@@ -83,29 +88,40 @@ char	*doller_sign_fun(char **str, t_info *info)
 	return (str_sign);
 }
 
-char	*find_doller_sign_fun(char **str, t_info *info)
+char	**split_by_doller_sign(char **str, int *i)
 {
-	char	*dst;
-	int		i;
 	int		allow_find;
-	char **split_str;
+	char	**split_str;
 
-	if (!str || !*str)
-		return (NULL);
-	i = 0;
-	dst = NULL;
+	*i = 0;
 	allow_find = 2;
 	if (str[0][0] == '$')
 	{
-		i = -1;
+		*i = -1;
 		allow_find = 1;
 	}
 	split_str = ft_split(*str, '$');
 	if (len_split(split_str) < allow_find)
 	{
 		free_array2d(&split_str, 0);
-		return (*str);
+		return (NULL);
 	}
+	return (split_str);
+}
+
+char	*find_doller_sign_fun(char **str, t_info *info)
+{
+	char	*dst;
+	int		i;
+	char	**split_str;
+
+	if (!str || !*str)
+		return (NULL);
+	i = 0;
+	dst = NULL;
+	split_str = split_by_doller_sign(str, &i);
+	if (!split_str)
+		return (*str);
 	while (split_str[++i])
 		split_str[i] = doller_sign_fun(&split_str[i], info);
 	i = -1;

@@ -9,22 +9,18 @@ void	init_info(int ac, char *env, char **envp, t_info *info)
 	info->export = copy_split(envp);
 	info->is_bonus = 1;
 	info->limiter = NULL;
-	// info->i_split = 0;
 	info->path_commd = NULL;
 	info->env_null = 0;
 	info->is_for_w = 0;
 	info->fd_file_w = -2;
 	info->is_exit_one = 0;
 	info->is_builtins_file = 0;
-	// info->is_no_inpipe = 0;
-
 	info->i_fds = 0;
 	info->i_childs = 0;
 	info->i_wait = 0;
 	info->fd_file_r = -2;
 	info->offset = 0;
 	info->i_limiter = 0;
-	// info->home = NULL;
 	info->status_exit = 0;
 	info->curent_path = NULL;
 	info->index_files_crt = 0;
@@ -35,7 +31,6 @@ void	reset_info(t_info *info)
 {
 	info->str_i = 0;
 	info->limiter = NULL; //
-	// info->i_split = 0; //
 	info->env_null = 0; //
 	info->is_for_w = 0;
 	info->fd_file_w = -2;
@@ -43,7 +38,5 @@ void	reset_info(t_info *info)
 	info->is_exit_one = 0;
 	info->is_builtins_file = 0;
 	info->i_fds = 0;
-	// info->is_no_inpipe = 0;
-
 	free_node(&info->first_node);
 }
