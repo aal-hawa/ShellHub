@@ -66,48 +66,59 @@ char	*insert_node(t_node **node, char **line, int i, int j)
 	before_tybe = node[0]->type_after;
 	return (before_tybe);
 }
-
-void	create_nodes(char *line, t_info *info)
+t_node	*init_first_node(char *line, t_info *info)
 {
 	t_node	*node;
+	
+	if (!line)
+		return (NULL);
+	node = malloc_node();
+	if (!node)
+	{
+		info->first_node = NULL;
+		return (NULL);
+	}
+	node->type_before = ft_strdup("start");
+	info->first_node = node;
+	node->last_fd_name = NULL;
+	return (node);
+}
+
+void	create_nodes_without_order(char *line, t_node	**node)
+{
 	char	*before_tybe;
 	int		i;
 	int		j;
 	int		is_qout;
 
 	j = 0;
-	i = 0;
+	i = -1;
 	is_qout = 0;
-	if (!line)
-		return ;
-	node = malloc_node();
-	if (!node)
-	{
-		info->first_node = NULL;
-		return ;
-	}
-	node->type_before = ft_strdup("start");
-	info->first_node = node;
-	node->last_fd_name = NULL;
-	while (line[i])
+	while (line[++i])
 	{
 		if (line[i] == '|' && is_qout == 0)
 		{
-			type_after_fun(&node, &line, i);
-			before_tybe = insert_node(&node, &line, i, j);
-			// dir_bilt_fun(&node, before_tybe);
+			type_after_fun(node, &line, i);
+			before_tybe = insert_node(node, &line, i, j);
 			j = i;
-			// node->next = NULL;
-			node->next = malloc_node();
-			node = node->next;
-			node->type_before = ft_strdup(before_tybe);
+			node[0]->next = malloc_node();
+			*node = node[0]->next;
+			node[0]->type_before = ft_strdup(before_tybe);
 		}
 		is_qout = is_qout_fun(is_qout, line[i]);
-		i++;
 	}
-	node->type_after = ft_strdup("end");
-	before_tybe = insert_node(&node, &line, i, j);
-	// dir_bilt_fun(&node, before_tybe);
-	node->next = NULL;
+	node[0]->type_after = ft_strdup("end");
+	before_tybe = insert_node(node, &line, i, j);
+	node[0]->next = NULL;
+}
+
+void	create_nodes(char *line, t_info *info)
+{
+	t_node	*node;
+
+	node = init_first_node(line, info);
+	if (!node)
+		return ;
+	create_nodes_without_order(line, &node);
 	order_info_nodes(info);
 }

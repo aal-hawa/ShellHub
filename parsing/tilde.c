@@ -29,7 +29,8 @@ char	*tilde(char **line, char *str_home)
 	{
 		if (is_qout == 0 && (line[0][i] == '~'))
 		{
-			if ((i == 0 || line[0][i - 1] == ' ') && (line[0][i + 1] == ' ' || line[0][i + 1] == '/' || !line[0][i + 1]))
+			if ((i == 0 || line[0][i - 1] == ' ') && (line[0][i + 1] == ' '
+				|| line[0][i + 1] == '/' || !line[0][i + 1]))
 			{
 				devide_line_be4_after(line, i, &str_be4, &str_after);
 				*line = marge_new_line(line, &str_be4, &str_after, str_home);
