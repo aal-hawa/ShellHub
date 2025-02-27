@@ -162,5 +162,5 @@ char	**export_fun(char **args, t_info *info, int is_print)
 			i++;
 		}
 	}
-	return (NULL);
+	return (info->export);
 }
