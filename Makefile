@@ -14,7 +14,7 @@ SRC = minishell.c init_colors.c \
 	parsing/readline.c 	parsing/tokens.c parsing/double_qoutes.c parsing/new_node_2.c parsing/order_nodes.c parsing/check_valid_line.c \
 	parsing/operators.c parsing/single_quotes.c parsing/syntax_errors.c parsing/variable_expansion.c parsing/fixed_line_spaces.c \
 	parsing/tilde.c parsing/marge_new_line.c parsing/check_valid_qout.c \
-	utils/free_malloc.c	utils/edit_in_split.c utils/ft_strclen.c \
+	utils/free_malloc.c	utils/edit_in_split.c utils/ft_strclen.c utils/check_valid_input_exp.c \
 	utils/ft_strccpy.c utils/ft_strcmp.c utils/ft_strlchr.c utils/malloc_node.c utils/del_qout_nodes.c utils/ft_strjoin_path.c utils/ft_putstr_fd_malloc.c \
 	utils/free_nodes.c utils/free_array2d.c utils/ft_restore_value.c utils/init_info.c utils/pre_split.c utils/print_array2d.c utils/is_qout.c utils/builtins_message.c \
     utils/print_node.c utils/move2next_arg.c utils/ft_strndup.c \
