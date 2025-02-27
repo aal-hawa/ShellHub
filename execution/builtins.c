@@ -3,25 +3,12 @@
 void	builtins_fun(char	***result, t_node *node, t_info *info)
 {
 	int	is_print;
-	pid_t	frs;
+
 	is_print = 1;
 	if (is_operator_fun(node->type_after) > 0 && !is_operator_input_fun(node->type_after))
 		is_print = 0;
 	if (!ft_strcmp(node->args[0], "cd"))
-	{
-		if (info->str_i > 0)
-		{
-			printf ("aaaaaaaaaaaaaaaa\n");
-			frs = fork();
-			if (frs == 0)
-			{
-				result[0] = cd_fun(node->args, info, is_print);
-				exit (info->status_exit);
-			}
-		}
-		else
-			result[0] = cd_fun(node->args, info, is_print);
-	}
+		result[0] = cd_fun(node->args, info, is_print);
 	else if (!ft_strcmp(node->args[0], "echo"))
 	{
 		if (!ft_strcmp(node->args[1], "-n"))
@@ -31,7 +18,7 @@ void	builtins_fun(char	***result, t_node *node, t_info *info)
 		info->status_exit = 0;
 	}
 	else if (!ft_strcmp(node->args[0], "env"))
-		result[0] = env_fun(node->args,info ,is_print);
+		result[0] = env_fun(node->args, info, is_print);
 	else if (!ft_strcmp(node->args[0], "export"))
 		result[0] = export_fun(node->args, info, is_print);
 	else if (!ft_strcmp(node->args[0], "unset"))

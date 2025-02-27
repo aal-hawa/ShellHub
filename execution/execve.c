@@ -53,6 +53,8 @@ int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
 	if (is_operator_output_fun(node[0]->type_after) || !ft_strcmp(node[0]->type_after, "|")
 	|| !ft_strcmp(node[0]->type_after, "end") || node[0]->is_dir_bilt_cmd == 2 || info->is_builtins_file == 2)
 	{
+		if (info->is_builtins_file == 2 && cmd_node[0])
+			cmd_node[0] = NULL;
 		if(!cmd_node[0])
 			cmd_node[0] = *node;
 		if (is_operator_output_fun(node[0]->type_after) && info->is_builtins_file == 0)
@@ -86,12 +88,6 @@ void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result
 		}
 		else
 		{
-			if (info->is_builtins_file == 2 || node->is_do_execute == 3)
-			{
-				// copy_node(cmd_node, &node, 0);
-				// node->is_do_execute = 0;
-				// info->is_no_inpipe = 1;
-			}
 			do_execve_fun(cmd_node, fds, frs, info);
 			*cmd_node = NULL;
 		}

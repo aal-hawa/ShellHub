@@ -16,6 +16,32 @@ void	str_i_count(t_info *info)
 	}
 	// printf ("info->str_i: %d\n", info->str_i);
 }
+void	do_builtins_check_fork(t_node *node,  t_info *info, char ***result_blts)
+{
+	pid_t	frs_1;
+	if (info->str_i > 0 && 
+		(ft_strcmp(node->args[0], "pwd") || (!ft_strcmp(node->args[0], "export") && node->args[1])))
+	{
+		printf ("aaaaaaaaaaaaaaaa\n");
+		frs_1 = fork();
+		if (frs_1 == 0)
+		{
+			do_builtins(node, result_blts, info);
+			if (info->is_builtins_file == 1
+				&& !is_operator_output_fun(node->type_after)
+				&& is_operator_output_fun(node->type_before))
+			{
+				printf("ddddddddddddddd\n");
+				printf("print to file\n");
+				info->is_builtins_file = 0;
+				print_array2d_fd(*result_blts, info->fd_file_w);
+			}
+			exit (info->status_exit);
+		}
+	}
+	else
+		do_builtins(node, result_blts, info);
+}
 
 void	dir_blt_execve_fun(t_node *node, int **fds, pid_t *frs, t_info *info)
 {
@@ -33,7 +59,7 @@ void	dir_blt_execve_fun(t_node *node, int **fds, pid_t *frs, t_info *info)
 		if (node->is_dir_bilt_cmd == 0)
 			direct_fun(node, info);
 		else if (node->is_dir_bilt_cmd == 1)
-			do_builtins(node, &result_blts, info);
+			do_builtins_check_fork(node, info, &result_blts);
 		if (!is_can_do_execve(&node, &cmd_node, info))
 			continue;
 		for_execve(node, fds, frs, info, result_blts, &cmd_node);

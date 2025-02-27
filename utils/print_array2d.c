@@ -5,6 +5,8 @@ void	print_array2d(char **array2d, int is_with_newline)
 	int	i;
 
 	i = 0;
+	if (!array2d)
+		return ;
 	while(array2d[i])
 	{
 		if (is_with_newline == 1)

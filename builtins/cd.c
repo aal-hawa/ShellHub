@@ -39,15 +39,8 @@ char	**cd_fun(char **args, t_info *info, int is_print)
 {
 	char	*str;
 	char	*cd;
-	// char	*str_message;
 
 	cd = args[1];
-	// str_message = "bash: cd: too many arguments\n";
-	// if (len_split(args) > 2)
-	// {
-	// 	builtins_Message(&str_message, 1, 0);
-	// 	return (NULL);
-	// }
 	if (!cd)
 		info->curent_path = ft_restore_value(&info->curent_path, &info->home, 0);
 	else if (cd[0] == '/' || (!ft_strncmp(cd,"..", 2) && ft_strlen(cd) > 2))
