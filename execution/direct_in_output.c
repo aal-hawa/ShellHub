@@ -1,5 +1,29 @@
 # include "../minishell.h"
 
+void	utils_direct_fun(t_node *node, t_info *info)
+{
+	if (info->fd_file_w == -1 || info->fd_file_r == -1)
+	{
+		info->status_exit = 1;
+		info->is_exit_one = 1;
+	}
+	else
+		info->status_exit = 0;
+	if (node->args[1])
+	{
+		if (is_biult_fun(node->args[1]) == 1)
+			node->is_do_execute = -1;
+		else
+			node->is_do_execute = 1;
+	}
+	else if (is_operator_fun(node->type_after) == 2 && info->fd_file_r >= 0)
+	{
+		info->fd_file_r = close_fd_fun(info->fd_file_r);
+		if (node->next)
+			node->next->is_no_inpipe = 1;
+	}
+}
+
 int	direct_fun(t_node *node, t_info *info)
 {
 	if (!ft_strcmp(node->type_before,">"))
@@ -20,28 +44,6 @@ int	direct_fun(t_node *node, t_info *info)
 		init_files(node, info);
 	else if (!ft_strcmp(node->type_before, "<<"))
 		init_here_doc(node, info);
-	if (info->fd_file_w == -1 || info->fd_file_r == -1)
-	{
-		info->status_exit = 1;
-		info->is_exit_one = 1;
-		// return (1);
-	}
-	else
-		info->status_exit = 0;
-	if (node->args[1])
-	{
-		if (is_biult_fun(node->args[1]) == 1)
-			node->is_do_execute = -1;
-		else
-			node->is_do_execute = 1;
-	}
-	else if (is_operator_fun(node->type_after) == 2 && info->fd_file_r >= 0)
-	{
-		info->fd_file_r = close_fd_fun(info->fd_file_r);
-		if (node->next)
-			node->next->is_no_inpipe = 1;
-		// node->next->is_do_execute = 3;
-		// node->is_do_execute = 2;
-	}
+	utils_direct_fun(node, info);
 	return (0);
 }

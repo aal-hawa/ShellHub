@@ -1,6 +1,6 @@
 # include "../minishell.h"
 
-char	next_char_not_space(char *line, int is_second)
+char	next_chr_not_space(char *line, int is_second)
 {
 	int	i;
 
@@ -27,18 +27,18 @@ int	check_valid_operator(char **line)
 		i++;
 	while(line[0][i])
 	{	
-		if (is_char_operator_fun(line[0][i]) && line[0][i] != '|' && is_char_operator_fun(next_char_not_space(&line[0][i], 0))
-			&& is_char_operator_fun(next_char_not_space(&line[0][i], 1)))
-			return (0);
-		if (is_char_operator_fun(line[0][i])  && next_char_not_space(&line[0][i], 0) == '|' )
-			return (0);
-		if ( line[0][i] == '>' && next_char_not_space(&line[0][i], 0) == '<' )
-			return (0);
-		if ( line[0][i] == '<' && next_char_not_space(&line[0][i], 0) == '>' )
-			return (0);
-		if ( line[0][i] == '>' && line[0][i + 1] == ' ' && next_char_not_space(&line[0][i], 0) == '>' )
-			return (0);
-		if ( line[0][i] == '<' && line[0][i + 1] == ' ' && next_char_not_space(&line[0][i], 0) == '<' )
+		if ((is_char_operator_fun(line[0][i]) && line[0][i] != '|'
+			&& is_char_operator_fun(next_chr_not_space(&line[0][i], 0))
+			&& is_char_operator_fun(next_chr_not_space(&line[0][i], 1)))
+			|| (is_char_operator_fun(line[0][i])
+			&& next_chr_not_space(&line[0][i], 0) == '|')
+			|| (line[0][i] == '>' && next_chr_not_space(&line[0][i], 0) == '<')
+			|| (line[0][i] == '<' && next_chr_not_space(&line[0][i], 0) == '>')
+			|| (line[0][i] == '>' && line[0][i + 1] == ' '
+			&& next_chr_not_space(&line[0][i], 0) == '>')
+			|| (line[0][i] == '<' && line[0][i + 1] == ' '
+			&& next_chr_not_space(&line[0][i], 0) == '<')
+			)
 			return (0);
 		i++;
 		while (line[0][i] == ' ')

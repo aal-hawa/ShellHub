@@ -49,11 +49,13 @@ void	after_qout(char **line, int *adress_i)
 	i = *(adress_i);
 	c[0] = line[0][i + 1];
 	c[1] = '\0';
-	if (line[0][i + 1] && line[0][i + 1] != ' ' && line[0][i + 1] != line[0][i] && !is_operator_fun(c))
+	if (line[0][i + 1] && line[0][i + 1] != ' '
+		&& line[0][i + 1] != line[0][i] && !is_operator_fun(c))
 	{
 		str = ft_strdup(*line);
 		j = i;
-		while (line[0][j + 1] && line[0][j + 1] != ' ' && line[0][j + 1] != line[0][i] && !is_operator_fun(c))
+		while (line[0][j + 1] && line[0][j + 1] != ' '
+			&& line[0][j + 1] != line[0][i] && !is_operator_fun(c))
 		{
 			str[j] = line[0][j + 1];
 			j++;

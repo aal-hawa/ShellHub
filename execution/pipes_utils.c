@@ -33,11 +33,6 @@ void	error_pipe(int **fds, int i, t_info *info, char **strs)
 	}
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	info->fd_file_w = close_fd_fun(info->fd_file_w);
-
-	// if (info->fd_file_r >= 0)
-	// 	close(info->fd_file_r);
-	// if (info->fd_file_w >= 0)
-	// 	close(info->fd_file_w);
 	if (strs)
 		free_splits(strs);
 	if (info->path_commd)

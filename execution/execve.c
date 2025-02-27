@@ -24,32 +24,31 @@ void	do_execve_fun(t_node **cmd_node, int **fds, pid_t *frs, t_info *info)
 		info->i_childs++;
 		*cmd_node = NULL;
 	}
-	else
-	{
-		// printf("not for execve\n");
-		// printf("cmd_node[0]->is_dir_bilt_cmd: %d\n", cmd_node[0]->is_dir_bilt_cmd);
-		// printf("cmd_node[0]->is_do_execute: %d\n", cmd_node[0]->is_do_execute);
-		// printf("cmd_node[0]->args[0]: %s\n", cmd_node[0]->args[0]);
-	}
 }
 
-int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
+int	is__change_args(t_node **node,t_node **cmd_node, t_info *info)
 {
 	if (info->is_exit_one == 1)
 	{
 		if (!ft_strcmp(node[0]->type_after, "|"))
 			info->is_exit_one = 0;
 		*node = node[0]->next;
-		// if (*node)
-			return (0);
+		return (1);
 	}
 	if (node[0]->is_do_execute == -1)
 	{
 		cmd_node[0]->args = move2next_arg(cmd_node);
 		node[0]->is_do_execute = 0;
 		node[0]->is_dir_bilt_cmd = 1;
-		return (0);
+		return (1);
 	}
+	return (0);
+}
+
+int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
+{
+	if (is__change_args(node, cmd_node, info) == 1)
+		return (0);
 	if (is_operator_output_fun(node[0]->type_after) || !ft_strcmp(node[0]->type_after, "|")
 	|| !ft_strcmp(node[0]->type_after, "end") || node[0]->is_dir_bilt_cmd == 2 || info->is_builtins_file == 2)
 	{
@@ -57,18 +56,13 @@ int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
 			cmd_node[0] = NULL;
 		if(!cmd_node[0])
 			cmd_node[0] = *node;
-		if (is_operator_output_fun(node[0]->type_after) && info->is_builtins_file == 0)
+		if ((is_operator_output_fun(node[0]->type_after) && info->is_builtins_file == 0)  ||
+		((info->fd_file_w == -1 || info->fd_file_r == -1) && ft_strcmp(node[0]->type_after, "|")))
 		{
 			*node = node[0]->next;
 			if (*node)
 				return (0);
 		}
-		if ((info->fd_file_w == -1 || info->fd_file_r == -1) && ft_strcmp(node[0]->type_after, "|"))
-		{
-			*node = node[0]->next;
-			if (*node)
-				return (0);
-		};
 	}
 	return (1);
 }
@@ -92,6 +86,4 @@ void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result
 			*cmd_node = NULL;
 		}
 	}
-
-
 }

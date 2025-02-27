@@ -21,6 +21,5 @@ char	*double_quot_fun(char **line, int i, char *str, t_info *info)
 	if (dst)
 		dst = find_doller_sign_fun(&dst, info);
 	*line = marge_new_line(line, &line_before_qout, &line_after_qout, dst);
-	
 	return (dst);
 }

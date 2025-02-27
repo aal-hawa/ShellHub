@@ -15,13 +15,11 @@ char	**pwd_fun(t_info *info, int is_print)
 	}
 	info->status_exit = 0;
 	info->curent_path = ft_restore_value(&info->curent_path, &cur_path, 1);
-	// if (is_print == 1)
-	// 	printf("%s\n",info->curent_path);
-	// result = malloc(sizeof(char *) * 2);
-	// if (!result)
-	// 	return (NULL);
-	// result[0] = ft_strdup(info->curent_path);
-	// result[1] = NULL;
 	str_join = ft_strjoin(info->curent_path, "\n");
+	if (is_print == -1)
+	{
+		str_join = free_char(&str_join);
+		return (NULL);
+	}
 	return (builtins_Message(&str_join, is_print, 1));
 }
