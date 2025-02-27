@@ -6,16 +6,17 @@
 /*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:33:53 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/16 17:04:36 by tmahmoud         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:39:21 by tmahmoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**env_fun(char **args, int is_print)
+char	**env_fun(char **args, t_info * info, int is_print)
 {
 	(void)args;
 	(void)is_print;
+
 	// return (getenv(name));
 	return (args);
 }

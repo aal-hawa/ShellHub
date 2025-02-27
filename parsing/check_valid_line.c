@@ -27,7 +27,7 @@ int	check_valid_operator(char **line)
 		i++;
 	while(line[0][i])
 	{	
-		if (is_char_operator_fun(line[0][i]) && is_char_operator_fun(next_char_not_space(&line[0][i], 0))
+		if (is_char_operator_fun(line[0][i]) && line[0][i] != '|' && is_char_operator_fun(next_char_not_space(&line[0][i], 0))
 			&& is_char_operator_fun(next_char_not_space(&line[0][i], 1)))
 			return (0);
 		if (is_char_operator_fun(line[0][i])  && next_char_not_space(&line[0][i], 0) == '|' )
@@ -83,7 +83,7 @@ int	check_valid_line(char **line, t_info *info)
 		return (0);
 	if(!check_valid_operator(line))
 	{
-		printf ("error syntax qoutition\n");
+		printf ("error syntax parsing\n");
 		line[0] = free_char(line);
 		return (0);
 	}
