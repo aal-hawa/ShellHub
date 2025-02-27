@@ -30,7 +30,8 @@ void	init_info(int ac, char *env, char **envp, t_info *info)
 void	reset_info(t_info *info)
 {
 	info->str_i = 0;
-	info->limiter = NULL; //
+	info->limiter = free_string(&info->limiter);
+	// info->limiter = NULL; //
 	info->env_null = 0; //
 	info->is_for_w = 0;
 	info->fd_file_w = -2;

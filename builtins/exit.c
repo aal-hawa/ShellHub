@@ -8,9 +8,8 @@ void	exit_fun(char **arg, t_info *info)
 {
 	int	status_exit;
 	int	i;
-	if (info->first_node)
-		free_nodes(&info->first_node);
 	
+	free_info(info);
 	if (!arg[1])
 		exit (0);
 	i = -1;

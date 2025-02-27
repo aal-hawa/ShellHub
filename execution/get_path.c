@@ -7,6 +7,7 @@ void	env_data(char **envp, char **env, t_info *info)
 
 	i = 0;
 	*env = NULL;
+	info->home = NULL;
 	if (envp)
 	{
 		while (envp[i])

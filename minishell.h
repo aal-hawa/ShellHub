@@ -113,6 +113,7 @@ char    *pre_split(char **s, const char *ops);
 // t_node	*nodes_init(char **tokens, t_info *info);
 void	free_nodes(t_node **node);
 void	free_node(t_node **node);
+void	free_info(t_info *info);
 void	init_info(int ac, char *env, char **envp, t_info *info);
 void	reset_info(t_info *info);
 t_node	*malloc_node();

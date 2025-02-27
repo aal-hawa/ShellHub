@@ -88,6 +88,7 @@ int	execute_fun(t_info *info)
 			{
 				error_pipe(fds, --info->i_fds, info, NULL);
 				de_allocate(&fds, &frs, info->str_i);
+				free_info(info);
 				exit(1);
 				return (1);
 			}
