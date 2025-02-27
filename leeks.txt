@@ -1,0 +1,79 @@
+==262920== 4 bytes in 1 blocks are still reachable in loss record 1 of 78
+==262920==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==262920==    by 0x11255A: ft_calloc (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111DCD: ft_strdup (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B107: last_order_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B5BD: order_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B729: order_info_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10AE5E: create_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x1095CE: minishell (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111A61: main (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+
+
+==262920== 5 bytes in 1 blocks are still reachable in loss record 4 of 78
+==262920==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==262920==    by 0x11255A: ft_calloc (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111DCD: ft_strdup (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10DBB9: marge_2_splits (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B5EC: order_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B729: order_info_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10AE5E: create_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x1095CE: minishell (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111A61: main (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+
+
+==262920== 6 bytes in 1 blocks are still reachable in loss record 5 of 78
+==262920==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==262920==    by 0x11255A: ft_calloc (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111DCD: ft_strdup (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B402: chng_defult_frst_inpt_vlu (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B627: order_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B729: order_info_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10AE5E: create_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x1095CE: minishell (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111A61: main (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+
+
+==262920== 10 bytes in 1 blocks are still reachable in loss record 8 of 78
+==262920==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==262920==    by 0x11255A: ft_calloc (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111DCD: ft_strdup (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x110BFC: env_data (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111A04: main (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+
+
+==262920== 16 bytes in 1 blocks are still reachable in loss record 17 of 78
+==262920==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==262920==    by 0x10DAD9: marge_2_splits (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B5EC: order_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B729: order_info_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10AE5E: create_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x1095CE: minishell (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111A61: main (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+
+==262920== 46 bytes in 1 blocks are still reachable in loss record 24 of 78
+==262920==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==262920==    by 0x11255A: ft_calloc (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111DCD: ft_strdup (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10EAAC: ft_restore_value (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10A3AB: pwd_fun (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x1116F0: execute_fun (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10960B: minishell (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111A61: main (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+
+
+==262920== 72 bytes in 1 blocks are still reachable in loss record 26 of 78
+==262920==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==262920==    by 0x10E2A6: malloc_node (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10AED6: init_node_order (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B596: order_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10B729: order_info_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10AE5E: create_nodes (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x1095CE: minishell (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111A61: main (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+
+==262920== 312 bytes in 1 blocks are still reachable in loss record 34 of 78
+==262920==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==262920==    by 0x10D5CF: copy_split (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x10EB30: init_info (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)
+==262920==    by 0x111A3F: main (in /home/aba/Anas/42 Abu Dhabi/Projects/ShellHub/minishell)

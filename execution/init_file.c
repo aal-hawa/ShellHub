@@ -23,8 +23,8 @@ void	init_here_doc(t_node *node, t_info *info)
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	info->fd_file_r = open_file_r(str);
 	node->fd_file = info->fd_file_r; 
-	str_i = free_char(&str_i);
-	str = free_char(&str);
+	str_i = free_string(&str_i);
+	str = free_string(&str);
 }
 
 int	init_files_biultins(char **str, t_info *info)

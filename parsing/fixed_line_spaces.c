@@ -68,6 +68,6 @@ void	fixed_line_spaces(char **line)
 	printf("len %d\n", len);
 	dest = fill_new_string(line, len);
 	printf("strlen dest %ld\n",strlen(dest));
-	*line = free_char(line);
+	*line = free_string(line);
 	*line = dest;
 }

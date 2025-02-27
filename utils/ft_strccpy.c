@@ -46,7 +46,7 @@ void	ft_strccpy_free(char **str, char to_char)
 	if (i == -1)
 	{
 		dest = ft_strdup("");
-		*str = free_char(str);
+		*str = free_string(str);
 		*str = dest;
 		return ;
 	}
@@ -54,6 +54,6 @@ void	ft_strccpy_free(char **str, char to_char)
 	if (!dest)
 		return ;
 	ft_strlcpy(dest, *str, i);
-	*str = free_char(str);
+	*str = free_string(str);
 	*str = dest;
 }

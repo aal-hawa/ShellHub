@@ -1,7 +1,7 @@
 
 # include "../minishell.h"
 
-char	*free_char(char **this_string)
+char	*free_string(char **this_string)
 {
 	if (!*this_string)
 		return (NULL);

@@ -107,7 +107,7 @@ int	is_valid_qout(char **line, t_info *info)
 			if (!dest)
 				return (0);
 			i += ft_strlen(dest);
-			dest = free_char(&dest);
+			dest = free_string(&dest);
 		}
 		else if (line[0][i] == '\'')
 		{
@@ -115,7 +115,7 @@ int	is_valid_qout(char **line, t_info *info)
 			if (!dest)
 				return (0);
 			i += ft_strlen(dest);
-			dest = free_char(&dest);
+			dest = free_string(&dest);
 		}
 	}
 	return (1);

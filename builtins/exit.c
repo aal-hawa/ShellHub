@@ -2,11 +2,14 @@
 
 # include "../minishell.h"
 
+
+
 void	exit_fun(char **arg, t_info *info)
 {
 	int	status_exit;
-	(void)info;
 	int	i;
+	if (info->first_node)
+		free_nodes(&info->first_node);
 	
 	if (!arg[1])
 		exit (0);
@@ -28,6 +31,7 @@ void	exit_fun(char **arg, t_info *info)
 		exit (2);
 	status_exit = ft_atoi(arg[1]);
 	// free all things before exit program
+	
 	exit(status_exit % 256);
 }
 

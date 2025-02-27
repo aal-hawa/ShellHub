@@ -55,10 +55,10 @@ char	*Merge_doller_sign(char **str,char **str_sign, t_info *info)
 			continue ;
 		if (!ft_strcmp(varible, *str_sign))
 		{
-			*str_sign = free_char(str_sign);
-			varible = free_char(&varible);
+			*str_sign = free_string(str_sign);
+			varible = free_string(&varible);
 			*str_sign = marge_doller_sign(value_fun(info->envp[i], '='), *str);
-			*str = free_char(str);
+			*str = free_string(str);
 			*str = *str_sign;
 			return (*str_sign);
 		}
@@ -80,9 +80,9 @@ char	*doller_sign_fun(char **str, t_info *info)
 	if (!str_sign)
 		str_sign = ft_strdup(*str);
 	str_sign = Merge_doller_sign(str, &str_sign, info);
-	str_sign = free_char(&str_sign);
+	str_sign = free_string(&str_sign);
 	str_sign = value_fun(*str, ' ');
-	*str = free_char(str);
+	*str = free_string(str);
 	if (!str_sign)
 		str_sign = ft_strdup("");
 	return (str_sign);
@@ -128,7 +128,7 @@ char	*find_doller_sign_fun(char **str, t_info *info)
 	while (split_str[++i])
 		dst = ft_strjoin(dst, split_str[i]);
 	free_array2d(&split_str, 0);
-	*str = free_char(str);
+	*str = free_string(str);
 	*str = dst;
 	return (dst);
 }

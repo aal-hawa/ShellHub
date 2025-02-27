@@ -1,23 +1,20 @@
-#include "minishell.h"
-
-int	main(int ac, char **arg, char **envp)
-{
-	(void) arg;
-	// (void) envp;
-	char	*env;
-	t_info	info;
-	t_colors	colors;
-
-	if (ac == 1)
-	{
-		env_data(envp, &env, &info);
-		init_colors(&colors, &info);
-		init_info(ac, env, envp, &info); // make it before env_data()
-		if (!env)
-			info.env_null = 1;
-		minishell(&info);
-	}
-	else
-		return (1);
-	return (0);
-}
+Makefile
+README.md
+builtins
+execution
+init_colors.c
+init_colors.o
+init_data.c
+libft
+ll
+main.c
+main.o
+minishell
+minishell.c
+minishell.h
+minishell.o
+note.txt
+parsing
+signals
+test.c
+utils

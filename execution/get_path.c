@@ -57,7 +57,7 @@ char	*get_from_env(char *env, char *str)
 			return (NULL);
 		if (is_access == 1)
 			return (str_joined);
-		str_joined = free_char(&str_joined);
+		str_joined = free_string(&str_joined);
 	}
 	free_array2d(&env_split, 0);
 	ft_putstr_fd_malloc(ft_strjoin("zsh: command not found: ", str), 2, 2);

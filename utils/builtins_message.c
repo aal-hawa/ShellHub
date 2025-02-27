@@ -28,6 +28,6 @@ char	**builtins_Message(char **str_message, int is_print, int is_malloc)
 	result[0] = ft_strdup(*str_message);
 	result[1] = NULL;
 	if (is_malloc == 1)
-		*str_message = free_char(str_message);
+		*str_message = free_string(str_message);
 	return (result);
 }

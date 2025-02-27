@@ -18,7 +18,7 @@ char	**pwd_fun(t_info *info, int is_print)
 	str_join = ft_strjoin(info->curent_path, "\n");
 	if (is_print == -1)
 	{
-		str_join = free_char(&str_join);
+		str_join = free_string(&str_join);
 		return (NULL);
 	}
 	return (builtins_Message(&str_join, is_print, 1));

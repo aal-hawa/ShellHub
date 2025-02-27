@@ -40,7 +40,7 @@ void	child_execve(int **fds, char **strs, pid_t *frs, t_info *info)
 	perror(info->path_commd);
 	de_allocate(&fds, &frs, info->str_i);
 	free_array2d(&strs, 0);
-	free_char(&info->path_commd);
+	free_string(&info->path_commd);
 	exit(1);
 }
 

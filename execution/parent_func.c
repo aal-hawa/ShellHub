@@ -32,7 +32,7 @@ void	close_fds_parent(int **fd1, t_info *info)
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	info->fd_file_w = close_fd_fun(info->fd_file_w);
 	if (info->limiter != NULL)
-		free_char(&info->limiter);
+		free_string(&info->limiter);
 }
 
 int	finish_parent(int ***fd, pid_t **frs, t_info *info)

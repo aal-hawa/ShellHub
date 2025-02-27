@@ -10,7 +10,13 @@ int	init_node_order(t_node_order *node_order, t_node **current_node)
 	node_order->nodes_input = malloc_node();
 	node_order->nodes_output = malloc_node();
 	if (!node_order->nodes_input || !node_order->nodes_output)
+	{
+		if (node_order->nodes_input)
+			free_node(&node_order->nodes_input);
+		if (node_order->nodes_output)
+			free_node(&node_order->nodes_output);
 		return (0);
+	}
 	node_order->first_input = node_order->nodes_input;
 	node_order->first_output = node_order->nodes_output;
 	node_order->i = 0;
@@ -122,14 +128,17 @@ void	chng_defult_node_vlu(t_node_order *node_order, t_node **current_node)
 void	order_nodes(t_node **to_node, t_node **current_node)
 {
 	t_node_order	node_order;
+	char			**array2d;
 
 	if (!init_node_order(&node_order, current_node))
 		return ;
 	make_order_nodes(&node_order);
 	last_order_nodes(&node_order, current_node);
+	array2d = ft_split(node_order.str_cmd, ' ');
 	node_order.nodes_input->args = marge_2_splits(node_order.nodes_input->args,
-		 ft_split(node_order.str_cmd, ' '));
-	node_order.str_cmd = free_char(&node_order.str_cmd);
+		array2d);
+	free_array2d(&array2d, 0);
+	node_order.str_cmd = free_string(&node_order.str_cmd);
 	chng_defult_frst_inpt_vlu(&node_order, current_node);
 	chng_defult_node_vlu(&node_order, current_node);
 	if (!node_order.first_output->args)
@@ -137,7 +146,10 @@ void	order_nodes(t_node **to_node, t_node **current_node)
 	else
 		node_order.nodes_input->next = node_order.first_output;
 	if (!to_node[0]->args)
+	{
+		free_node(to_node);
 		to_node[0] = node_order.first_input;
+	}
 	else
 		to_node[0]->next = node_order.first_input;
 }

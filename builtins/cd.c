@@ -9,10 +9,10 @@ void 	change_in_env(char **old_path, t_info *info)
 	args = NULL;
 	add_in_split(args, "export", 0);
 	args = add_in_split(args, *old_path, 0);
-	*old_path = free_char(old_path);
+	*old_path = free_string(old_path);
 	export_fun(args, info, 0);
 	new_pwd = pwd_fun(info, 0);
-	args[1] = free_char(&args[1]);
+	args[1] = free_string(&args[1]);
 	args[1] = ft_strjoin("PWD=", info->curent_path);
 	export_fun(args, info, 0);
 	free_array2d(&args, 0);
@@ -34,7 +34,7 @@ char	**change_path(char *cd, t_info *info, int is_print)
 		info->status_exit = 1;
 		str_message = builtins_error_message("cd", cd);
 		builtins_Message(&str_message, 1, 1);
-		old_path = free_char(&old_path);
+		old_path = free_string(&old_path);
 		return (NULL);
 	}
 	change_in_env(&old_path, info);

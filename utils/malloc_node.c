@@ -27,11 +27,11 @@ void	copy_node(t_node **to_node, t_node **from_node, int is_free_before)
 		return ;
 	}
 	if (is_free_before == 1 && to_node[0]->type_after)
-		to_node[0]->type_after = free_char(&to_node[0]->type_after);
+		to_node[0]->type_after = free_string(&to_node[0]->type_after);
 	if (is_free_before == 1 && to_node[0]->type_before)
-		to_node[0]->type_before = free_char(&to_node[0]->type_before);
+		to_node[0]->type_before = free_string(&to_node[0]->type_before);
 	if (is_free_before == 1 && to_node[0]->last_fd_name)
-		to_node[0]->last_fd_name = free_char(&to_node[0]->last_fd_name);
+		to_node[0]->last_fd_name = free_string(&to_node[0]->last_fd_name);
 	if (is_free_before == 1 && to_node[0]->args)
 		free_array2d(&(to_node[0]->args), 0);
 	if (is_free_before == 1 && to_node[0]->result_builtins)

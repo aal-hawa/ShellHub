@@ -14,8 +14,8 @@ void	unlink_files(t_info *info)
 			str_i = ft_itoa(i);
 			str = ft_strjoin("/tmp/tmp_shell_", str_i);
 			unlink (str);
-			str_i = free_char(&str_i);
-			str = free_char(&str);
+			str_i = free_string(&str_i);
+			str = free_string(&str);
 			i++;
 		}
 	}
@@ -52,7 +52,7 @@ void	minishell(t_info *info)
 			// if (info->is_exit_one == 1)
 			// 	exit(1);
 		}
-		line = free_char(&line);
+		line = free_string(&line);
 		// free_node(&info->first_node);
 		reset_info(info);
 		// nodes

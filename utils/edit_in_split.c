@@ -78,14 +78,14 @@ char	**del_str_from_array2d(char **array2d, char *del_str, int size_str)
 			{
 				new_split[++y] = ft_strdup(array2d[i]);
 				if (!new_split[y])
-					return (free_char(&str_zero), free_array2d(&new_split, y - 1), NULL);
+					return (free_string(&str_zero), free_array2d(&new_split, y - 1), NULL);
 			}
 		}
 		else if (ft_strncmp(array2d[i], del_str, size_str))
 		{
 			new_split[++y] = ft_strdup(array2d[i]);
 			if (!new_split[y])
-				return (free_char(&str_zero), free_array2d(&new_split, y - 1), NULL);
+				return (free_string(&str_zero), free_array2d(&new_split, y - 1), NULL);
 		}
 	}
 	new_split[++y] = NULL;
