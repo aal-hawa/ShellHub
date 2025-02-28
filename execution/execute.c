@@ -74,10 +74,11 @@ void	open_herdoc_files(t_node *node, t_info *info)
 {
 	while (node)
 	{
-		if (ft_strcmp(node->type_before, "<<"))
+		if (!ft_strcmp(node->type_before, "<<"))
 		{
 			init_here_doc(node, info);
 		}
+		node = node->next;
 	}
 }
 
@@ -106,6 +107,7 @@ int	execute_fun(t_info *info)
 		}
 	}
 	pwd_fun(info, -1);
+	open_herdoc_files(info->first_node, info);
 	dir_blt_execve_fun(info->first_node, fds, frs, info);
 	return (finish_parent(&fds, &frs, info));
 }

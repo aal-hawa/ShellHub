@@ -80,7 +80,6 @@ t_node	*init_first_node(char *line, t_info *info)
 	}
 	node->type_before = ft_strdup("start");
 	info->first_node = node;
-	node->last_fd_name = NULL;
 	return (node);
 }
 

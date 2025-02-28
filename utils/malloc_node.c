@@ -9,7 +9,7 @@ t_node	*malloc_node()
 	node->args = NULL;
 	node->fd_file = -1;
 	node->is_dir_bilt_cmd = -1;
-	node->last_fd_name = NULL;
+	node->fd_name = NULL;
 	node->next = NULL;
 	node->type_after = NULL;
 	node->type_before = NULL;
@@ -30,15 +30,15 @@ void	copy_node(t_node **to_node, t_node **from_node, int is_free_before)
 		to_node[0]->type_after = free_string(&to_node[0]->type_after);
 	if (is_free_before == 1 && to_node[0]->type_before)
 		to_node[0]->type_before = free_string(&to_node[0]->type_before);
-	if (is_free_before == 1 && to_node[0]->last_fd_name)
-		to_node[0]->last_fd_name = free_string(&to_node[0]->last_fd_name);
+	if (is_free_before == 1 && to_node[0]->fd_name)
+		to_node[0]->fd_name = free_string(&to_node[0]->fd_name);
 	if (is_free_before == 1 && to_node[0]->args)
 		free_array2d(&(to_node[0]->args), 0);
 	if (is_free_before == 1 && to_node[0]->result_builtins)
 		free_array2d(&(to_node[0]->result_builtins), 0);
 	to_node[0]->type_after = ft_strdup(from_node[0]->type_after);
 	to_node[0]->type_before = ft_strdup(from_node[0]->type_before);
-	to_node[0]->last_fd_name = ft_strdup(from_node[0]->last_fd_name);
+	to_node[0]->fd_name = ft_strdup(from_node[0]->fd_name);
 	to_node[0]->fd_file = from_node[0]->fd_file;
 	to_node[0]->is_dir_bilt_cmd = from_node[0]->is_dir_bilt_cmd;
 	to_node[0]->is_no_inpipe = from_node[0]->is_no_inpipe;

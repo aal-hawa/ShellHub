@@ -22,10 +22,11 @@ void	init_here_doc(t_node *node, t_info *info)
 	info->i_limiter = ft_strlen(info->limiter);
 	ft_putstr_fd_malloc(get_next_line(info), info->fd_file_r, 1);
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
-	info->fd_file_r = open_file_r(str);
-	node->fd_file = info->fd_file_r; 
+	// info->fd_file_r = open_file_r(str);
+	// node->fd_file = info->fd_file_r; 
 	str_i = free_string(&str_i);
-	str = free_string(&str);
+	node->fd_name = str;
+	// str = free_string(&str);
 }
 
 int	init_files_biultins(char **str, t_info *info)

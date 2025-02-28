@@ -40,10 +40,11 @@ int	direct_fun(t_node *node, t_info *info)
 		info->is_for_w = 1;
 		node->fd_file = info->fd_file_w;
 	}
-	else if (!ft_strcmp(node->type_before, "<"))
+	else if (!ft_strcmp(node->type_before, "<")
+		|| !ft_strcmp(node->type_before, "<<"))
 		init_files(node, info);
-	else if (!ft_strcmp(node->type_before, "<<"))
-		init_here_doc(node, info);
+	// else if (!ft_strcmp(node->type_before, "<<"))
+	// 	init_here_doc(node, info);
 	utils_direct_fun(node, info);
 	return (0);
 }

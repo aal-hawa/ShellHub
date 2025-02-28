@@ -21,7 +21,7 @@ typedef struct s_node
     char *type_after;
     int is_dir_bilt_cmd;
 	int	fd_file;
-	char	*last_fd_name;
+	char	*fd_name;
 	//for execute, equal zero nothing, equal one from direct and node next = NULL or only this node have more one args; but if the second args equal builtins it will be equal -1, equal two from builtins and type after = operators
 	int	is_do_execute;
 	char	**result_builtins;
@@ -187,4 +187,6 @@ int			execute_fun(t_info *info);
 void		create_nodes(char *line, t_info *info);
 char		*ft_strndup(const char *s, size_t n);
 int			check_is_valid_key(char *str);
+void	show_leek(t_info *info);
+
 #endif

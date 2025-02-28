@@ -21,6 +21,14 @@ void	unlink_files(t_info *info)
 	}
 }
 
+void	show_leek(t_info *info)
+{
+	//----------------------------------------//
+	// rl_clear_history();
+	free_info(info);
+	exit (0);
+	//----------------------------------------//
+}
 // ls | grep "txt"
 void	minishell(t_info *info)
 {
@@ -39,6 +47,9 @@ void	minishell(t_info *info)
 		line = find_doller_sign_fun(&line, info);
 		line = tilde(&line, info->home);
 		create_nodes(line, info);
+		// line = free_string(&line);
+		// show_leek(info);
+
 		if (info->first_node)
 		{
 			print_nodes(info->first_node, info->colors);
