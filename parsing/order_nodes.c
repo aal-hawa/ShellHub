@@ -135,9 +135,8 @@ void	order_nodes(t_node **to_node, t_node **current_node)
 	make_order_nodes(&node_order);
 	last_order_nodes(&node_order, current_node);
 	array2d = ft_split(node_order.str_cmd, ' ');
-	node_order.nodes_input->args = marge_2_splits(node_order.nodes_input->args,
-		array2d);
-	free_array2d(&array2d, 0);
+	node_order.nodes_input->args = marge_2_splits(&node_order.nodes_input->args,
+		&array2d);
 	node_order.str_cmd = free_string(&node_order.str_cmd);
 	chng_defult_frst_inpt_vlu(&node_order, current_node);
 	chng_defult_node_vlu(&node_order, current_node);
@@ -165,9 +164,11 @@ void	order_info_nodes(t_info *info)
 	next_node = NULL;
 	if (info->first_node)
 		next_node = info->first_node;
+	
 	while (next_node)
 	{
 		order_nodes(&current_node, &next_node);
+
 		del_qout_nodes(current_node);
 		if (!first_node)
 			first_node = current_node;
@@ -176,6 +177,7 @@ void	order_info_nodes(t_info *info)
 		if (next_node)
 			next_node = next_node->next;
 	}
+
 	free_node(&info->first_node);
 	info->first_node = NULL;
 	info->first_node = first_node;

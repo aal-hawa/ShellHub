@@ -7,9 +7,8 @@ void	free_nodes(t_node **node)
 	return ;
 	if (!node || !*node)
 			return ;
-	while (*node)
+	while (node[0])
 	{
-		temp = node[0]->next;
 		if (node[0]->args)
 			free_array2d(&(node[0]->args), 0);
 		if (node[0]->result_builtins)
@@ -17,10 +16,10 @@ void	free_nodes(t_node **node)
 		node[0]->type_before = free_string(&(node[0]->type_before));
 		node[0]->type_after = free_string(&(node[0]->type_after));
 		node[0]->last_fd_name = free_string(&(node[0]->last_fd_name));
-		node[0]->next = NULL;
-		free(*node);
-		*node = NULL;
-		*node = temp;
+		// node[0]->next = NULL;
+		temp = node[0];
+		node[0] = node[0]->next;
+		free(temp);
 	}
 }
 void	free_node(t_node **node)

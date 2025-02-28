@@ -9,12 +9,13 @@ void	init_files(t_node *node, t_info *info)
 
 void	init_here_doc(t_node *node, t_info *info)
 {
-	char *str;
+	char 	*str;
 	char	*str_i;
 
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 
 	str_i = ft_itoa(info->index_files_crt);
+	info->index_files_crt++;
 	str = ft_strjoin("/tmp/tmp_shell_", str_i);
 	info->fd_file_r = open_file_r_w(str);
 	info->limiter = ft_strjoin_path(node->args[0], "\n", 0);

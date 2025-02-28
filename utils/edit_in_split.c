@@ -121,7 +121,7 @@ char	**add_in_split(char **split, char *add_str, int is_alpha)
 	return (new_split);
 }
 
-char	**marge_2_splits(char **first_split, char **second_split)
+char	**marge_2_splits(char ***first_split, char ***second_split)
 {
 	int		i;
 	int		j;
@@ -130,30 +130,30 @@ char	**marge_2_splits(char **first_split, char **second_split)
 	char	**new_split;
 
 	i = 0;
-	len1 = len_split(first_split);
-	len2 = len_split(second_split);
+	len1 = len_split(*first_split);
+	len2 = len_split(*second_split);
 	new_split = malloc(sizeof(char *) * (len1 + len2 + 1));
 	if (!new_split)
 		return (NULL);
 		
-	while (first_split && first_split[i])
+	while (*first_split && first_split[0][i])
 	{
-		new_split[i] = ft_strdup(first_split[i]);
+		new_split[i] = ft_strdup(first_split[0][i]);
 		if (!new_split[i])
 			return(free_array2d(&new_split, i - 1), NULL);
 		i++;
 	}
 	j = 0;
-	while (second_split && second_split[j])
+	while (*second_split && second_split[0][j])
 	{
-		new_split[i] = ft_strdup(second_split[j]);
+		new_split[i] = ft_strdup(second_split[0][j]);
 		if (!new_split[i])
 			return(free_array2d(&new_split, i - 1), NULL);
 		i++;
 		j++;
 	}
 	new_split[i] = NULL;
-	free_array2d(&first_split, len1);
-	free_array2d(&second_split, len2);
+	free_array2d(first_split, len1);
+	free_array2d(second_split, len2);
 	return (new_split);
 }

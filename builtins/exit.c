@@ -2,8 +2,6 @@
 
 # include "../minishell.h"
 
-
-
 void	exit_fun(char **arg, t_info *info)
 {
 	int	status_exit;

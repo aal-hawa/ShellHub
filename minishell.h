@@ -99,7 +99,7 @@ char	**export_fun(char **args, t_info *info, int is_print);
 char	**unset_func(char **args, t_info *info);
 void	free_fun(char **str);
 char	**add_in_split(char **split, char *add_str, int is_alpha);
-char	**marge_2_splits(char **first_split, char **second_split);
+char	**marge_2_splits(char ***first_split, char ***second_split);
 char	**del_str_from_array2d(char **array2d, char *del_str, int size_str);
 ssize_t	ft_strclen(const char *s, char to_char);
 char	*ft_strccpy(char *str, char to_char);

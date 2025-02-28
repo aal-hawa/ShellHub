@@ -70,6 +70,17 @@ void	dir_blt_execve_fun(t_node *node, int **fds, pid_t *frs, t_info *info)
 		free_array2d(&result_blts, 0);
 }
 
+void	open_herdoc_files(t_node *node, t_info *info)
+{
+	while (node)
+	{
+		if (ft_strcmp(node->type_before, "<<"))
+		{
+			init_here_doc(node, info);
+		}
+	}
+}
+
 int	execute_fun(t_info *info)
 {
 	int		**fds;
