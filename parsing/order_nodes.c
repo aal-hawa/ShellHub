@@ -150,7 +150,7 @@ void	order_nodes(t_node **to_node, t_node **current_node)
 		node_order.nodes_input->next = node_order.first_output;
 	if (!to_node[0]->args)
 	{
-		free_node(to_node);
+		free_nodes(to_node);
 		to_node[0] = node_order.first_input;
 	}
 	else

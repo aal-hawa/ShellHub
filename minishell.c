@@ -49,7 +49,7 @@ void	minishell(t_info *info)
 		line = tilde(&line, info->home);
 		create_nodes(line, info);
 		line = free_string(&line);
-
+		// show_leek(info);
 		if (info->first_node)
 		{
 			print_nodes(info->first_node, info->colors);

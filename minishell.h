@@ -173,7 +173,7 @@ void		env_data(char **envp, char **env, t_info *info);
 void		init_files(t_node *node, t_info *info);
 int			init_files_biultins(char **str, t_info *info);
 void		init_here_doc(t_node *node, t_info *info);
-void		error_pipe(int **fds, int i, t_info *info, char **strs);
+void		error_pipe(int **fds, int i, t_info *info);
 char		*get_next_line(t_info *info);
 char		*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
 char		*free_string(char **this_string);

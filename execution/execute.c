@@ -98,10 +98,9 @@ int	execute_fun(t_info *info)
 		{
 			if (pipe(fds[info->i_fds++]) == -1)
 			{
-				error_pipe(fds, --info->i_fds, info, NULL);
+				error_pipe(fds, --info->i_fds, info);
 				de_allocate(&fds, &frs, info->str_i);
-				free_info(info);
-				exit(1);
+				exit_number(1, info);
 				return (1);
 			}
 		}

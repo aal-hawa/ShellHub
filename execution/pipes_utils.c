@@ -18,7 +18,7 @@ void	free_splits(char **strs)
 	}
 }
 
-void	error_pipe(int **fds, int i, t_info *info, char **strs)
+void	error_pipe(int **fds, int i, t_info *info)
 {
 	if (i == -3)
 	{
@@ -33,8 +33,6 @@ void	error_pipe(int **fds, int i, t_info *info, char **strs)
 	}
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	info->fd_file_w = close_fd_fun(info->fd_file_w);
-	if (strs)
-		free_splits(strs);
 	if (info->path_commd)
 		free_string(&info->path_commd);
 }
