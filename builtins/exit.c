@@ -4,6 +4,7 @@
 
 void	exit_number(int exit_status, t_info * info)
 {
+	unlink_files(info);
 	free_info(info);
 	exit (exit_status);
 }

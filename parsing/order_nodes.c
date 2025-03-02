@@ -7,7 +7,7 @@ int	init_node_order(t_node_order *node_order, t_node **current_node)
 	node_order->first_input = NULL;
 	node_order->args = current_node[0]->args;
 	node_order->str_cmd = NULL;
-	node_order->nodes_input = malloc_node();
+	node_order->nodes_input = malloc_node2();
 	node_order->nodes_output = malloc_node();
 	if (!node_order->nodes_input || !node_order->nodes_output)
 	{
@@ -181,7 +181,7 @@ void	order_info_nodes(t_info *info)
 			next_node = next_node->next;
 	}
 
-	free_node(&info->first_node);
+	free_nodes(&info->first_node);
 	info->first_node = NULL;
 	info->first_node = first_node;
 }

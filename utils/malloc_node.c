@@ -19,6 +19,25 @@ t_node	*malloc_node()
 	return (node);
 }
 
+t_node	*malloc_node2()
+{
+	t_node	*node;
+	node = malloc(sizeof(t_node));
+	if (!node)
+		return (NULL);
+	node->args = NULL;
+	node->fd_file = -1;
+	node->is_dir_bilt_cmd = -1;
+	node->fd_name = NULL;
+	node->next = NULL;
+	node->type_after = NULL;
+	node->type_before = NULL;
+	node->result_builtins = NULL;
+	node->is_do_execute = 0;
+	node->is_no_inpipe = 0;
+	return (node);
+}
+
 void	copy_node(t_node **to_node, t_node **from_node, int is_free_before)
 {
 	if (!from_node[0])

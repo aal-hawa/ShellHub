@@ -19,6 +19,7 @@ void	unlink_files(t_info *info)
 			i++;
 		}
 	}
+	info->index_files_crt = 0;
 }
 
 void	show_leek(t_info *info)
@@ -47,8 +48,7 @@ void	minishell(t_info *info)
 		line = find_doller_sign_fun(&line, info);
 		line = tilde(&line, info->home);
 		create_nodes(line, info);
-		// line = free_string(&line);
-		// show_leek(info);
+		line = free_string(&line);
 
 		if (info->first_node)
 		{
@@ -62,7 +62,6 @@ void	minishell(t_info *info)
 			// if (info->is_exit_one == 1)
 			// 	exit(1);
 		}
-		line = free_string(&line);
 		// free_node(&info->first_node);
 		reset_info(info);
 		// nodes

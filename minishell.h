@@ -117,6 +117,7 @@ void	free_info(t_info *info);
 void	init_info(int ac, char *env, char **envp, t_info *info);
 void	reset_info(t_info *info);
 t_node	*malloc_node();
+t_node	*malloc_node2();
 int		len_split(char **split);
 char	**copy_split(char **split);
 void	copy_node(t_node **to_node, t_node **from_node, int is_free_before);
@@ -156,6 +157,9 @@ char	**move2next_arg(t_node **cmd_node);
 int		open_file_r_w(char *name_file);
 int		open_file_r(char *name_file);
 int		close_fd_fun(int fd2close);
+void	unlink_files(t_info *info);
+void	exit_number(int exit_status, t_info * info);
+
 
 size_t		ft_strlen(const char *s);
 // char		**ft_split_p(char const *s, char c, t_info *info);
