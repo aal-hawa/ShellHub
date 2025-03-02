@@ -114,7 +114,7 @@ char	**add_in_split(char **split, char *add_str, int is_alpha)
 		if (!new_split[j++])
 			return(free_array2d(&new_split, j - 2), NULL);
 	}
-	if (is_alpha < 2 || !split)
+	if (!split || is_alpha < 2)
 		new_split[j++] = ft_strdup(add_str);
 	new_split[j] = NULL;
 	free_array2d(&split, len - 1);

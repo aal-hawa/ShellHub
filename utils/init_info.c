@@ -25,6 +25,8 @@ void	init_info(int ac, char *env, char **envp, t_info *info)
 	info->curent_path = NULL;
 	info->index_files_crt = 0;
 	info->first_node = NULL;
+	// info->fds = NULL;
+	// info->frs = NULL;
 }
 
 void	reset_info(t_info *info)

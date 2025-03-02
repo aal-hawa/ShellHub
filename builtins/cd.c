@@ -4,26 +4,23 @@
 void 	change_in_env(char **old_path, t_info *info)
 {
 	char	**args;
-	char	**new_pwd;
 
 	args = NULL;
-	add_in_split(args, "export", 0);
+	args = add_in_split(args, "export", 0);
 	args = add_in_split(args, *old_path, 0);
 	*old_path = free_string(old_path);
 	export_fun(args, info, 0);
-	new_pwd = pwd_fun(info, 0);
+	pwd_fun(info, -1);
 	args[1] = free_string(&args[1]);
 	args[1] = ft_strjoin("PWD=", info->curent_path);
 	export_fun(args, info, 0);
 	free_array2d(&args, 0);
-	free_array2d(&new_pwd, 0);
 }
 
-char	**change_path(char *cd, t_info *info, int is_print)
+char	**change_path(char *cd, t_info *info)
 {
 	// char	*result;
 	char	*str_message;
-	(void) is_print;
 	char *old_path;
 	
 	old_path = ft_strjoin("OLDPWD=", info->curent_path);
@@ -42,7 +39,7 @@ char	**change_path(char *cd, t_info *info, int is_print)
 	return (NULL);
 }
 
-char	**cd_fun(char **args, t_info *info, int is_print)
+char	**cd_fun(char **args, t_info *info)
 {
 	char	*str;
 	char	*cd;
@@ -60,5 +57,5 @@ char	**cd_fun(char **args, t_info *info, int is_print)
 			str = ft_strjoin_path(info->curent_path, cd, 1);
 		info->curent_path = ft_restore_value(&info->curent_path, &str, 1);
 	}
-	return(change_path(cd, info, is_print));
+	return(change_path(cd, info));
 }

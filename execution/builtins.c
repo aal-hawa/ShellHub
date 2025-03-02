@@ -8,7 +8,7 @@ void	builtins_fun(char	***result, t_node *node, t_info *info)
 	if (is_operator_fun(node->type_after) > 0 && !is_operator_input_fun(node->type_after))
 		is_print = 0;
 	if (!ft_strcmp(node->args[0], "cd"))
-		result[0] = cd_fun(node->args, info, is_print);
+		result[0] = cd_fun(node->args, info);
 	else if (!ft_strcmp(node->args[0], "echo"))
 	{
 		if (!ft_strcmp(node->args[1], "-n"))

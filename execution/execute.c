@@ -36,7 +36,9 @@ void	do_builtins_check_fork(t_node *node,  t_info *info, char ***result_blts)
 				info->is_builtins_file = 0;
 				print_array2d_fd(*result_blts, info->fd_file_w);
 			}
-			exit (info->status_exit);
+			if (info->str_i > 0)
+				de_allocate(&info->fds, &info->frs, info->str_i);
+			exit_number (info->status_exit, info);
 		}
 	}
 	else
@@ -93,6 +95,8 @@ int	execute_fun(t_info *info)
 	if (info->str_i > 0)
 	{
 		allocate_fds(&fds, &frs, info->str_i);
+		info->fds = fds;
+		info->frs = frs;
 		info->i_fds = 0;
 		while (info->i_fds < info->str_i + 1)
 		{
@@ -105,6 +109,7 @@ int	execute_fun(t_info *info)
 			}
 		}
 	}
+	
 	pwd_fun(info, -1);
 	open_herdoc_files(info->first_node, info);
 	dir_blt_execve_fun(info->first_node, fds, frs, info);

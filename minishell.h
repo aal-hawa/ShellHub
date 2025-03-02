@@ -81,6 +81,8 @@ typedef struct s_info
     int     status_exit;
     char    *curent_path;
 	int		index_files_crt;
+	int		**fds;
+	pid_t	*frs;
 	// int		is_no_inpipe;
 	t_node	*first_node;
 	t_colors	*colors;
@@ -89,7 +91,7 @@ typedef struct s_info
 void	minishell(t_info *info);
 char	*readline_fun();
 char	**tokens_fun(char *line);
-char	**cd_fun(char **args, t_info *info, int is_print);
+char	**cd_fun(char **args, t_info *info);
 char	**pwd_fun(t_info *info, int is_print);
 void	exit_fun(char **arg, t_info *info);
 char	**echo_n_fun(char **args, int is_print);
