@@ -16,7 +16,7 @@ void	close_fds_childs(int **fds, t_info *info)
 	int	j;
 
 	j = 0;
-	while (j < info->str_i + 1) // why with plus one
+	while (j < info->str_i + 1)
 	{
 		if (info->i_childs != j)
 			close(fds[j][0]);
@@ -70,17 +70,8 @@ void	dup_stdin_fileno(t_node *node, int **fds, t_info *info)
 void	childs(t_node *node, int **fds, pid_t *frs, t_info *info)
 {
 	char	**strs;
+
 	strs = node->args;
-	// t_node	*del_node;
-	// while (info->first_node)
-	// {
-	// 	del_node = info->first_node;
-	// 	info->first_node = info->first_node->next;
-	// 	if (del_node = node)
-	// 	{
-	// 		free_node(&del_node);
-	// 	}
-	// }
 	if (!strs)
 	{
 		error_pipe(fds, -3, info);

@@ -7,49 +7,105 @@ void	str_i_count(t_info *info)
 	node = info->first_node;
 	while (node)
 	{
-		if (node->is_dir_bilt_cmd == 2
-			||(node->is_dir_bilt_cmd == 0
-			&& len_split(node->args) > 1
-			&& !is_biult_fun(node->args[1])))
+		if (!ft_strcmp(node->type_after, "|"))
 			info->str_i++;
 		node = node->next;
+	}
+	if (info->str_i > 0)
+		info->str_i++;
+	else if (info->str_i == 0)
+	{
+		node = info->first_node;
+		while (node)
+		{
+			if (node->is_dir_bilt_cmd == 2
+				||(node->is_dir_bilt_cmd == 0
+				&& len_split(node->args) > 1
+				&& !is_biult_fun(node->args[1])))
+				info->str_i++;
+			node = node->next;
+		}
 	}
 	// printf ("info->str_i: %d\n", info->str_i);
 }
 void	do_builtins_check_fork(t_node *node,  t_info *info, char ***result_blts)
 {
 	pid_t	frs_1;
-	if (info->str_i > 0 && 
-		(ft_strcmp(node->args[0], "pwd") || (!ft_strcmp(node->args[0], "export") && node->args[1])))
+	if (info->str_i > 0)
 	{
-		printf ("aaaaaaaaaaaaaaaa\n");
 		frs_1 = fork();
 		if (frs_1 == 0)
 		{
 			do_builtins(node, result_blts, info);
-			if (info->is_builtins_file == 1
-				&& !is_operator_output_fun(node->type_after)
-				&& is_operator_output_fun(node->type_before))
+			if (info->is_builtins_file == 1)
 			{
-				printf("ddddddddddddddd\n");
-				printf("print to file\n");
+				printf ("info->fd_file_w %d\n", info->fd_file_w);
 				info->is_builtins_file = 0;
 				print_array2d_fd(*result_blts, info->fd_file_w);
 			}
+			else
+				dup2(info->fds[info->i_childs + 1][1], STDOUT_FILENO);
+			close_fds_childs(info->fds, info);
+			close(info->fds[info->i_childs + 1][1]);
 			if (info->str_i > 0)
 				de_allocate(&info->fds, &info->frs, info->str_i);
-			exit_number (info->status_exit, info);
+			free_array2d(result_blts, 0);
+			exit_number(info->status_exit, info);
 		}
+		info->i_childs++;
 	}
 	else
 		do_builtins(node, result_blts, info);
+}
+
+int open_all_files(t_node *node, t_info *info)
+{
+	t_node	*this_node;
+
+	this_node = node;
+	while (this_node && ft_strcmp(this_node->type_before, "|"))
+	{
+		if(direct_fun(this_node, info) == 1)
+			return (1);
+		this_node = this_node->next;
+	}
+	info->is_open_files = 0;
+	return (0);
+}
+void	next_cmd(t_node **node, t_info *info)
+{
+	while (node[0] && ft_strcmp(node[0]->type_after, "|"))
+		node[0] = node[0]->next;
+	if (node[0] && !ft_strcmp(node[0]->type_after, "|"))
+	{
+		node[0] = node[0]->next;
+		info->is_open_files = 1;
+	}
+
+}
+
+int	check_open_files(t_node **node, t_info *info)
+{
+	int		is_exit;
+	
+	is_exit = 0;
+	if (info->is_open_files == 1)
+	is_exit = open_all_files(*node, info);
+	if (!ft_strcmp(node[0]->type_after, "|"))
+		info->is_open_files = 1;
+	if (is_exit == 1)
+	{
+		next_cmd(node, info);
+		return (1);
+	}
+	return (0);
 }
 
 void	dir_blt_execve_fun(t_node *node, int **fds, pid_t *frs, t_info *info)
 {
 	char	**result_blts;
 	t_node	*cmd_node;
-	
+
 	cmd_node = NULL;
 	result_blts = NULL;
 	info->i_childs = 0;
@@ -57,13 +113,13 @@ void	dir_blt_execve_fun(t_node *node, int **fds, pid_t *frs, t_info *info)
 		info->i_childs = 1;
 	while (node)
 	{
+		if (check_open_files(&node, info) == 1)
+			continue ;
 		info->is_for_w = 0;
-		if (node->is_dir_bilt_cmd == 0)
-			direct_fun(node, info);
-		else if (node->is_dir_bilt_cmd == 1)
+		if (node->is_dir_bilt_cmd == 1)
 			do_builtins_check_fork(node, info, &result_blts);
 		if (!is_can_do_execve(&node, &cmd_node, info))
-			continue;
+			continue ;
 		for_execve(node, fds, frs, info, result_blts, &cmd_node);
 		if (node)
 			node = node->next;
@@ -88,6 +144,7 @@ int	execute_fun(t_info *info)
 {
 	int		**fds;
 	pid_t	*frs;
+	t_node	*node;
 
 	fds = NULL;
 	frs = NULL;
@@ -109,9 +166,11 @@ int	execute_fun(t_info *info)
 			}
 		}
 	}
-	
 	pwd_fun(info, -1);
 	open_herdoc_files(info->first_node, info);
-	dir_blt_execve_fun(info->first_node, fds, frs, info);
+	node = info->first_node;
+	info->is_open_files  = 1;
+	check_open_files(&node, info);
+	dir_blt_execve_fun(node, fds, frs, info);
 	return (finish_parent(&fds, &frs, info));
 }

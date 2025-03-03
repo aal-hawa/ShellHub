@@ -1,6 +1,6 @@
 # include "../minishell.h"
 
-void	utils_direct_fun(t_node *node, t_info *info)
+int	utils_direct_fun(t_node *node, t_info *info)
 {
 	if (info->fd_file_w == -1 || info->fd_file_r == -1)
 	{
@@ -22,6 +22,7 @@ void	utils_direct_fun(t_node *node, t_info *info)
 		if (node->next)
 			node->next->is_no_inpipe = 1;
 	}
+	return (info->is_exit_one);
 }
 
 int	direct_fun(t_node *node, t_info *info)
@@ -45,6 +46,5 @@ int	direct_fun(t_node *node, t_info *info)
 		init_files(node, info);
 	// else if (!ft_strcmp(node->type_before, "<<"))
 	// 	init_here_doc(node, info);
-	utils_direct_fun(node, info);
-	return (0);
+	return (utils_direct_fun(node, info));
 }

@@ -81,6 +81,7 @@ typedef struct s_info
     int     status_exit;
     char    *curent_path;
 	int		index_files_crt;
+	int		is_open_files;
 	int		**fds;
 	pid_t	*frs;
 	// int		is_no_inpipe;

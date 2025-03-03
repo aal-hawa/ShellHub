@@ -3,6 +3,9 @@
 
 void	free_info(t_info *info)
 {
+	info->fd_file_w = close_fd_fun(info->fd_file_w);
+	info->fd_file_r = close_fd_fun(info->fd_file_r);
+	
 	if (info->envp)
 		free_array2d(&info->envp, 0);
 	if (info->export)

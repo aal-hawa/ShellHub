@@ -25,8 +25,9 @@ void	init_info(int ac, char *env, char **envp, t_info *info)
 	info->curent_path = NULL;
 	info->index_files_crt = 0;
 	info->first_node = NULL;
-	// info->fds = NULL;
-	// info->frs = NULL;
+	info->fds = NULL;
+	info->frs = NULL;
+	info->is_open_files = 0;
 }
 
 void	reset_info(t_info *info)
@@ -41,5 +42,6 @@ void	reset_info(t_info *info)
 	info->is_exit_one = 0;
 	info->is_builtins_file = 0;
 	info->i_fds = 0;
+	info->is_open_files = 0;
 	free_nodes(&info->first_node);
 }
