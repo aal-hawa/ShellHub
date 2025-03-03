@@ -26,15 +26,15 @@ void	do_execve_fun(t_node **cmd_node, int **fds, pid_t *frs, t_info *info)
 	}
 }
 
-int	is__change_args(t_node **node,t_node **cmd_node, t_info *info)
+int	is__change_args(t_node **node,t_node **cmd_node)
 {
-	if (info->is_exit_one == 1)
-	{
-		if (!ft_strcmp(node[0]->type_after, "|"))
-			info->is_exit_one = 0;
-		*node = node[0]->next;
-		return (1);
-	}
+	// if (info->is_exit_one == 1)
+	// {
+	// 	if (!ft_strcmp(node[0]->type_after, "|"))
+	// 		info->is_exit_one = 0;
+	// 	*node = node[0]->next;
+	// 	return (1);
+	// }
 	if (node[0]->is_do_execute == -1)
 	{
 		cmd_node[0]->args = move2next_arg(cmd_node);
@@ -47,7 +47,7 @@ int	is__change_args(t_node **node,t_node **cmd_node, t_info *info)
 
 int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
 {
-	if (is__change_args(node, cmd_node, info) == 1)
+	if (is__change_args(node, cmd_node) == 1)
 		return (0);
 	if (is_operator_output_fun(node[0]->type_after) || !ft_strcmp(node[0]->type_after, "|")
 	|| !ft_strcmp(node[0]->type_after, "end") || node[0]->is_dir_bilt_cmd == 2 || info->is_builtins_file == 2)

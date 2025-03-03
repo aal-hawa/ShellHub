@@ -7,6 +7,13 @@ void	init_files(t_node *node, t_info *info)
 	node->fd_file = info->fd_file_r; 
 }
 
+void	open_here_doc(t_node *node, t_info *info)
+{
+	info->fd_file_r = close_fd_fun(info->fd_file_r);
+	info->fd_file_r = open_file_r(node->fd_name);
+	node->fd_file = info->fd_file_r; 
+}
+
 void	init_here_doc(t_node *node, t_info *info)
 {
 	char 	*str;

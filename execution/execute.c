@@ -28,7 +28,7 @@ void	str_i_count(t_info *info)
 	}
 	// printf ("info->str_i: %d\n", info->str_i);
 }
-void	do_builtins_check_fork(t_node *node,  t_info *info, char ***result_blts)
+void	do_builtins_check_fork(t_node *node,  t_info *info, char ***result_blts, t_node **cmd_node)
 {
 	pid_t	frs_1;
 	if (info->str_i > 0)
@@ -39,19 +39,26 @@ void	do_builtins_check_fork(t_node *node,  t_info *info, char ***result_blts)
 			do_builtins(node, result_blts, info);
 			if (info->is_builtins_file == 1)
 			{
-				printf ("info->fd_file_w %d\n", info->fd_file_w);
 				info->is_builtins_file = 0;
 				print_array2d_fd(*result_blts, info->fd_file_w);
 			}
 			else
+			{
 				dup2(info->fds[info->i_childs + 1][1], STDOUT_FILENO);
+				print_array2d_fd(*result_blts, info->fds[info->i_childs + 1][1]);
+				// for_execve(node, info->fds, info->frs, info, *result_blts, &node->next);
+			}
 			close_fds_childs(info->fds, info);
 			close(info->fds[info->i_childs + 1][1]);
+			close(info->fds[info->i_childs][0]);
 			if (info->str_i > 0)
 				de_allocate(&info->fds, &info->frs, info->str_i);
 			free_array2d(result_blts, 0);
 			exit_number(info->status_exit, info);
 		}
+		if (!cmd_node[0])
+		cmd_node[0] = node;
+		cmd_node[0] = cmd_node[0]->next;
 		info->i_childs++;
 	}
 	else
@@ -74,10 +81,18 @@ int open_all_files(t_node *node, t_info *info)
 }
 void	next_cmd(t_node **node, t_info *info)
 {
+	// int	i;
+
+	// i = 0;
 	while (node[0] && ft_strcmp(node[0]->type_after, "|"))
+	{
+		// i++;
 		node[0] = node[0]->next;
+	}
 	if (node[0] && !ft_strcmp(node[0]->type_after, "|"))
 	{
+		// close(info->fds[i][0]);
+		// close(info->fds[i][1]);
 		node[0] = node[0]->next;
 		info->is_open_files = 1;
 	}
@@ -117,7 +132,7 @@ void	dir_blt_execve_fun(t_node *node, int **fds, pid_t *frs, t_info *info)
 			continue ;
 		info->is_for_w = 0;
 		if (node->is_dir_bilt_cmd == 1)
-			do_builtins_check_fork(node, info, &result_blts);
+			do_builtins_check_fork(node, info, &result_blts, &cmd_node);
 		if (!is_can_do_execve(&node, &cmd_node, info))
 			continue ;
 		for_execve(node, fds, frs, info, result_blts, &cmd_node);

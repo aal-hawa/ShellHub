@@ -74,7 +74,8 @@ typedef struct s_info
 	int		is_bonus;
 	// size_t	i_split;
 	int		env_null;
-	int		is_exit_one;
+	// int		is_exit_one;
+	
 	//for builtins, equal zero nothing, equal one type after = operators not pipe, equal two type after = pipe
 	int		is_builtins_file;
 	char	*home;
@@ -162,6 +163,7 @@ int		open_file_r(char *name_file);
 int		close_fd_fun(int fd2close);
 void	unlink_files(t_info *info);
 void	exit_number(int exit_status, t_info * info);
+void	open_here_doc(t_node *node, t_info *info);
 
 
 size_t		ft_strlen(const char *s);

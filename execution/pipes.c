@@ -48,6 +48,7 @@ void	dup_stdin_fileno(t_node *node, int **fds, t_info *info)
 {
 	if (node->is_no_inpipe == 1)
 	{
+
 		info->fd_file_w = open_file_r_w("/tmp/tmp_no_inpipe");
 		dup2(info->fd_file_w, STDIN_FILENO);
 		info->fd_file_w = close_fd_fun(info->fd_file_w);
@@ -63,7 +64,10 @@ void	dup_stdin_fileno(t_node *node, int **fds, t_info *info)
 			info->is_builtins_file = 0;
 		}
 		else if (info->i_childs != 0 || (info->i_childs == 0 && node->is_no_inpipe == 1)) //info->i_childs != 0
+		{
+
 			dup2(fds[info->i_childs][0], STDIN_FILENO);
+		}
 	}
 }
 

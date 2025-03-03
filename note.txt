@@ -68,7 +68,7 @@ When add any variable to env using export
 
 --------------------------	check data 	-----------------------------
 1- info->str_i //
-2- info->is_exit_one
+2- info->is_exit_one //deleted
 3- mm: No such file or directory, :: if (info->fd_file_w == -1 || info->fd_file_r == -1)
 
 ----------------------------------------------------------------------

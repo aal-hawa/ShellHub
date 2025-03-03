@@ -2,10 +2,18 @@
 
 int	utils_direct_fun(t_node *node, t_info *info)
 {
+	int	is_exit;
+
+	is_exit = 0;
 	if (info->fd_file_w == -1 || info->fd_file_r == -1)
 	{
 		info->status_exit = 1;
-		info->is_exit_one = 1;
+		// info->is_exit_one = 1;
+		info->fd_file_w = close_fd_fun(info->fd_file_w);
+		info->fd_file_r = close_fd_fun(info->fd_file_r);
+		info->fd_file_w = -2;
+		info->fd_file_r = -2;
+		is_exit = 1;
 	}
 	else
 		info->status_exit = 0;
@@ -22,7 +30,7 @@ int	utils_direct_fun(t_node *node, t_info *info)
 		if (node->next)
 			node->next->is_no_inpipe = 1;
 	}
-	return (info->is_exit_one);
+	return (is_exit);
 }
 
 int	direct_fun(t_node *node, t_info *info)
@@ -41,10 +49,9 @@ int	direct_fun(t_node *node, t_info *info)
 		info->is_for_w = 1;
 		node->fd_file = info->fd_file_w;
 	}
-	else if (!ft_strcmp(node->type_before, "<")
-		|| !ft_strcmp(node->type_before, "<<"))
+	else if (!ft_strcmp(node->type_before, "<"))
 		init_files(node, info);
-	// else if (!ft_strcmp(node->type_before, "<<"))
-	// 	init_here_doc(node, info);
+	else if (!ft_strcmp(node->type_before, "<<"))
+		open_here_doc(node, info);
 	return (utils_direct_fun(node, info));
 }
