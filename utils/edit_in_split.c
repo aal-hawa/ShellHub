@@ -157,3 +157,87 @@ char	**marge_2_splits(char ***first_split, char ***second_split)
 	free_array2d(second_split, len2);
 	return (new_split);
 }
+
+
+void	add_double_quotes_1(char **str)
+{
+	int		len;
+	int		i;
+	char	*new_str;
+
+	len = strlen(*str);
+	new_str = malloc(sizeof(char) * (len + 3));
+	if (!new_str)
+		return ;
+	new_str[0] = '"';
+	i = 0;
+	while (str[0][i])
+	{
+		new_str[i + 1] = str[0][i];
+		i++;
+	}
+	new_str[i + 1] = '"';
+	new_str[i + 2] = '\0';
+	*str = free_string(str);
+	*str = new_str;
+	printf("%s\n", new_str);
+}
+
+char	*print_value_1(char *arg)
+{
+	int		i;
+	char	*key;
+	char	*value;
+	char	*result;
+	char	*str_join;
+
+	i = 0;
+	while (arg[i] && arg[i] != '=')
+		i++;
+	key = ft_strndup(arg, i);
+	value = NULL;
+	if (arg[i] == '=')
+		value = ft_strdup(arg + i + 1);
+	if (!check_is_valid_key(key))
+	{
+		printf("minishell: export: `%s': not a valid identifier\n", key);
+		free(key);
+		free(value);
+		return (NULL);
+	}
+	str_join = ft_strjoin("declare -x ",key);
+	result = ft_restore_value(&result, &str_join, 1);
+	if (value)
+	{
+		str_join = ft_strjoin(result, "=");
+
+		result = ft_restore_value(&result, &str_join, 1);
+		add_double_quotes_1(&value);
+
+		str_join = ft_strjoin(result, value);
+		result = ft_restore_value(&result, &str_join, 1);
+	}
+	// else
+	// 	printf("\n");
+	free(key);
+	free(value);
+	return (result);
+}
+
+
+char	**make_export_fun(char	**export)
+{
+	int	i;
+	char	*str;
+	char	**array2d;
+
+	i = 0;
+	while (export[i])
+	{
+		str = print_value_1(export[i]);
+		array2d = add_in_split(array2d, str, 0);
+		str = free_string(&str);
+		i++;
+	}
+	return (array2d);
+}
