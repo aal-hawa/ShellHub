@@ -31,7 +31,8 @@ void	child_execve(int **fds, char **strs, pid_t *frs, t_info *info)
 	printf ("info->is_for_w: %d\n", info->is_for_w);
 	if (info->is_for_w == 2)
 		dup2(fds[info->i_childs + 1][1], STDOUT_FILENO);
-	else if (info->is_for_w == 1)
+		// else if (info->is_for_w == 1)
+	else if (info->fd_file_w >=0 )
 		dup2(info->fd_file_w, STDOUT_FILENO);
 	close(fds[info->i_childs + 1][1]);
 	if (info->is_for_w == 1)
@@ -53,6 +54,7 @@ void	dup_stdin_fileno(t_node *node, int **fds, t_info *info)
 		dup2(info->fd_file_w, STDIN_FILENO);
 		info->fd_file_w = close_fd_fun(info->fd_file_w);
 		node->is_no_inpipe = 0;
+		// info->str_i++;
 		// unlink("/tmp/tmp_no_inpipe");
 	}
 	else

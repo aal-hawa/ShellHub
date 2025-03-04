@@ -37,8 +37,8 @@ void	reset_info(t_info *info)
 	// info->limiter = NULL; //
 	info->env_null = 0; //
 	info->is_for_w = 0;
-	info->fd_file_w = -2;
-	info->fd_file_r = -2;
+	info->fd_file_w = close_fd_fun(info->fd_file_w);
+	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	// info->is_exit_one = 0;
 	info->is_builtins_file = 0;
 	info->i_fds = 0;

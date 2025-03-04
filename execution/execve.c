@@ -72,13 +72,12 @@ void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result
 {
 	if (node->is_dir_bilt_cmd != 1)
 	{
-		if (info->is_builtins_file == 1
-			&& !is_operator_output_fun(node->type_after)
-			&& is_operator_output_fun(node->type_before))
+		if (info->is_builtins_file == 1)
 		{
 			printf("print to file\n");
 			info->is_builtins_file = 0;
 			print_array2d_fd(result_blts, info->fd_file_w);
+			info->fd_file_w = close_fd_fun(info->fd_file_w);
 		}
 		else
 		{
