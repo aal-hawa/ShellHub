@@ -164,6 +164,8 @@ int		close_fd_fun(int fd2close);
 void	unlink_files(t_info *info);
 void	exit_number(int exit_status, t_info * info);
 void	open_here_doc(t_node *node, t_info *info);
+char	**make_export_fun(char	**export);
+
 
 size_t		ft_strlen(const char *s);
 // char		**ft_split_p(char const *s, char c, t_info *info);
