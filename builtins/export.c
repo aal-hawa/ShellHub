@@ -136,6 +136,9 @@ void	print_export(t_info *info)
 
 char	**export_fun(char **args, t_info *info, int is_print)
 {
+	printf("export:");
+	print_export(info);
+	printf("-----\n-------{{}}-----\n");
 	(void) is_print;
 	int	i;
 
@@ -152,5 +155,5 @@ char	**export_fun(char **args, t_info *info, int is_print)
 			i++;
 		}
 	}
-	return (NULL);
+	return (info->export);
 }

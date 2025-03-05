@@ -41,6 +41,11 @@ void	minishell(t_info *info)
 		// char **tokens;
 		// readLine && hestory
 		line = readline_fun();
+		if (!line)
+        {
+            write(1, "exit\n", 5);
+            exit(0);
+        }
 		printf("%sthe input: %s%s\n", info->colors->cyan_color, info->colors->default_color, line);
 		if (!check_valid_line(&line, info))
 			continue ;
