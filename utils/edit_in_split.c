@@ -180,7 +180,7 @@ void	add_double_quotes_1(char **str)
 	new_str[i + 2] = '\0';
 	*str = free_string(str);
 	*str = new_str;
-	printf("%s\n", new_str);
+	// printf("%s\n", new_str);
 }
 
 char	*print_value_1(char *arg)
@@ -192,6 +192,7 @@ char	*print_value_1(char *arg)
 	char	*str_join;
 
 	i = 0;
+	result = NULL;
 	while (arg[i] && arg[i] != '=')
 		i++;
 	key = ft_strndup(arg, i);
@@ -217,6 +218,8 @@ char	*print_value_1(char *arg)
 		str_join = ft_strjoin(result, value);
 		result = ft_restore_value(&result, &str_join, 1);
 	}
+	str_join = ft_strjoin(result, "\n");
+	result = ft_restore_value(&result, &str_join, 1);
 	// else
 	// 	printf("\n");
 	free(key);
@@ -232,6 +235,7 @@ char	**make_export_fun(char	**export)
 	char	**array2d;
 
 	i = 0;
+	array2d = NULL;
 	while (export[i])
 	{
 		str = print_value_1(export[i]);
