@@ -44,7 +44,7 @@ void	minishell(t_info *info)
 		if (!line)
         {
             write(1, "exit\n", 5);
-            exit(0);
+            exit_number(0, info);
         }
 		printf("%sthe input: %s%s\n", info->colors->cyan_color, info->colors->default_color, line);
 		if (!check_valid_line(&line, info))
