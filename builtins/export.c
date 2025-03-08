@@ -1,15 +1,5 @@
 #include "../minishell.h"
 
-int	is_has_equal(char *str)
-{
-	while (*str)
-	{
-		if (*str == '=')
-			return (1);
-		str++;
-	}
-	return (0);
-}
 
 void	add_double_quotes(char *str)
 {
@@ -136,16 +126,13 @@ void	print_export(t_info *info)
 
 char	**export_fun(char **args, t_info *info, int is_print)
 {
-	printf("export:");
-	print_export(info);
-	printf("-----\n-------{{}}-----\n");
-	(void) is_print;
 	int	i;
+	char **cp_export = NULL;
 
 	i = 1;
 	if (!info)
 		return (NULL);
-	if (!args[i])
+	if (!args[i] && is_print)
 		print_export(info);
 	else
 	{
@@ -155,6 +142,6 @@ char	**export_fun(char **args, t_info *info, int is_print)
 			i++;
 		}
 	}
-	
-	return (info->export);
+	cp_export = make_export_fun(info->export);
+	return (cp_export);
 }
