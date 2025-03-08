@@ -5,7 +5,7 @@ char *readline_fun()
 {
 	char *line;
 	
-	line = readline ("Enter a line: ");
+	line = readline ("shellhub$ ");
 	add_history(line);
 	return (line);
 }

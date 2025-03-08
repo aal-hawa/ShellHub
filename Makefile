@@ -20,6 +20,7 @@ SRC = minishell.c init_colors.c \
     utils/print_node.c utils/move2next_arg.c utils/ft_strndup.c utils/free_info.c \
 	execution/r_wr_func.c execution/pipes.c execution/parent_func.c execution/execve.c execution/builtins.c execution/direct_in_output.c \
 	execution/pipes_utils.c execution/get_path.c  execution/get_next_line.c execution/get_next_line_utils.c execution/execute.c execution/init_file.c \
+	signals/signals_handler.c
 
 OBJS = $(SRC:.c=.o) $(SRC_MAIN:.c=.o)
 

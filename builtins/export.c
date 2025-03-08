@@ -29,15 +29,11 @@ void	check_and_add(t_info *info, char *arg, int add_to_env)
 	if (is_exist_str_in_2array(info->export, arg, 0) || 
 		is_exist_str_in_2array(info->export, arg, ft_strlen(arg)))
 	{
-		// printf("\n------\ndeleting {{%s}}, adding with new value{{%s}}\n------\n", arg, arg);
 		info->export = del_str_from_array2d(info->export, arg, 0);
 		info->export = add_in_split(info->export, arg, 0);
 	}
 	else
-	{
-		// printf("\n------\nadding{{%s}}\n------\n", arg);
 		info->export = add_in_split(info->export, arg, 1);
-	}
 	if (add_to_env)
 		info->envp = add_in_split(info->envp, arg, 0);
 }
@@ -47,15 +43,11 @@ void	check_and_add_env(t_info *info, char *arg, char *key)
 	if (is_exist_str_in_2array(info->envp, key, 0) || 
 		is_exist_str_in_2array(info->envp, key, ft_strlen(arg)))
 	{
-		// printf("\n------\ndeleting {{%s}}, adding with new value{{%s}}\n------\n", arg, arg);
 		info->envp = del_str_from_array2d(info->envp, arg, 0);
 		info->envp = add_in_split(info->envp, arg, 0);
 	}
 	else
-	{
-		// printf("\n------\nadding{{%s}}\n------\n", arg);
 		info->envp = add_in_split(info->envp, arg, 1);
-	}
 }
 
 void	print_value(char *arg, t_info *info, int print)
