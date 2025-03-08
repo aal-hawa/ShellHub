@@ -2,6 +2,7 @@
 // I need to put this one in cmd be ls
 void execute_command(char *cmd)
 {
+    (void) cmd;
     pid_t pid = fork();
     int status;
 
@@ -9,7 +10,6 @@ void execute_command(char *cmd)
     {
         signal(SIGINT, SIG_DFL);  // Restore default Ctrl-C behavior
         signal(SIGQUIT, SIG_DFL); // Restore default Ctrl-\ behavior
-        execlp(cmd, cmd, NULL);
         perror("exec failed");
         exit(1);
     }
