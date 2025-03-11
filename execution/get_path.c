@@ -1,24 +1,29 @@
 
 # include "../minishell.h"
 
-void	env_data(char **envp, t_info *info)
+void	env_data(t_info *info)
 {
 	int	i;
+	char **envp;
 
+	envp = info->envp;
 	i = 0;
 	info->home = NULL;
 	info->path_env = NULL;
+	info->env_null = 0;
 	if (envp)
 	{
 		while (envp[i])
 		{
 			if (ft_strncmp(envp[i], "HOME=", 5) == 0)
-				info->home = ft_strdup(&envp[i][5]);
+				info->home = &envp[i][5];
 			if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 				info->path_env = &envp[i][5];
 			i++;
 		}
 	}
+	if (!info->path_env)
+			info->env_null = 1;
 }
 
 int	is_access_str_cmd(char ***env_split, char *str_joined, char *str)

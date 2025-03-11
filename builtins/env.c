@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tmahmoud <tmahmoud@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 15:33:53 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/08 05:58:10 by tmahmoud         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "../minishell.h"
 
@@ -81,6 +71,7 @@ char	**env_fun(char **args, t_info * info, int is_print)
 	}
 	if(is_print)
 		print_env(cpy_print);
+	env_data(info);
 	return (cpy_print);
 }
 // char **result = funcName(str, c);

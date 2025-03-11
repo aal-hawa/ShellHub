@@ -19,8 +19,8 @@ void	free_info(t_info *info)
 	if (info->curent_path)
 		info->curent_path = free_string(&info->curent_path);
 
-	if (info->home)
-		info->home = free_string(&info->home);
+	// if (info->home)
+	// 	info->home = free_string(&info->home);
 
 	if (info->tokens)
 		free_tokens(&info->tokens);

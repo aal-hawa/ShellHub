@@ -42,5 +42,6 @@ char	**unset_func(char **args, t_info *info)
 			i++;
 		}
 	}
+	env_data(info);
 	return (NULL);
 }

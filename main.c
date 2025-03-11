@@ -27,11 +27,9 @@ int	main(int ac, char **arg, char **envp)
 
 	if (ac == 1)
 	{
-		env_data(envp, &info);
 		init_colors(&colors, &info);
-		init_info(envp, &info); // make it before env_data()
-		if (!info.path_env)
-			info.env_null = 1;
+		init_info(envp, &info);
+		env_data(&info);
 		minishell(&info);
 	}
 	else

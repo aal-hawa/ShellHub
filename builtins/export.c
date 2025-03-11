@@ -135,5 +135,6 @@ char	**export_fun(char **args, t_info *info, int is_print)
 		}
 	}
 	cp_export = make_export_fun(info->export);
+	env_data(info);
 	return (cp_export);
 }

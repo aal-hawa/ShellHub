@@ -168,7 +168,7 @@ int			open_file_w(char *name_file);
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
 char		*ft_strjoin_path(char const *s1, char const *s2, int is_path);
 int			open_file_w_b(char *name_file);
-void		env_data(char **envp, t_info *info);
+void		env_data(t_info *info);
 void		init_files(t_node *node, t_info *info);
 int			init_files_biultins(char **str, t_info *info);
 void		init_here_doc(char *herdoc_file, t_info *info);

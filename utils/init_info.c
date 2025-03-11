@@ -7,7 +7,7 @@ void	init_info(char **envp, t_info *info)
 	info->export = copy_split(envp);
 	info->limiter = NULL;
 	info->path_commd = NULL;
-	info->env_null = 0;
+	// info->env_null = 0;
 	info->fd_file_w = -2;
 	info->i_fds = 0;
 	info->i_childs = 0;
