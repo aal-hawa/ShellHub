@@ -43,26 +43,15 @@ void	child_execve(t_token *token, char **strs, t_info *info)
 	exit_number(1, info);
 }
 
-void	dup_stdin_fileno(t_token *token, t_info *info)
+void	dup_stdin_fileno(t_info *info)
 {
-	if (!token->cmd)
+	if (info->fd_file_r >= 0)
 	{
-		info->fd_file_w = open_file_r_w("/tmp/tmp_no_inpipe");
-		dup2(info->fd_file_w, STDIN_FILENO);
-		info->fd_file_w = close_fd_fun(info->fd_file_w);
-		// 	// info->str_i++;
-		// 	// unlink("/tmp/tmp_no_inpipe");
+		dup2(info->fd_file_r, STDIN_FILENO);
+		info->fd_file_r = close_fd_fun(info->fd_file_r);
 	}
-	else
-	{
-		if (info->fd_file_r >= 0)
-		{
-			dup2(info->fd_file_r, STDIN_FILENO);
-			info->fd_file_r = close_fd_fun(info->fd_file_r);
-		}
-		else if (info->i_childs != 0)
-			dup2(info->fds[info->i_childs][0], STDIN_FILENO);
-	}
+	else if (info->i_childs != 0)
+		dup2(info->fds[info->i_childs][0], STDIN_FILENO);
 }
 
 void	childs(t_token *token, t_info *info)
@@ -86,7 +75,7 @@ void	childs(t_token *token, t_info *info)
 		de_allocate(&info->fds, &info->frs, info->str_i);
 		return (exit_number(127, info));
 	}
-	dup_stdin_fileno(token, info);
+	dup_stdin_fileno(info);
 	close(info->fds[info->i_childs][0]);
 	child_execve(token, strs, info);
 	exit_number(0, info);

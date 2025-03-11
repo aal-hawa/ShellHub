@@ -87,7 +87,7 @@ void	dir_blt_execve_fun(t_token *tokens, t_info *info)
 
 	result_blts = NULL;
 	info->i_childs = 0;
-	if (info->fd_file_r == -1)
+	if (info->fd_file_r == -1) // check this later
 		info->i_childs = 1;
 	while (tokens)
 	{
@@ -102,6 +102,11 @@ void	dir_blt_execve_fun(t_token *tokens, t_info *info)
 				do_builtins_check_fork(tokens, info, &result_blts);
 			else
 				for_execve(tokens, info);
+		}
+		else if (info->str_i > 0)
+		{
+			close(info->fds[info->i_childs + 1][1]);
+			info->i_childs++;
 		}
 		tokens = tokens->next;
 	}
