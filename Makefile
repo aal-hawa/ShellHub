@@ -1,8 +1,6 @@
 NAME = minishell
 LIBFT = libft
 LIBFT_A = $(LIBFT)/libft.a
-# PIPEX_DIR = ../pipex
-# PIPEX_A = $(PIPEX_DIR)/pipex
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 FLAGS = $(CFLAGS) -I$(LIBFT)/headers -L$(LIBFT) -lft 
@@ -14,7 +12,7 @@ SRC = minishell.c init_colors.c \
 	parsing/readline.c 	parsing/tokens.c parsing/double_qoutes.c parsing/new_node_2.c parsing/order_nodes.c parsing/check_valid_line.c \
 	parsing/operators.c parsing/single_quotes.c parsing/syntax_errors.c parsing/variable_expansion.c parsing/fixed_line_spaces.c \
 	parsing/tilde.c parsing/marge_new_line.c parsing/check_valid_qout.c \
-	utils/free_malloc.c	utils/edit_in_split.c utils/ft_strclen.c utils/check_valid_input_exp.c \
+	utils/edit_in_split.c utils/ft_strclen.c utils/check_valid_input_exp.c \
 	utils/ft_strccpy.c utils/ft_strcmp.c utils/ft_strlchr.c utils/malloc_node.c utils/del_qout_nodes.c utils/ft_strjoin_path.c utils/ft_putstr_fd_malloc.c \
 	utils/free_nodes.c utils/free_array2d.c utils/ft_restore_value.c utils/init_info.c utils/pre_split.c utils/print_array2d.c utils/is_qout.c utils/builtins_message.c \
     utils/print_node.c utils/move2next_arg.c utils/ft_strndup.c utils/free_info.c \
@@ -28,9 +26,6 @@ all: $(LIBFT_A)  $(NAME)
 
 $(LIBFT_A): 
 	make -C $(LIBFT)
-
-# $(PIPEX_A):
-# 	make -C $(PIPEX_DIR)
 
 $(NAME): $(OBJS) $(LIBFT_A)
 	$(CC) $(OBJS) -o $(NAME) $(FLAGS) $(LDFLAGS)

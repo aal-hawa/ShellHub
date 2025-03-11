@@ -7,7 +7,6 @@ void	init_info(char **envp, t_info *info)
 	info->export = copy_split(envp);
 	info->limiter = NULL;
 	info->path_commd = NULL;
-	// info->env_null = 0;
 	info->fd_file_w = -2;
 	info->i_fds = 0;
 	info->i_childs = 0;
@@ -27,9 +26,10 @@ void	reset_info(t_info *info)
 {
 	info->str_i = 0;
 	info->limiter = free_string(&info->limiter);
-	// info->env_null = 0;
 	info->fd_file_w = close_fd_fun(info->fd_file_w);
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	info->i_fds = 0;
+	if (info->herdoc_files)
+		free_array2d(&info->herdoc_files, 0);
 	free_tokens(&info->tokens);
 }

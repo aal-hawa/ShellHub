@@ -19,7 +19,7 @@ void	str_i_count(t_info *info)
 		if (token->is_bilt_cmd == 1)
 			info->str_i++;
 	}
-	printf ("info->str_i: %d\n", info->str_i);
+	// printf ("info->str_i: %d\n", info->str_i);
 }
 void	do_builtins_check_fork(t_token *token,  t_info *info, char ***result_blts)
 {
@@ -125,7 +125,7 @@ void	put_name_herdoc_files(t_info *info)
 		input_node = token->input_redirect;
 		while (input_node)
 		{
-			if (ft_strcmp(input_node->type_before, "<<"))
+			if (!ft_strcmp(input_node->type_before, "<<"))
 			{
 				str = new_name_herdoc(index_files);
 				index_files++;

@@ -7,7 +7,7 @@ int	init_node_order(t_node_order *node_order, t_node **current_node)
 	node_order->first_input = NULL;
 	node_order->args = current_node[0]->args;
 	node_order->str_cmd = NULL;
-	node_order->nodes_input = malloc_node2();
+	node_order->nodes_input = malloc_node();
 	node_order->nodes_output = malloc_node();
 	if (!node_order->nodes_input || !node_order->nodes_output)
 	{
@@ -23,7 +23,7 @@ int	init_node_order(t_node_order *node_order, t_node **current_node)
 	return (1);
 }
 
-void	do_operator(t_node_order *node_order, t_node **nodes)
+void	do_operator(t_node_order *node_order, t_node **nodes, t_info *info)
 {
 	if (nodes[0]->args)
 	{
@@ -33,18 +33,20 @@ void	do_operator(t_node_order *node_order, t_node **nodes)
 	nodes[0]->type_before = ft_strdup(node_order->args[node_order->i]);
 	node_order->i++;
 	nodes[0]->args = ft_split(node_order->args[node_order->i], ' ');
+	if (!ft_strcmp(nodes[0]->type_before, "<<"))
+		info->herdoc_files = add_in_split(info->herdoc_files, nodes[0]->args[0], 0);
 }
 
-void	make_order_nodes(t_node_order *node_order)
+void	make_order_nodes(t_node_order *node_order, t_info *info)
 {
 	while (node_order->args[node_order->i])
 	{
 		if (is_operator_fun(node_order->args[node_order->i]) > 0)
 		{
 			if (is_operator_input_fun(node_order->args[node_order->i]))
-				do_operator(node_order, &(node_order->nodes_input));
+				do_operator(node_order, &(node_order->nodes_input), info);
 			else if (is_operator_output_fun(node_order->args[node_order->i]))
-				do_operator(node_order, &(node_order->nodes_output));
+				do_operator(node_order, &(node_order->nodes_output), info);
 		}
 		else
 		{
@@ -64,14 +66,14 @@ void	make_order_nodes(t_node_order *node_order)
 	}
 }
 
-void	order_nodes(t_node **current_node, t_token **token)
+void	order_nodes(t_node **current_node, t_token **token, t_info *info)
 {
 	t_node_order	node_order;
 	char			**array2d;
 
 	if (!init_node_order(&node_order, current_node))
 		return ;
-	make_order_nodes(&node_order);
+	make_order_nodes(&node_order, info);
 	array2d = ft_split(node_order.str_cmd, ' ');
 	token[0]->cmd = array2d;
 	if (token[0]->cmd && is_biult_fun(token[0]->cmd[0]) == 0)
@@ -98,7 +100,7 @@ void	order_info_nodes(t_info *info, t_node **node)
 	print_array2d(next_node->args, 1);
 	while (next_node)
 	{
-		order_nodes(&next_node, &tokens);
+		order_nodes(&next_node, &tokens, info);
 		del_qout_nodes(tokens->input_redirect);
 		del_qout_nodes(tokens->output_redirect);
 		del_qout_cmd(tokens->cmd);

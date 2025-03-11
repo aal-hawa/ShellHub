@@ -10,6 +10,8 @@ void	free_info(t_info *info)
 		free_array2d(&info->envp, 0);
 	if (info->export)
 		free_array2d(&info->export, 0);
+	if (info->herdoc_files)
+		free_array2d(&info->herdoc_files, 0);
 	if (info->limiter)
 		info->limiter = free_string(&info->limiter);
 

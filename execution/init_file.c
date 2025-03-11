@@ -9,7 +9,8 @@ void	init_files(t_node *node, t_info *info)
 void	open_here_doc(t_node *node, t_info *info)
 {
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
-	info->fd_file_r = open_file_r(node->fd_name);
+	if (node->fd_name)
+		info->fd_file_r = open_file_r(node->fd_name);
 }
 
 char	*new_name_herdoc(int index)
@@ -35,7 +36,6 @@ void	init_here_doc(char *herdoc_file, t_info *info)
 	info->i_limiter = ft_strlen(info->limiter);
 	ft_putstr_fd_malloc(get_next_line(info), info->fd_file_r, 1);
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
-	// herdoc_file->fd_name = str;
 }
 
 int	init_files_biultins(char **str, t_info *info)

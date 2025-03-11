@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:06:25 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/09 19:32:40 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:49:42 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ char	*ft_strlchr(char **str, char lst_char, int is_str_malloc)
 		return (*str);
 	dest = malloc(sizeof(char) * (i + 1));
 	if (!dest)
-		return (free_fun(str), NULL);
+	{
+		*str = free_string(str);
+		return (NULL);
+	}
 	ft_strlcpy(dest, *str, i + 1);
 	if (is_str_malloc == 1)
-		free_fun(str);
+		*str = free_string(str);
 	return (dest);
 }

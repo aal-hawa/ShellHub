@@ -28,19 +28,6 @@ t_node	*malloc_node()
 	return (node);
 }
 
-t_node	*malloc_node2()
-{
-	t_node	*node;
-	node = malloc(sizeof(t_node));
-	if (!node)
-		return (NULL);
-	node->args = NULL;
-	node->fd_name = NULL;
-	node->next = NULL;
-	node->type_before = NULL;
-	return (node);
-}
-
 void	copy_node(t_node **to_node, t_node **from_node, int is_free_before)
 {
 	if (!from_node[0])
