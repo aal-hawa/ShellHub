@@ -22,24 +22,12 @@ void	unlink_files(t_info *info)
 	info->index_files_crt = 0;
 }
 
-void	show_leek(t_info *info)
-{
-	//----------------------------------------//
-	// rl_clear_history();
-	free_info(info);
-	exit (0);
-	//----------------------------------------//
-}
-// ls | grep "txt"
 void	minishell(t_info *info)
 {
 	char	*line;
-	// int		is_error_127;
 
 	while (1)
 	{
-		// char **tokens;
-		// readLine && hestory
 		line = readline_fun();
 		if (!line)
         {
@@ -54,23 +42,12 @@ void	minishell(t_info *info)
 		line = tilde(&line, info->home);
 		create_nodes(line, info);
 		line = free_string(&line);
-		// show_leek(info);
-		if (info->first_node)
+		if (info->tokens)
 		{
-			print_nodes(info->first_node, info->colors);
-			// is_error_127 = execute_fun(info);
+			print_tokens(info->tokens, info->colors);
 			execute_fun(info);
 			unlink_files(info);
-			// free_nodes(&nodes);
-			// if (is_error_127 == 1)
-			// 	exit(127);
-			// if (info->is_exit_one == 1)
-			// 	exit(1);
 		}
-		// free_node(&info->first_node);
 		reset_info(info);
-		// nodes
-		// syntax error
-		// commands structure
 	}
 }

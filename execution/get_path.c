@@ -1,13 +1,13 @@
 
 # include "../minishell.h"
 
-void	env_data(char **envp, char **env, t_info *info)
+void	env_data(char **envp, t_info *info)
 {
 	int	i;
 
 	i = 0;
-	*env = NULL;
 	info->home = NULL;
+	info->path_env = NULL;
 	if (envp)
 	{
 		while (envp[i])
@@ -15,7 +15,7 @@ void	env_data(char **envp, char **env, t_info *info)
 			if (ft_strncmp(envp[i], "HOME=", 5) == 0)
 				info->home = ft_strdup(&envp[i][5]);
 			if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-				*env = &envp[i][5];
+				info->path_env = &envp[i][5];
 			i++;
 		}
 	}
@@ -82,6 +82,6 @@ void	get_path_command(char **strs, t_info *info)
 			i++;
 		}
 		if (!strs[0][i])
-			info->path_commd = get_from_env(info->env, strs[0]);
+			info->path_commd = get_from_env(info->path_env, strs[0]);
 	}
 }

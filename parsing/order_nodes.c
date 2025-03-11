@@ -27,36 +27,12 @@ void	do_operator(t_node_order *node_order, t_node **nodes)
 {
 	if (nodes[0]->args)
 	{
-		nodes[0]->type_after = ft_strdup(node_order->args[node_order->i]);
-		dir_bilt_fun(&nodes[0]);
 		nodes[0]->next = malloc_node();
 		nodes[0] = nodes[0]->next;
 	}
 	nodes[0]->type_before = ft_strdup(node_order->args[node_order->i]);
 	node_order->i++;
 	nodes[0]->args = ft_split(node_order->args[node_order->i], ' ');
-}
-
-void	last_order_nodes(t_node_order *node_order, t_node **current_node)
-{
-	if (!node_order->args[node_order->i] && !current_node[0]->next)
-	{
-		
-		if (node_order->first_output->type_before)
-			node_order->nodes_input->type_after =
-			ft_strdup(node_order->first_output->type_before);
-		else
-			node_order->nodes_input->type_after = ft_strdup("end");
-		if (node_order->nodes_output->args)
-		{
-			if (node_order->nodes_input->type_before)
-				dir_bilt_fun(&node_order->nodes_input);
-			node_order->nodes_output->type_after = ft_strdup("end");
-			if (node_order->nodes_output->args
-				&& node_order->nodes_output->type_before)
-				dir_bilt_fun(&node_order->nodes_output);
-		}
-	}
 }
 
 void	make_order_nodes(t_node_order *node_order)
@@ -88,44 +64,7 @@ void	make_order_nodes(t_node_order *node_order)
 	}
 }
 
-void	chng_defult_frst_inpt_vlu(t_node_order *node_order,
-		t_node **current_node)
-{
-	if (!node_order->first_input->type_after)
-	{
-		if (node_order->first_output->type_before)
-			node_order->first_input->type_after =
-			ft_strdup(node_order->first_output->type_before);
-		else
-			node_order->first_input->type_after =
-			ft_strdup(current_node[0]->type_after);
-	}
-	if (!node_order->first_input->type_before)
-		node_order->first_input->type_before =
-		ft_strdup(current_node[0]->type_before);
-	if (node_order->first_input->is_dir_bilt_cmd == -1
-		&& node_order->first_input->type_before)
-		dir_bilt_fun(&node_order->first_input);
-}
-
-void	chng_defult_node_vlu(t_node_order *node_order, t_node **current_node)
-{
-	if (!node_order->nodes_output->type_after)
-		node_order->nodes_output->type_after = ft_strdup(current_node[0]->type_after);
-	if (node_order->nodes_output && node_order->nodes_output->type_before && node_order->nodes_output->is_dir_bilt_cmd == -1)
-		dir_bilt_fun(&(node_order->nodes_output));
-	if (!node_order->nodes_input->type_after)
-	{
-		if (node_order->first_output->type_before)
-			node_order->nodes_input->type_after = ft_strdup(node_order->first_output->type_before);
-		else
-			node_order->nodes_input->type_after = ft_strdup(current_node[0]->type_after);
-	}
-	if (node_order->nodes_input && node_order->nodes_input->type_before && node_order->nodes_input->is_dir_bilt_cmd == -1)
-		dir_bilt_fun(&(node_order->nodes_input));
-}
-
-void	order_nodes(t_node **to_node, t_node **current_node)
+void	order_nodes(t_node **current_node, t_token **token)
 {
 	t_node_order	node_order;
 	char			**array2d;
@@ -133,55 +72,41 @@ void	order_nodes(t_node **to_node, t_node **current_node)
 	if (!init_node_order(&node_order, current_node))
 		return ;
 	make_order_nodes(&node_order);
-	last_order_nodes(&node_order, current_node);
 	array2d = ft_split(node_order.str_cmd, ' ');
-	node_order.nodes_input->args = marge_2_splits(&(node_order.nodes_input->args),
-		&array2d);
-	node_order.str_cmd = free_string(&node_order.str_cmd);
-	chng_defult_frst_inpt_vlu(&node_order, current_node);
-	chng_defult_node_vlu(&node_order, current_node);
+	token[0]->cmd = array2d;
+	if (token[0]->cmd && is_biult_fun(token[0]->cmd[0]) == 0)
+		token[0]->is_bilt_cmd = 1;
+	if (!node_order.first_input->args)
+		free_nodes(&(node_order.first_input));
 	if (!node_order.first_output->args)
-	{
-		// free_node(&(node_order.first_output));
 		free_nodes(&(node_order.first_output));
-		// node_order.first_output = NULL;
-	}
-	else
-		node_order.nodes_input->next = node_order.first_output;
-	if (!to_node[0]->args)
-	{
-		free_nodes(to_node);
-		to_node[0] = node_order.first_input;
-	}
-	else
-		to_node[0]->next = node_order.first_input;
+	token[0]->input_redirect = node_order.first_input;
+	token[0]->output_redirect = node_order.first_output;
+	node_order.str_cmd = free_string(&node_order.str_cmd);
 }
 
-void	order_info_nodes(t_info *info)
+void	order_info_nodes(t_info *info, t_node **node)
 {
-	t_node *current_node;
-	t_node *first_node;
 	t_node *next_node;
+	t_token *tokens;
 
-	current_node = malloc_node();
-	first_node = NULL;
+	tokens = malloc_token();
+	info->tokens = tokens;
 	next_node = NULL;
-	if (info->first_node)
-		next_node = info->first_node;
-	
+	if (*node)
+		next_node = *node;
+	print_array2d(next_node->args, 1);
 	while (next_node)
 	{
-		order_nodes(&current_node, &next_node);
-		del_qout_nodes(current_node);
-		if (!first_node)
-			first_node = current_node;
-		while (current_node->next)
-			current_node = current_node->next;
+		order_nodes(&next_node, &tokens);
+		del_qout_nodes(tokens->input_redirect);
+		del_qout_nodes(tokens->output_redirect);
+		del_qout_cmd(tokens->cmd);
+		next_node = next_node->next;
 		if (next_node)
-			next_node = next_node->next;
+		{
+			tokens->next = malloc_token();
+			tokens = tokens->next;
+		}
 	}
-
-	free_nodes(&info->first_node);
-	info->first_node = NULL;
-	info->first_node = first_node;
 }

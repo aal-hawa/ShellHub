@@ -3,7 +3,7 @@
 
 void	init_info_main_b(int ac, char *env, char **envp, t_info *info)
 {
-	info->ac = ac;
+	// info->ac = ac;
 	info->env = env;
 	info->str_i = ac - 3;
 	info->envp = envp;
@@ -14,7 +14,7 @@ void	init_info_main_b(int ac, char *env, char **envp, t_info *info)
 	info->env_null = 0;
 	info->is_for_w = 0;
 	info->fd_file_w = -2;
-	info->is_exit_one = 0;
+	// info->is_exit_one = 0;
 }
 
 int	main(int ac, char **arg, char **envp)

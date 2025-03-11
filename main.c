@@ -22,16 +22,15 @@ int	main(int ac, char **arg, char **envp)
 	setup_signals();
 	(void) arg;
 	// (void) envp;
-	char	*env;
 	t_info	info;
 	t_colors	colors;
 
 	if (ac == 1)
 	{
-		env_data(envp, &env, &info);
+		env_data(envp, &info);
 		init_colors(&colors, &info);
-		init_info(ac, env, envp, &info); // make it before env_data()
-		if (!env)
+		init_info(envp, &info); // make it before env_data()
+		if (!info.path_env)
 			info.env_null = 1;
 		minishell(&info);
 	}

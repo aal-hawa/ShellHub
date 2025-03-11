@@ -35,14 +35,14 @@ void	close_fds_parent(int **fd1, t_info *info)
 		free_string(&info->limiter);
 }
 
-int	finish_parent(int ***fd, pid_t **frs, t_info *info)
+int	finish_parent(t_info *info)
 {
 	int	is_error_127;
 
 	if (info->str_i == 0)
 		return (0);
-	close_fds_parent(*fd, info);
+	close_fds_parent(info->fds, info);
 	is_error_127 = wait_fun(info);
-	de_allocate(fd, frs, info->str_i);
+	de_allocate(&info->fds, &info->frs, info->str_i);
 	return (is_error_127);
 }

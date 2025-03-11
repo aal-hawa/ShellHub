@@ -22,6 +22,6 @@ void	free_info(t_info *info)
 	if (info->home)
 		info->home = free_string(&info->home);
 
-	if (info->first_node)
-		free_nodes(&info->first_node);
+	if (info->tokens)
+		free_tokens(&info->tokens);
 }

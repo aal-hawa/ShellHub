@@ -21,3 +21,21 @@ void	del_qout_nodes(t_node *node)
 		node = node->next;
 	}
 }
+void	del_qout_cmd(char **cmd)
+{
+	int	i;
+	char	*new_args;
+
+	i = 0;
+	if (!cmd)
+		return ;
+	while (cmd[i])
+	{
+		if (cmd[i][0] == '\'' || cmd[i][0] == '\"')
+		{
+			new_args = ft_strccpy(&cmd[i][1],cmd[i][0]);
+			ft_restore_value(&cmd[i], &new_args, 1);
+		}
+		i++;
+	}
+}

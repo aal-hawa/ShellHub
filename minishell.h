@@ -14,20 +14,24 @@
 # include <string.h>
 # include <sys/wait.h>
 
+
+
 typedef struct s_node
 {
-    char **args;
-    char *type_before;
-    char *type_after;
-    int is_dir_bilt_cmd;
-	int	fd_file;
-	char	*fd_name;
-	//for execute, equal zero nothing, equal one from direct and node next = NULL or only this node have more one args; but if the second args equal builtins it will be equal -1, equal two from builtins and type after = operators
-	int	is_do_execute;
-	char	**result_builtins;
-	int	is_no_inpipe;
-    struct s_node *next;
+    char			**args;
+    char			*type_before;
+	char			*fd_name;
+    struct s_node	*next;
 } t_node;
+
+typedef struct s_token
+{
+	t_node			*input_redirect;
+	t_node			*output_redirect;
+	char			**cmd;
+    int				is_bilt_cmd;
+    struct s_token	*next;
+} t_token;
 
 typedef struct s_node_order
 {
@@ -60,33 +64,22 @@ typedef struct s_info
 	int		i_wait;
 	int		fd_file_r;
 	int		fd_file_w;
-	int		offset;
-	int		ac;
 	int		str_i;
-	char	*env;
+	char	*path_env;
 	char	*limiter;
 	int		i_limiter;
 	char	*path_commd;
 	char	**envp;
 	char	**export;
-	//for write in pipe, equal zero nothing, equal one for write in file, equal two for pipe
-	int		is_for_w;
-	int		is_bonus;
-	// size_t	i_split;
 	int		env_null;
-	// int		is_exit_one;
-	
-	//for builtins, equal zero nothing, equal one type after = operators not pipe, equal two type after = pipe
-	int		is_builtins_file;
 	char	*home;
     int     status_exit;
     char    *curent_path;
 	int		index_files_crt;
-	int		is_open_files;
 	int		**fds;
+	char	**herdoc_files;
 	pid_t	*frs;
-	// int		is_no_inpipe;
-	t_node	*first_node;
+	t_token	*tokens;
 	t_colors	*colors;
 }					t_info;
 
@@ -118,7 +111,7 @@ char    *pre_split(char **s, const char *ops);
 void	free_nodes(t_node **node);
 void	free_node(t_node **node);
 void	free_info(t_info *info);
-void	init_info(int ac, char *env, char **envp, t_info *info);
+void	init_info(char **envp, t_info *info);
 void	reset_info(t_info *info);
 t_node	*malloc_node();
 t_node	*malloc_node2();
@@ -126,8 +119,8 @@ int		len_split(char **split);
 char	**copy_split(char **split);
 void	copy_node(t_node **to_node, t_node **from_node, int is_free_before);
 int		is_exist_str_in_2array(char **array2d, char *del_str, int size_str);
-void	order_info_nodes(t_info *info);
-void	dir_bilt_fun(t_node **node);
+void	order_info_nodes(t_info *info, t_node **node);
+// void	dir_bilt_fun(t_node **node);
 int		is_biult_fun(char *first_arg);
 int     is_operator_fun(char *str);
 int		is_operator_input_fun(char *str);
@@ -139,7 +132,6 @@ char	*doller_sign_fun(char **str, t_info *info);
 char	*find_doller_sign_fun(char **str, t_info *info);
 char	*marge_doller_sign(char *str_dollersign, char *str);
 void	init_colors(t_colors *colors, t_info *info);
-int		parsing_input(char **line);
 void	print_array2d(char **array2d, int is_with_newline);
 void	print_array2d_fd(char **array2d, int fd);
 int		check_valid_line(char **line, t_info *info);
@@ -154,9 +146,8 @@ int		is_valid_qout(char **line, t_info *info);
 char	*builtins_error_message(char *str_tybe_builtins, char *str_input);
 char	**builtins_Message(char **str_massege, int is_print, int is_malloc);
 int		direct_fun(t_node *node, t_info *info);
-void	do_builtins(t_node *node, char ***result_blts, t_info *info);
-int		is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info);
-void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result_blts, t_node **cmd_node);
+int		do_builtins(t_token *token, char ***result_blts, t_info *info);
+void	for_execve(t_token *token, t_info *info);
 char	**move2next_arg(t_node **cmd_node);
 int		open_file_r_w(char *name_file);
 int		open_file_r(char *name_file);
@@ -165,39 +156,40 @@ void	unlink_files(t_info *info);
 void	exit_number(int exit_status, t_info * info);
 void	open_here_doc(t_node *node, t_info *info);
 char	**make_export_fun(char	**export);
+t_token	*malloc_token();
+void	del_qout_cmd(char **cmd);
+char	*new_name_herdoc(int index);
+void	free_tokens(t_token **token);
+void	print_tokens(t_token *token, t_colors *colors);
 
 
 size_t		ft_strlen(const char *s);
-// char		**ft_split_p(char const *s, char c, t_info *info);
 int			open_file_w(char *name_file);
-// int			execute_fun(char **str, t_info *info);
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
 char		*ft_strjoin_path(char const *s1, char const *s2, int is_path);
 int			open_file_w_b(char *name_file);
-void		env_data(char **envp, char **env, t_info *info);
-// int			init_files(char **str, t_info *info);
+void		env_data(char **envp, t_info *info);
 void		init_files(t_node *node, t_info *info);
 int			init_files_biultins(char **str, t_info *info);
-void		init_here_doc(t_node *node, t_info *info);
+void		init_here_doc(char *herdoc_file, t_info *info);
 void		error_pipe(int **fds, int i, t_info *info);
 char		*get_next_line(t_info *info);
 char		*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
 char		*free_string(char **this_string);
 void		ft_putstr_fd_malloc(char *s, int fd, int is_malloc);
-int			finish_parent(int ***fd, pid_t **frs, t_info *info);
+int			finish_parent( t_info *info);
 void		de_allocate(int ***fd, pid_t **frs, int i);
 void		free_array2d(char ***dst, size_t i);
 char		*ft_strdup(const char *str);
 void		get_path_command(char **strs, t_info *info);
 void		allocate_fds(int ***fd, pid_t **frs, int j);
 void		print_nodes(t_node *nodes, t_colors *colors);
-void		childs(t_node *node, int **fds, pid_t *frs, t_info *info);
+void		childs(t_token *token, t_info *info);
 void		close_fds_childs(int **fds, t_info *info);
 int			execute_fun(t_info *info);
 void		create_nodes(char *line, t_info *info);
 char		*ft_strndup(const char *s, size_t n);
 int			check_is_valid_key(char *str);
-void		show_leek(t_info *info);
 void		execute_command(char *cmd);
 
 #endif

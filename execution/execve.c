@@ -1,88 +1,23 @@
 # include "../minishell.h"
 
-
-void	do_execve_fun(t_node **cmd_node, int **fds, pid_t *frs, t_info *info)
+void	do_execve_fun(t_token *token, t_info *info)
 {
-	if (!cmd_node[0])
+	if (!token)
 		return ;
-	if (cmd_node[0]->is_dir_bilt_cmd == 2 || cmd_node[0]->is_do_execute > 0)
+	info->frs[info->i_childs] = fork();
+	if (info->frs[info->i_childs] == 0)
 	{
-		// printf("do execve\n");
-		if (cmd_node[0]->is_do_execute == 1)
-			cmd_node[0]->args = move2next_arg(cmd_node);
-		if (!ft_strcmp(cmd_node[0]->type_after, "|") && ft_strcmp(cmd_node[0]->type_before, ">") 
-			&& cmd_node[0]->is_dir_bilt_cmd != 1) //!!?? //&& ft_strcmp(cmd_node[0]->type_before, ">")
-			info->is_for_w = 2;
-		frs[info->i_childs] = fork();
-		if (frs[info->i_childs] == 0)
-		{
-			close_fds_childs(fds, info);
-			childs(cmd_node[0], fds, frs, info);
-		}
-		info->fd_file_r = close_fd_fun(info->fd_file_r);
-		info->is_builtins_file = 0;
-		info->i_childs++;
-		*cmd_node = NULL;
+		close_fds_childs(info->fds, info);
+		childs(token, info);
 	}
+	info->fd_file_r = close_fd_fun(info->fd_file_r);
+	info->i_childs++;
 }
 
-int	is__change_args(t_node **node,t_node **cmd_node)
+void	for_execve(t_token *token, t_info *info)
 {
-	// if (info->is_exit_one == 1)
-	// {
-	// 	if (!ft_strcmp(node[0]->type_after, "|"))
-	// 		info->is_exit_one = 0;
-	// 	*node = node[0]->next;
-	// 	return (1);
-	// }
-	if (node[0]->is_do_execute == -1)
+	if (token->is_bilt_cmd != 0)
 	{
-		cmd_node[0]->args = move2next_arg(cmd_node);
-		node[0]->is_do_execute = 0;
-		node[0]->is_dir_bilt_cmd = 1;
-		return (1);
-	}
-	return (0);
-}
-
-int	is_can_do_execve(t_node **node,t_node **cmd_node, t_info *info)
-{
-	if (is__change_args(node, cmd_node) == 1)
-		return (0);
-	if (is_operator_output_fun(node[0]->type_after) || !ft_strcmp(node[0]->type_after, "|")
-	|| !ft_strcmp(node[0]->type_after, "end") || node[0]->is_dir_bilt_cmd == 2 || info->is_builtins_file == 2)
-	{
-		if (info->is_builtins_file == 2 && cmd_node[0])
-			cmd_node[0] = NULL;
-		if(!cmd_node[0])
-			cmd_node[0] = *node;
-		if ((is_operator_output_fun(node[0]->type_after) && info->is_builtins_file == 0)  ||
-		((info->fd_file_w == -1 || info->fd_file_r == -1) && ft_strcmp(node[0]->type_after, "|")))
-		{
-			*node = node[0]->next;
-			if (*node)
-				return (0);
-		}
-	}
-	return (1);
-}
-
-
-void	for_execve(t_node *node, int **fds, pid_t *frs, t_info *info, char **result_blts, t_node **cmd_node)
-{
-	if (node->is_dir_bilt_cmd != 1)
-	{
-		if (info->is_builtins_file == 1)
-		{
-			printf("print to file\n");
-			info->is_builtins_file = 0;
-			print_array2d_fd(result_blts, info->fd_file_w);
-			info->fd_file_w = close_fd_fun(info->fd_file_w);
-		}
-		else
-		{
-			do_execve_fun(cmd_node, fds, frs, info);
-			*cmd_node = NULL;
-		}
+		do_execve_fun(token, info);
 	}
 }
