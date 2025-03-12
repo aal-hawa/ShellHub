@@ -13,6 +13,8 @@ int		add_more_spaces(char **line)
 	is_qout = 0;
 	while(line[0][i])
 	{
+		if (is_qout == 0 && line[0][i] == '\t')
+			line[0][i] = ' ';
 		if (i != 0 && is_qout == 0 && is_char_operator_fun(line[0][i])
 			&& line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i])
 			j++;
