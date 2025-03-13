@@ -26,28 +26,26 @@ void	add_double_quotes(char *str)
 
 void	check_and_add(t_info *info, char *arg, int add_to_env)
 {
-	if (is_exist_str_in_2array(info->export, arg, 0) || 
-		is_exist_str_in_2array(info->export, arg, ft_strlen(arg)))
+	if (is_exist_str_in_2array(info->export, arg, 0))
 	{
-		info->export = del_str_from_array2d(info->export, arg, 0);
-		info->export = add_in_split(info->export, arg, 0);
+		info->export = del_str_from_array2d(&info->export, arg);
+		info->export = add_in_array2d(&info->export, arg, 0);
 	}
 	else
-		info->export = add_in_split(info->export, arg, 1);
+		info->export = add_in_array2d(&info->export, arg, 1);
 	if (add_to_env)
-		info->envp = add_in_split(info->envp, arg, 0);
+		info->envp = add_in_array2d(&info->envp, arg, 0);
 }
 
 void	check_and_add_env(t_info *info, char *arg, char *key)
 {
-	if (is_exist_str_in_2array(info->envp, key, 0) || 
-		is_exist_str_in_2array(info->envp, key, ft_strlen(arg)))
+	if (is_exist_str_in_2array(info->envp, key, 0))
 	{
-		info->envp = del_str_from_array2d(info->envp, arg, 0);
-		info->envp = add_in_split(info->envp, arg, 0);
+		info->envp = del_str_from_array2d(&info->envp, arg);
+		info->envp = add_in_array2d(&info->envp, arg, 0);
 	}
 	else
-		info->envp = add_in_split(info->envp, arg, 1);
+		info->envp = add_in_array2d(&info->envp, arg, 1);
 }
 
 void	print_value(char *arg, t_info *info, int print)
@@ -58,6 +56,7 @@ void	print_value(char *arg, t_info *info, int print)
 	char	*new_arg;
 
 	i = 0;
+	new_arg = NULL;
 	while (arg[i] && arg[i] != '=')
 		i++;
 	key = ft_strndup(arg, i);
@@ -71,6 +70,8 @@ void	print_value(char *arg, t_info *info, int print)
 		free(value);
 		return ;
 	}
+	key = ft_join_with_restore(&key, "declare -x ", key);
+
 	if (print)
 	{
 		printf("%s", key);
@@ -86,8 +87,8 @@ void	print_value(char *arg, t_info *info, int print)
 	{
 		if (value)
 		{
-			new_arg = ft_strjoin(key, "=");
-			new_arg = ft_strjoin(new_arg, value);
+			new_arg = ft_join_with_restore(&new_arg, key, "=");
+			new_arg = ft_join_with_restore(&new_arg, new_arg, value);
 			check_and_add(info, new_arg, 0);
 			check_and_add_env(info, new_arg, key);
 		}
@@ -119,13 +120,14 @@ void	print_export(t_info *info)
 char	**export_fun(char **args, t_info *info, int is_print)
 {
 	int	i;
-	char **cp_export = NULL;
+	char **cp_export;
 
+	cp_export = NULL;
 	i = 1;
 	if (!info)
 		return (NULL);
 	if (!args[i] && is_print)
-		print_export(info);
+		print_array2d(info->export, 1);
 	else
 	{
 		while (args[i])
@@ -134,7 +136,7 @@ char	**export_fun(char **args, t_info *info, int is_print)
 			i++;
 		}
 	}
-	cp_export = make_export_fun(info->export);
-	env_data(info);
+	// cp_export = make_export_fun(info->export);
+	// env_data(info);
 	return (cp_export);
 }

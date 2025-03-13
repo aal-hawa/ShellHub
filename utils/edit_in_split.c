@@ -18,144 +18,178 @@ int	is_exist_str_in_2array(char **array2d, char *del_str, int size_str)
 	}
 	return (-1);
 }
-int	len_split(char **split)
+int	len_array2d(char **array2d)
 {
 	int	len;
 
 	len = 0;
-	if (!split)
+	if (!array2d)
 		return (len);
-	while (split[len])
+	while (array2d[len])
 		len++;
 	return (len);
 }
-char	**copy_split(char **split)
+
+
+char	**copy_array2d(char **array2d)
 {
 	int	i;
 	int	len;
-	char	**new_split;
+	char	**new_array2d;
 
 	i = 0;
-	if (!split)
+	if (!array2d)
 		return (NULL);
-	len = len_split(split);
-	new_split = malloc(sizeof(char *) * (len + 1));
-	if (!new_split)
+	len = len_array2d(array2d);
+	new_array2d = malloc(sizeof(char *) * (len + 1));
+	if (!new_array2d)
 		return (NULL);
 	while (i < len)
 	{
-		new_split[i] = ft_strdup(split[i]);
+		new_array2d[i] = ft_strdup(array2d[i]);
 		i++;
 	}
-	new_split[i] = NULL;
-	return (new_split);
+	new_array2d[i] = NULL;
+	return (new_array2d);
+}
+
+char	*ft_add_qout_export(char **str)
+{
+	int	i;
+	int	j;
+	int	len;
+	char	*new_str;
+	int	is_got_equal;
+	
+	len = strlen(*str);
+	new_str = malloc(sizeof(char) * (len + 3));
+	i = -1;
+	is_got_equal = 0;
+	j = 0;
+	if (!new_str)
+		return (NULL);
+	while (str[0][++i])
+	{
+		new_str[j++] = str[0][i];
+		if (is_got_equal == 0 && str[0][i] == '=')
+		{
+			new_str[j++] = '\"';
+			is_got_equal = 1;
+		}
+	}
+	if (is_got_equal == 1)
+		new_str[j++] = '\"';
+	new_str[j] = '\0';
+	*str = free_string(str);
+	*str = new_str;
+	return (*str);
+}
+
+char	**copy_array2d_export(char **array2d)
+{
+	int	i;
+	int	len;
+	char	**new_array2d;
+
+	i = 0;
+	if (!array2d)
+		return (NULL);
+	len = len_array2d(array2d);
+	new_array2d = malloc(sizeof(char *) * (len + 1));
+	if (!new_array2d)
+		return (NULL);
+	while (i < len)
+	{
+		new_array2d[i] = NULL;
+		new_array2d[i] = ft_join_with_restore(&new_array2d[i], "declare -x ", array2d[i]);
+		new_array2d[i] = ft_add_qout_export(&new_array2d[i]);
+		i++;
+	}
+	new_array2d[i] = NULL;
+	return (new_array2d);
 }
 
 // check if you want share adress of split three pointers
-char	**del_str_from_array2d(char **array2d, char *del_str, int size_str)
+char	**del_str_from_array2d(char ***array2d, char *del_str)
 {
 	int		i;
 	int		y;
 	int		len;
-	char	**new_split;
-	char	*str_zero;
+	char	**new_array2d;
 	int		z;
 
-	z = is_exist_str_in_2array(array2d, del_str, 0);
+	z = is_exist_str_in_2array(*array2d, del_str, 0);
 	if ( z == -1)
-		return (array2d); 
+		return (*array2d); 
 	i = -1;
 	y = -1;
-	len = len_split(array2d);
-	new_split = malloc(sizeof(char *) * (len));
-	if (!new_split)
+	len = len_array2d(*array2d);
+	new_array2d = malloc(sizeof(char *) * (len));
+	if (!new_array2d)
 		return (NULL);
-	while (array2d[++i])
+	while (array2d[0][++i])
 	{
-		if (size_str == 0)
-		{
-			if (i != z)
-			{
-				new_split[++y] = ft_strdup(array2d[i]);
-				if (!new_split[y])
-					return (free_string(&str_zero), free_array2d(&new_split, y - 1), NULL);
-			}
-		}
-		else if (ft_strncmp(array2d[i], del_str, size_str))
-		{
-			new_split[++y] = ft_strdup(array2d[i]);
-			if (!new_split[y])
-				return (free_string(&str_zero), free_array2d(&new_split, y - 1), NULL);
-		}
+		if (i != z)
+			new_array2d[++y] = ft_strdup(array2d[0][i]);
 	}
-	new_split[++y] = NULL;
-	return (free_array2d(&array2d, len), new_split);
+	new_array2d[++y] = NULL;
+	free_array2d(array2d, len);
+	return (new_array2d);
 }
-// alpha:
-char	**add_in_split(char **split, char *add_str, int is_alpha)
+
+char	**add_in_array2d(char ***array2d, char *add_str, int is_alpha)
 {
 	int		i;
 	int		j;
 	int		len;
-	char	**new_split;
+	char	**new_array2d;
 
 	i = 0;
 	j = 0;
-	len = len_split(split) + 1;
-	new_split = malloc(sizeof(char *) * (len + 1));
-	if (!new_split)
+	len = len_array2d(*array2d) + 1;
+	new_array2d = malloc(sizeof(char *) * (len + 1));
+	if (!new_array2d)
 		return (NULL);
-	while (split && split[i])
+	while (*array2d && array2d[0][i])
 	{
-		if (is_alpha == 1 && ft_strcmp(split[i], add_str) > 0 && is_alpha++)
-			new_split[j] = ft_strdup(add_str);
+		if (is_alpha == 1 && ft_strcmp(array2d[0][i], add_str) && is_alpha++)
+			new_array2d[j++] = ft_strdup(add_str);
 		else
-			new_split[j] = ft_strdup(split[i++]);
-		if (!new_split[j++])
-			return(free_array2d(&new_split, j - 2), NULL);
+			new_array2d[j++] = ft_strdup(array2d[0][i++]);
 	}
-	if (!split || is_alpha < 2)
-		new_split[j++] = ft_strdup(add_str);
-	new_split[j] = NULL;
-	free_array2d(&split, len - 1);
-	return (new_split);
+	if (!*array2d || is_alpha < 2)
+		new_array2d[j++] = ft_strdup(add_str);
+	new_array2d[j] = NULL;
+	free_array2d(array2d, len - 1);
+	return (new_array2d);
 }
 
-char	**marge_2_splits(char ***first_split, char ***second_split)
+char	**merge_2_arrays2d(char ***first_array2d, char ***second_array2d)
 {
 	int		i;
 	int		j;
 	int		len1;
 	int		len2;
-	char	**new_split;
+	char	**new_array2d;
 
 	i = 0;
-	len1 = len_split(*first_split);
-	len2 = len_split(*second_split);
-	new_split = malloc(sizeof(char *) * (len1 + len2 + 1));
-	if (!new_split)
+	len1 = len_array2d(*first_array2d);
+	len2 = len_array2d(*second_array2d);
+	new_array2d = malloc(sizeof(char *) * (len1 + len2 + 1));
+	if (!new_array2d)
 		return (NULL);
-		
-	while (*first_split && first_split[0][i])
+	while (*first_array2d && first_array2d[0][i])
 	{
-		new_split[i] = ft_strdup(first_split[0][i]);
-		if (!new_split[i])
-			return(free_array2d(&new_split, i - 1), NULL);
+		new_array2d[i] = ft_strdup(first_array2d[0][i]);
 		i++;
 	}
 	j = 0;
-	while (*second_split && second_split[0][j])
-	{
-		new_split[i] = ft_strdup(second_split[0][j]);
-		if (!new_split[i])
-			return(free_array2d(&new_split, i - 1), NULL);
-		i++;
-		j++;
-	}
-	new_split[i] = NULL;
-	free_array2d(first_split, len1);
-	free_array2d(second_split, len2);
-	return (new_split);
+	while (*second_array2d && second_array2d[0][j])
+		new_array2d[i++] = ft_strdup(second_array2d[0][j++]);
+	new_array2d[i] = NULL;
+	free_array2d(first_array2d, len1);
+	free_array2d(second_array2d, len2);
+	return (new_array2d);
 }
 
 
@@ -180,7 +214,15 @@ void	add_double_quotes_1(char **str)
 	new_str[i + 2] = '\0';
 	*str = free_string(str);
 	*str = new_str;
-	// printf("%s\n", new_str);
+}
+
+char	*ft_join_with_restore(char	**dst, char *s1, char *s2)
+{
+	char	*str_join;
+
+	str_join = ft_strjoin(s1, s2);
+	*dst = ft_restore_value(dst, &str_join, 1);
+	return (*dst);
 }
 
 char	*print_value_1(char *arg)
@@ -189,7 +231,6 @@ char	*print_value_1(char *arg)
 	char	*key;
 	char	*value;
 	char	*result;
-	char	*str_join;
 
 	i = 0;
 	result = NULL;
@@ -206,29 +247,21 @@ char	*print_value_1(char *arg)
 		free(value);
 		return (NULL);
 	}
-	str_join = ft_strjoin("declare -x ",key);
-	result = ft_restore_value(&result, &str_join, 1);
+	result = ft_join_with_restore(&result, "declare -x ",key);
 	if (value)
 	{
-		str_join = ft_strjoin(result, "=");
-
-		result = ft_restore_value(&result, &str_join, 1);
+		result = ft_join_with_restore(&result, result, "=");
 		add_double_quotes_1(&value);
-
-		str_join = ft_strjoin(result, value);
-		result = ft_restore_value(&result, &str_join, 1);
+		result = ft_join_with_restore(&result, result, value);
 	}
-	str_join = ft_strjoin(result, "\n");
-	result = ft_restore_value(&result, &str_join, 1);
-	// else
-	// 	printf("\n");
+	result = ft_join_with_restore(&result, result, "\n");
 	free(key);
 	free(value);
 	return (result);
 }
 
 
-char	**make_export_fun(char	**export)
+char	**make_export_fun(char **export)
 {
 	int	i;
 	char	*str;
@@ -239,7 +272,7 @@ char	**make_export_fun(char	**export)
 	while (export[i])
 	{
 		str = print_value_1(export[i]);
-		array2d = add_in_split(array2d, str, 0);
+		array2d = add_in_array2d(&array2d, str, 0);
 		str = free_string(&str);
 		i++;
 	}

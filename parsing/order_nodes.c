@@ -34,7 +34,7 @@ void	do_operator(t_node_order *node_order, t_node **nodes, t_info *info)
 	node_order->i++;
 	nodes[0]->args = ft_split(node_order->args[node_order->i], ' ');
 	if (!ft_strcmp(nodes[0]->type_before, "<<"))
-		info->herdoc_files = add_in_split(info->herdoc_files, nodes[0]->args[0], 0);
+		info->herdoc_files = add_in_array2d(&info->herdoc_files, nodes[0]->args[0], 0);
 }
 
 void	make_order_nodes(t_node_order *node_order, t_info *info)

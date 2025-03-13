@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:52:54 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/02/28 15:20:29 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:36:26 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* free char **array2d by the size,
 if size equal zero it will auto get size from the size_tarray2d
-but if size equal zero be sure that the last string of the array2d equal NULL*/
+but if size not equal zero be sure that the last string of the array2d equal NULL*/
 void	free_array2d(char ***dst, size_t i)
 {
 	
@@ -22,7 +22,7 @@ void	free_array2d(char ***dst, size_t i)
 		return ;
 
 	if (i == 0)
-		i = len_split(*dst);
+		i = len_array2d(*dst);
 
 	while (i > 0)
 	{

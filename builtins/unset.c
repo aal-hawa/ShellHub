@@ -20,12 +20,12 @@ void	check_delete(char *arg, t_info *info)
 	if (is_exist_str_in_2array(info->export, key, 0) || 
 		is_exist_str_in_2array(info->export, key, ft_strlen(arg)))
 	{
-		info->export = del_str_from_array2d(info->export, arg, 0);
+		info->export = del_str_from_array2d(&info->export, arg);
 	}
 	if (is_exist_str_in_2array(info->envp, key, 0) || 
 		is_exist_str_in_2array(info->envp, key, ft_strlen(arg)))
 	{
-		info->envp = del_str_from_array2d(info->envp, arg, 0);
+		info->envp = del_str_from_array2d(&info->envp, arg);
 	}
 }
 

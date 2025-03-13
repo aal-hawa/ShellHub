@@ -15,7 +15,7 @@ void	exit_fun(char **arg, t_info *info)
 	if (!arg[1])
 		exit_number(0, info);
 	i = -1;
-	if (len_split(arg) > 2)
+	if (len_array2d(arg) > 2)
 	{
 		while (arg[1][++i])
 		{

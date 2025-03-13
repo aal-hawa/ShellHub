@@ -6,8 +6,8 @@ void 	change_in_env(char **old_path, t_info *info)
 	char	**args;
 
 	args = NULL;
-	args = add_in_split(args, "export", 0);
-	args = add_in_split(args, *old_path, 0);
+	args = add_in_array2d(&args, "export", 0);
+	args = add_in_array2d(&args, *old_path, 0);
 	*old_path = free_string(old_path);
 	export_fun(args, info, 0);
 	pwd_fun(info, -1);

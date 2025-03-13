@@ -3,8 +3,8 @@
 void	init_info(char **envp, t_info *info)
 {
 	info->str_i = 0;
-	info->envp = copy_split(envp);
-	info->export = copy_split(envp);
+	info->envp = copy_array2d(envp);
+	info->export = copy_array2d_export(envp);
 	info->limiter = NULL;
 	info->path_commd = NULL;
 	info->fd_file_w = -2;

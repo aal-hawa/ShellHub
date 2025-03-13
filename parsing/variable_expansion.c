@@ -101,7 +101,7 @@ char	**split_by_doller_sign(char **str, int *i)
 		allow_find = 1;
 	}
 	split_str = ft_split(*str, '$');
-	if (len_split(split_str) < allow_find)
+	if (len_array2d(split_str) < allow_find)
 	{
 		free_array2d(&split_str, 0);
 		return (NULL);

@@ -44,5 +44,5 @@ void	copy_node(t_node **to_node, t_node **from_node, int is_free_before)
 	to_node[0]->type_before = ft_strdup(from_node[0]->type_before);
 	to_node[0]->fd_name = ft_strdup(from_node[0]->fd_name);
 	to_node[0]->next = from_node[0]->next;
-	to_node[0]->args = copy_split(from_node[0]->args);
+	to_node[0]->args = copy_array2d(from_node[0]->args);
 }
