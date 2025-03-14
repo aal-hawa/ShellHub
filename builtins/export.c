@@ -6,7 +6,7 @@ void	check_and_add(t_info *info, char *arg, int add_to_env)
 
 	key = ft_strdup(arg);
 	key = ft_join_with_restore(&key, "declare -x ", key, NULL);
-	key = ft_add_qout_export(&key);
+	ft_add_qout_export(&key, ft_strlen(key));
 	if (is_exist_str_in_2array(info->export, key))
 	{
 		info->export = del_str_from_array2d(&info->export, key);
@@ -30,21 +30,28 @@ void	check_and_add_env(t_info *info, char *arg, char *key)
 		info->envp = add_in_array2d(&info->envp, arg, 1);
 }
 
-void	print_value(char *arg, t_info *info)
+void	got_key_value(char *arg, char **key, char **value)
 {
 	int		i;
+
+	i = 0;
+	while (arg[i] && arg[i] != '=')
+		i++;
+	*key = ft_strndup(arg, i);
+	if (arg[i] == '=')
+		*value = ft_strdup(arg + i + 1);
+}
+
+void	print_value(char *arg, t_info *info)
+{
 	char	*key;
 	char	*value;
 	char	*new_arg;
 
-	i = 0;
 	new_arg = NULL;
-	while (arg[i] && arg[i] != '=')
-		i++;
-	key = ft_strndup(arg, i);
 	value = NULL;
-	if (arg[i] == '=')
-		value = ft_strdup(arg + i + 1);
+	key = NULL;
+	got_key_value(arg, &key, &value);
 	if (!check_is_valid_key(key))
 		printf("minishell: export: `%s': not a valid identifier\n", key);
 	else if (value)
@@ -52,6 +59,7 @@ void	print_value(char *arg, t_info *info)
 		new_arg = ft_join_with_restore(&new_arg, key, "=", value);
 		check_and_add(info, new_arg, 0);
 		check_and_add_env(info, new_arg, key);
+		new_arg = free_string(&new_arg);
 	}
 	else
 		check_and_add(info, key, 0);
@@ -72,7 +80,7 @@ char	**export_fun(char **args, t_info *info, int is_print)
 		if (is_print == 1)
 			print_array2d(info->export, 1);
 		else
-			return (copy_export_env(info->export));
+			return (copy_array2d(info->export, 1));
 	}
 	else
 	{

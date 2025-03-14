@@ -3,7 +3,7 @@
 void	init_info(char **envp, t_info *info)
 {
 	info->str_i = 0;
-	info->envp = copy_array2d(envp);
+	info->envp = copy_array2d(envp, 0);
 	info->export = copy_array2d_export(envp);
 	info->limiter = NULL;
 	info->path_commd = NULL;
@@ -29,6 +29,7 @@ void	reset_info(t_info *info)
 	info->fd_file_w = close_fd_fun(info->fd_file_w);
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	info->i_fds = 0;
+	info->i_childs = 0;
 	if (info->herdoc_files)
 		free_array2d(&info->herdoc_files, 0);
 	free_tokens(&info->tokens);

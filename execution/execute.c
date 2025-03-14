@@ -86,27 +86,22 @@ void	dir_blt_execve_fun(t_token *tokens, t_info *info)
 	char	**result_blts;
 
 	result_blts = NULL;
-	info->i_childs = 0;
-	if (info->fd_file_r == -1) // check this later
-		info->i_childs = 1;
 	while (tokens)
 	{
-		if (check_open_files(tokens, info) == 1)
+		if (!check_open_files(tokens, info))
 		{
-			tokens = tokens->next;
-			continue ;
-		}
-		if (tokens->cmd)
-		{
-			if (tokens->is_bilt_cmd == 0)
-				do_builtins_check_fork(tokens, info, &result_blts);
-			else
-				for_execve(tokens, info);
-		}
-		else if (info->str_i > 0)
-		{
-			close(info->fds[info->i_childs + 1][1]);
-			info->i_childs++;
+			if (tokens->cmd)
+			{
+				if (tokens->is_bilt_cmd == 0)
+					do_builtins_check_fork(tokens, info, &result_blts);
+				else
+					for_execve(tokens, info);
+			}
+			else if (info->str_i > 0) // check this by make a fork
+			{
+				close(info->fds[info->i_childs + 1][1]);
+				info->i_childs++;
+			}
 		}
 		tokens = tokens->next;
 	}
@@ -156,31 +151,35 @@ void	open_herdoc_files(char	**herdoc_files, t_info *info)
 	}
 }
 
-int	execute_fun(t_info *info)
+int	init_pipes(t_info *info)
 {
 	int		**fds;
 	pid_t	*frs;
 
 	fds = NULL;
 	frs = NULL;
-	str_i_count(info);
-	if (info->str_i > 0)
+	allocate_fds(&fds, &frs, info->str_i);
+	info->fds = fds;
+	info->frs = frs;
+	info->i_fds = 0;
+	while (info->i_fds < info->str_i + 1)
 	{
-		allocate_fds(&fds, &frs, info->str_i);
-		info->fds = fds;
-		info->frs = frs;
-		info->i_fds = 0;
-		while (info->i_fds < info->str_i + 1)
+		if (pipe(fds[info->i_fds++]) == -1)
 		{
-			if (pipe(fds[info->i_fds++]) == -1)
-			{
-				error_pipe(fds, --info->i_fds, info);
-				de_allocate(&fds, &frs, info->str_i);
-				exit_number(1, info);
-				return (1);
-			}
+			error_pipe(fds, --info->i_fds, info);
+			de_allocate(&fds, &frs, info->str_i);
+			exit_number(1, info);
+			return (1);
 		}
 	}
+	return (0);
+}
+
+int	execute_fun(t_info *info)
+{
+	str_i_count(info);
+	if (init_pipes(info) == 1)
+		return (1);
 	pwd_fun(info, -1);
 	open_herdoc_files(info->herdoc_files, info);
 	put_name_herdoc_files(info);

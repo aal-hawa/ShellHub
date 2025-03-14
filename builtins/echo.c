@@ -8,7 +8,7 @@ char	**echo_n_fun(char **args, int is_print)
 
 	if (!*args || !*args)
 		return (NULL);
-	result = copy_array2d(&args[2]);
+	result = copy_array2d(&args[2], 0);
 	if (!result)
 		return (NULL);
 	if (is_print == 1)
@@ -23,8 +23,7 @@ char	**echo_with_line_fun(char **args, int is_print)
 
 	if (!*args || !*args)
 		return (NULL);
-	result = copy_array2d(&args[1]);
-	result = add_in_array2d(&result, "\n", 0);
+	result = copy_array2d(&args[1], 1);
 	if (!result)
 		return (NULL);
 	if (is_print == 1)

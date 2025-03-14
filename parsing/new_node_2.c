@@ -71,4 +71,5 @@ void	create_nodes(char *line, t_info *info)
 	node->type_before = ft_strdup("start");
 	create_nodes_without_order(line, node);
 	order_info_nodes(info, &node);
+	free_nodes(&node);
 }

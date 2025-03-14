@@ -25,7 +25,5 @@ void execute_command(char *cmd)
         }
     }
     else
-    {
         perror("fork failed");
-    }
 }

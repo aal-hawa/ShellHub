@@ -25,7 +25,7 @@ int	len_array2d(char **array2d)
 	return (len);
 }
 
-char	**copy_export_env(char **array2d)
+char	**copy_array2d(char **array2d, int is_newline)
 {
 	int	i;
 	int	len;
@@ -41,50 +41,29 @@ char	**copy_export_env(char **array2d)
 	while (i < len)
 	{
 		new_array2d[i] = NULL;
-		new_array2d[i] = ft_join_with_restore(&new_array2d[i], array2d[i], "\n", NULL);
+		if (!is_newline)
+			new_array2d[i] = ft_strdup(array2d[i]);
+		else
+			new_array2d[i] = ft_join_with_restore(&new_array2d[i], array2d[i], "\n", NULL);
 		i++;
 	}
 	new_array2d[i] = NULL;
 	return (new_array2d);
 }
 
-char	**copy_array2d(char **array2d)
-{
-	int	i;
-	int	len;
-	char	**new_array2d;
-
-	i = 0;
-	if (!array2d)
-		return (NULL);
-	len = len_array2d(array2d);
-	new_array2d = malloc(sizeof(char *) * (len + 1));
-	if (!new_array2d)
-		return (NULL);
-	while (i < len)
-	{
-		new_array2d[i] = ft_strdup(array2d[i]);
-		i++;
-	}
-	new_array2d[i] = NULL;
-	return (new_array2d);
-}
-
-char	*ft_add_qout_export(char **str)
+void	ft_add_qout_export(char **str, int len)
 {
 	int	i;
 	int	j;
-	int	len;
 	char	*new_str;
 	int	is_got_equal;
 	
-	len = strlen(*str);
 	new_str = malloc(sizeof(char) * (len + 3));
+	if (!new_str)
+		return ;
 	i = -1;
 	is_got_equal = 0;
 	j = 0;
-	if (!new_str)
-		return (NULL);
 	while (str[0][++i])
 	{
 		new_str[j++] = str[0][i];
@@ -99,7 +78,6 @@ char	*ft_add_qout_export(char **str)
 	new_str[j] = '\0';
 	*str = free_string(str);
 	*str = new_str;
-	return (*str);
 }
 
 char	**copy_array2d_export(char **array2d)
@@ -119,7 +97,7 @@ char	**copy_array2d_export(char **array2d)
 	{
 		new_array2d[i] = NULL;
 		new_array2d[i] = ft_join_with_restore(&new_array2d[i], "declare -x ", array2d[i], NULL);
-		new_array2d[i] = ft_add_qout_export(&new_array2d[i]);
+		ft_add_qout_export(&new_array2d[i], ft_strlen(new_array2d[i]));
 		i++;
 	}
 	new_array2d[i] = NULL;
@@ -209,30 +187,6 @@ char	**merge_2_arrays2d(char ***first_array2d, char ***second_array2d)
 	return (new_array2d);
 }
 
-
-void	add_double_quotes_1(char **str)
-{
-	int		len;
-	int		i;
-	char	*new_str;
-
-	len = strlen(*str);
-	new_str = malloc(sizeof(char) * (len + 3));
-	if (!new_str)
-		return ;
-	new_str[0] = '"';
-	i = 0;
-	while (str[0][i])
-	{
-		new_str[i + 1] = str[0][i];
-		i++;
-	}
-	new_str[i + 1] = '"';
-	new_str[i + 2] = '\0';
-	*str = free_string(str);
-	*str = new_str;
-}
-
 char	*ft_join_with_restore(char	**dst, char *s1, char *s2, char *s3)
 {
 	char	*str_join;
@@ -245,58 +199,4 @@ char	*ft_join_with_restore(char	**dst, char *s1, char *s2, char *s3)
 		*dst = ft_restore_value(dst, &str_join, 1);
 	}
 	return (*dst);
-}
-
-char	*print_value_1(char *arg)
-{
-	int		i;
-	char	*key;
-	char	*value;
-	char	*result;
-
-	i = 0;
-	result = NULL;
-	while (arg[i] && arg[i] != '=')
-		i++;
-	key = ft_strndup(arg, i);
-	value = NULL;
-	if (arg[i] == '=')
-		value = ft_strdup(arg + i + 1);
-	if (!check_is_valid_key(key))
-	{
-		printf("minishell: export: `%s': not a valid identifier\n", key);
-		free(key);
-		free(value);
-		return (NULL);
-	}
-	result = ft_join_with_restore(&result, "declare -x ",key, NULL);
-	if (value)
-	{
-		result = ft_join_with_restore(&result, result, "=", NULL);
-		add_double_quotes_1(&value);
-		result = ft_join_with_restore(&result, result, value, NULL);
-	}
-	result = ft_join_with_restore(&result, result, "\n", NULL);
-	free(key);
-	free(value);
-	return (result);
-}
-
-
-char	**make_export_fun(char **export)
-{
-	int	i;
-	char	*str;
-	char	**array2d;
-
-	i = 0;
-	array2d = NULL;
-	while (export[i])
-	{
-		str = print_value_1(export[i]);
-		array2d = add_in_array2d(&array2d, str, 0);
-		str = free_string(&str);
-		i++;
-	}
-	return (array2d);
 }
