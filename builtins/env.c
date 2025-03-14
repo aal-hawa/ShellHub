@@ -15,7 +15,7 @@ static int	is_has_equal(char *str)
 
 static char **add_to_env(char **arr, char *arg)
 {
-	if (is_exist_str_in_2array(arr, arg, 0))
+	if (is_exist_str_in_2array(arr, arg))
 	{
 		arr = del_str_from_array2d(&arr, arg);
 		arr = add_in_array2d(&arr, arg, 0);
@@ -44,19 +44,14 @@ static int check_valid_args(char **arr)
 	return (1);
 }
 
-static void print_env(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while(arr[i])
-		printf("%s\n", arr[i++]);
-}
-
 char	**env_fun(char **args, t_info * info, int is_print)
 {
-	int i = 1;
-	char **cpy_print = NULL;
+	int i;
+	char **cpy_print;
+	char **cpy_print_with_n;
+
+	i = 1;
+	cpy_print_with_n = NULL;
 	cpy_print = copy_array2d(info->envp);
 	if(args[i])
 	{
@@ -69,7 +64,9 @@ char	**env_fun(char **args, t_info * info, int is_print)
 		}
 	}
 	if(is_print)
-		print_env(cpy_print);
-	env_data(info);
-	return (cpy_print);
+		print_array2d(cpy_print, 1);
+	else
+		cpy_print_with_n = copy_export_env(cpy_print);
+	free_array2d(&cpy_print, 0);
+	return (cpy_print_with_n);
 }

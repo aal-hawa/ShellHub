@@ -1,19 +1,14 @@
 
 #include "../minishell.h"
 
-int	is_exist_str_in_2array(char **array2d, char *del_str, int size_str)
+int	is_exist_str_in_2array(char **array2d, char *del_str)
 {
 	int		i;
 	
 	i = -1;
 	while (array2d && array2d[++i])
 	{
-		if (size_str == 0)
-		{
-			if (!ft_strccmp(array2d[i], del_str, '='))
-				return (i);
-		}
-		else if (!ft_strncmp(array2d[i], del_str, size_str))
+		if (!ft_strccmp(array2d[i], del_str, '='))
 			return (i);
 	}
 	return (-1);
@@ -30,6 +25,28 @@ int	len_array2d(char **array2d)
 	return (len);
 }
 
+char	**copy_export_env(char **array2d)
+{
+	int	i;
+	int	len;
+	char	**new_array2d;
+
+	i = 0;
+	if (!array2d)
+		return (NULL);
+	len = len_array2d(array2d);
+	new_array2d = malloc(sizeof(char *) * (len + 1));
+	if (!new_array2d)
+		return (NULL);
+	while (i < len)
+	{
+		new_array2d[i] = NULL;
+		new_array2d[i] = ft_join_with_restore(&new_array2d[i], array2d[i], "\n", NULL);
+		i++;
+	}
+	new_array2d[i] = NULL;
+	return (new_array2d);
+}
 
 char	**copy_array2d(char **array2d)
 {
@@ -101,7 +118,7 @@ char	**copy_array2d_export(char **array2d)
 	while (i < len)
 	{
 		new_array2d[i] = NULL;
-		new_array2d[i] = ft_join_with_restore(&new_array2d[i], "declare -x ", array2d[i]);
+		new_array2d[i] = ft_join_with_restore(&new_array2d[i], "declare -x ", array2d[i], NULL);
 		new_array2d[i] = ft_add_qout_export(&new_array2d[i]);
 		i++;
 	}
@@ -118,7 +135,7 @@ char	**del_str_from_array2d(char ***array2d, char *del_str)
 	char	**new_array2d;
 	int		z;
 
-	z = is_exist_str_in_2array(*array2d, del_str, 0);
+	z = is_exist_str_in_2array(*array2d, del_str);
 	if ( z == -1)
 		return (*array2d); 
 	i = -1;
@@ -216,12 +233,17 @@ void	add_double_quotes_1(char **str)
 	*str = new_str;
 }
 
-char	*ft_join_with_restore(char	**dst, char *s1, char *s2)
+char	*ft_join_with_restore(char	**dst, char *s1, char *s2, char *s3)
 {
 	char	*str_join;
 
 	str_join = ft_strjoin(s1, s2);
 	*dst = ft_restore_value(dst, &str_join, 1);
+	if (s3)
+	{
+		str_join = ft_strjoin(*dst, s3);
+		*dst = ft_restore_value(dst, &str_join, 1);
+	}
 	return (*dst);
 }
 
@@ -247,14 +269,14 @@ char	*print_value_1(char *arg)
 		free(value);
 		return (NULL);
 	}
-	result = ft_join_with_restore(&result, "declare -x ",key);
+	result = ft_join_with_restore(&result, "declare -x ",key, NULL);
 	if (value)
 	{
-		result = ft_join_with_restore(&result, result, "=");
+		result = ft_join_with_restore(&result, result, "=", NULL);
 		add_double_quotes_1(&value);
-		result = ft_join_with_restore(&result, result, value);
+		result = ft_join_with_restore(&result, result, value, NULL);
 	}
-	result = ft_join_with_restore(&result, result, "\n");
+	result = ft_join_with_restore(&result, result, "\n", NULL);
 	free(key);
 	free(value);
 	return (result);
