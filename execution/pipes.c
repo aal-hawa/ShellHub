@@ -40,7 +40,7 @@ void	child_execve(t_token *token, char **strs, t_info *info)
 	perror(info->path_commd);
 	de_allocate(&info->fds, &info->frs, info->str_i);
 	free_array2d(&strs, 0);
-	exit_number(1, info);
+	exit_number(1, 0, info);
 }
 
 void	dup_stdin_fileno(t_info *info)
@@ -63,7 +63,7 @@ void	childs(t_token *token, t_info *info)
 	{
 		error_pipe(info->fds, -3, info);
 		de_allocate(&info->fds, &info->frs, info->str_i);
-		return (exit_number(1, info));
+		return (exit_number(1, 0, info));
 	}
 	get_path_command(strs, info);
 	if (!info->path_commd)
@@ -73,10 +73,10 @@ void	childs(t_token *token, t_info *info)
 				ft_strjoin_path("zsh: command not found: ", strs[0], 0), 2, 2);
 		error_pipe(info->fds, -3, info);
 		de_allocate(&info->fds, &info->frs, info->str_i);
-		return (exit_number(127, info));
+		return (exit_number(127, 0, info));
 	}
 	dup_stdin_fileno(info);
 	close(info->fds[info->i_childs][0]);
 	child_execve(token, strs, info);
-	exit_number(0, info);
+	exit_number(0, 0, info);
 }

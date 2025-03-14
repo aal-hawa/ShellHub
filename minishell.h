@@ -150,7 +150,7 @@ int		open_file_r_w(char *name_file);
 int		open_file_r(char *name_file);
 int		close_fd_fun(int fd2close);
 void	unlink_files(t_info *info);
-void	exit_number(int exit_status, t_info * info);
+void	exit_number(int exit_status, int is_de_allocate, t_info * info);
 void	open_here_doc(t_node *node, t_info *info);
 char	**make_export_fun(char	**export);
 t_token	*malloc_token();

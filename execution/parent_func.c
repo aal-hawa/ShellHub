@@ -7,6 +7,7 @@ int	wait_fun(t_info *info)
 
 	info->i_wait = 0;
 	is_error_127 = 0;
+	exit_child = 0;
 	while (info->i_wait < info->str_i)
 	{
 		wait(&exit_child);

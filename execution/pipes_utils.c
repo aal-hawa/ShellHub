@@ -39,13 +39,16 @@ void	error_pipe(int **fds, int i, t_info *info)
 
 void	de_allocate(int ***fd, pid_t **frs, int i)
 {
-	while (i >= 0)
+	if (fd && *fd && i >= 0)
 	{
 		while (i >= 0)
 			free(fd[0][i--]);
 		free(*fd);
-		free(*frs);
 		*fd = NULL;
+	}
+	if (frs && *frs)
+	{
+		free(*frs);
 		*frs = NULL;
 	}
 }

@@ -40,7 +40,7 @@ void	do_builtins_check_fork(t_token *token,  t_info *info, char ***result_blts)
 			if (info->str_i > 0)
 				de_allocate(&info->fds, &info->frs, info->str_i);
 			free_array2d(result_blts, 0);
-			exit_number(info->status_exit, info);
+			exit_number(info->status_exit, 0, info);
 		}
 		info->fd_file_w = close_fd_fun(info->fd_file_w);
 		info->i_childs++;
@@ -168,7 +168,7 @@ int	init_pipes(t_info *info)
 		{
 			error_pipe(fds, --info->i_fds, info);
 			de_allocate(&fds, &frs, info->str_i);
-			exit_number(1, info);
+			exit_number(1, 0, info);
 			return (1);
 		}
 	}

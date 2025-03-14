@@ -33,4 +33,5 @@ void	reset_info(t_info *info)
 	if (info->herdoc_files)
 		free_array2d(&info->herdoc_files, 0);
 	free_tokens(&info->tokens);
+	de_allocate(&info->fds, &info->frs, info->str_i);
 }
