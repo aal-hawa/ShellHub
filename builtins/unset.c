@@ -11,14 +11,6 @@ void	check_delete(char *arg, t_info *info)
 		i++;
 	if (arg[i] == '=')
 		return ;
-	// key = ft_strndup(arg, i);
-	// printf("inside unset/check_delete key: %s\n", key);
-	// if (!check_is_valid_key(key))
-	// {
-	// 	printf("minishell: unset: `%s': not a valid identifier\n", key);
-	// 	free(key);
-	// 	return ;
-	// }
 	export_arg = NULL;
 	export_arg = ft_join_with_restore(&export_arg, "declare -x ", arg, NULL);
 	info->export = del_str_from_array2d(&info->export, export_arg);

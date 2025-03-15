@@ -6,7 +6,7 @@ char	*value_fun(char *str, char devide_char)
 	int	i;
 	int	y;
 	char	*dest;
-
+	
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -29,42 +29,29 @@ char	*value_fun(char *str, char devide_char)
 char	*marge_doller_sign(char *str_dollersign, char *str)
 {
 	char	*dst;
-	char	*str_join;
 
 	dst = value_fun(str, ' ');
 	if (dst)
 	{
-		str_join = ft_strjoin(" ", dst);
-		dst =ft_restore_value(&dst, &str_join, 1);
-		str_join = ft_strjoin(str_dollersign, dst);
-		// dst = ft_join_with_restore(&dst, str_dollersign," ", dst);
-		return (str_join);
+		dst = ft_join_with_restore(&dst, str_dollersign," ", dst);
+		return (dst);
 	}
 	return (str_dollersign);
 }
 
-char	*merge_doller_sign(char **str,char **str_sign, t_info *info)
+char	*merge_doller_sign(char **str, char **str_sign, t_info *info)
 {
 	int		i;
-	char	*varible;
+	char	*value;
 
-	i = -1;
-	while (info->envp[++i])
+	i = is_exist_str_in_2array(info->envp, *str_sign);
+	if (i > -1)
 	{
-		varible = ft_strccpy(info->envp[i], '=');
-		if (!varible)
-			continue ;
-		if (!ft_strcmp(varible, *str_sign))
-		{
-			*str_sign = free_string(str_sign);
-			varible = free_string(&varible);
-			*str_sign = marge_doller_sign(value_fun(info->envp[i], '='), *str);
-			*str = free_string(str);
-			*str = *str_sign;
-			return (*str_sign);
-		}
-		free (varible);
-		varible = NULL;
+		*str_sign = free_string(str_sign);
+		value = value_fun(info->envp[i], '=');
+		*str_sign = marge_doller_sign(value, *str);
+		*str = ft_restore_value(str, str_sign, 1);
+		return (*str);
 	}
 	return (*str_sign);
 }
@@ -81,9 +68,6 @@ char	*doller_sign_fun(char **str, t_info *info)
 	if (!str_sign)
 		str_sign = ft_strdup(*str);
 	str_sign = merge_doller_sign(str, &str_sign, info);
-	str_sign = free_string(&str_sign);
-	str_sign = value_fun(*str, ' ');
-	*str = free_string(str);
 	if (!str_sign)
 		str_sign = ft_strdup("");
 	return (str_sign);
@@ -127,7 +111,7 @@ char	*find_doller_sign_fun(char **str, t_info *info)
 		split_str[i] = doller_sign_fun(&split_str[i], info);
 	i = -1;
 	while (split_str[++i])
-		dst = ft_strjoin(dst, split_str[i]);
+		dst = ft_join_with_restore(&dst, dst, split_str[i], NULL);
 	free_array2d(&split_str, 0);
 	*str = free_string(str);
 	*str = dst;

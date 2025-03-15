@@ -46,7 +46,7 @@ void	print_nodes(t_node *nodes, t_colors *colors)
 	{
 		printf("%sArgs: %s", colors->blue_color,colors->default_color);
 		for (int i = 0; nodes->args[i]; i++)
-		printf("%s ", nodes->args[i]);
+			printf("%s ", nodes->args[i]);
 		printf("%s\nType Before: %s\n%s",
 			colors->magenta_color, nodes->type_before, colors->default_color);
 		nodes = nodes->next;

@@ -114,7 +114,7 @@ char	**copy_array2d(char **array2d, int is_newline);
 // char	**copy_export_env(char **array2d);
 char	**copy_array2d_export(char **array2d);
 void	copy_node(t_node **to_node, t_node **from_node, int is_free_before);
-int		is_exist_str_in_2array(char **array2d, char *del_str);
+int		is_exist_str_in_2array(char **array2d, char *str);
 void	order_info_nodes(t_info *info, t_node **node);
 int		is_biult_fun(char *first_arg);
 int     is_operator_fun(char *str);

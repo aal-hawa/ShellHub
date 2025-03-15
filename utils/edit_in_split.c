@@ -1,14 +1,14 @@
 
 #include "../minishell.h"
 
-int	is_exist_str_in_2array(char **array2d, char *del_str)
+int	is_exist_str_in_2array(char **array2d, char *str)
 {
 	int		i;
 	
 	i = -1;
 	while (array2d && array2d[++i])
 	{
-		if (!ft_strccmp(array2d[i], del_str, '='))
+		if (!ft_strccmp(array2d[i], str, '='))
 			return (i);
 	}
 	return (-1);

@@ -3,7 +3,7 @@
 
 char	*free_string(char **this_string)
 {
-	if (!*this_string)
+	if (!this_string || !*this_string)
 		return (NULL);
 	free(*this_string);
 	*this_string = NULL;
