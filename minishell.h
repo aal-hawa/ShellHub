@@ -85,7 +85,6 @@ typedef struct s_info
 
 void	minishell(t_info *info);
 char	*readline_fun();
-char	**tokens_fun(char *line);
 char	**cd_fun(char **args, t_info *info);
 char	**pwd_fun(t_info *info, int is_print);
 void	exit_fun(char **arg, t_info *info);
@@ -104,7 +103,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strccmp(const char *s1, const char *s2, char c);
 char	*ft_restore_value(char **dest, char **str, int is_str_malloc);
 char	*ft_strlchr(char **str, char lst_char, int is_str_malloc);
-char    *pre_split(char **s, const char *ops);
 void	free_nodes(t_node **node);
 void	free_node(t_node **node);
 void	free_info(t_info *info);
@@ -160,6 +158,7 @@ void	free_tokens(t_token **token);
 void	print_tokens(t_token *token, t_colors *colors);
 char	*ft_join_with_restore(char	**dst, char *s1, char *s2, char *s3);
 void	ft_add_qout_export(char **str, int len);
+void	execve_no_cmd(t_info *info);
 
 size_t		ft_strlen(const char *s);
 int			open_file_w(char *name_file);
@@ -172,7 +171,7 @@ int			init_files_biultins(char **str, t_info *info);
 void		init_here_doc(char *herdoc_file, t_info *info);
 void		error_pipe(int **fds, int i, t_info *info);
 char		*get_next_line(t_info *info);
-char		*ft_strjoin_g(char *s1, char *s2, int *is_done, t_info *info);
+char		*strjoin_herdoc(char **s1, char *s2, int *is_done, t_info *info);
 char		*free_string(char **this_string);
 void		ft_putstr_fd_malloc(char *s, int fd, int is_malloc);
 int			finish_parent( t_info *info);

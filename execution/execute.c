@@ -23,11 +23,12 @@ void	str_i_count(t_info *info)
 }
 void	do_builtins_check_fork(t_token *token,  t_info *info, char ***result_blts)
 {
-	pid_t	frs_1;
+	// pid_t	frs_1;
 	if (info->str_i > 0)
 	{
-		frs_1 = fork();
-		if (frs_1 == 0)
+		// frs_1 = fork();
+		info->frs[info->i_childs] = fork();
+		if (info->frs[info->i_childs] == 0)
 		{
 			if (do_builtins(token, result_blts, info) == 1)
 			{
@@ -98,10 +99,7 @@ void	dir_blt_execve_fun(t_token *tokens, t_info *info)
 					for_execve(tokens, info);
 			}
 			else if (info->str_i > 0) // check this by make a fork
-			{
-				close(info->fds[info->i_childs + 1][1]);
-				info->i_childs++;
-			}
+				execve_no_cmd(info);
 		}
 		tokens = tokens->next;
 	}

@@ -37,12 +37,13 @@ char	*marge_doller_sign(char *str_dollersign, char *str)
 		str_join = ft_strjoin(" ", dst);
 		dst =ft_restore_value(&dst, &str_join, 1);
 		str_join = ft_strjoin(str_dollersign, dst);
+		// dst = ft_join_with_restore(&dst, str_dollersign," ", dst);
 		return (str_join);
 	}
 	return (str_dollersign);
 }
 
-char	*Merge_doller_sign(char **str,char **str_sign, t_info *info)
+char	*merge_doller_sign(char **str,char **str_sign, t_info *info)
 {
 	int		i;
 	char	*varible;
@@ -79,7 +80,7 @@ char	*doller_sign_fun(char **str, t_info *info)
 	str_sign = ft_strccpy(*str, ' ');
 	if (!str_sign)
 		str_sign = ft_strdup(*str);
-	str_sign = Merge_doller_sign(str, &str_sign, info);
+	str_sign = merge_doller_sign(str, &str_sign, info);
 	str_sign = free_string(&str_sign);
 	str_sign = value_fun(*str, ' ');
 	*str = free_string(str);

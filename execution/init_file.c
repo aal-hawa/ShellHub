@@ -32,10 +32,11 @@ void	init_here_doc(char *herdoc_file, t_info *info)
 	str = new_name_herdoc(info->index_files_crt);
 	info->index_files_crt++;
 	info->fd_file_r = open_file_r_w(str);
-	info->limiter = ft_strjoin_path(herdoc_file, "\n", 0);
+	info->limiter = ft_strjoin(herdoc_file, "\n");
 	info->i_limiter = ft_strlen(info->limiter);
 	ft_putstr_fd_malloc(get_next_line(info), info->fd_file_r, 1);
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
+	str = free_string(&str);
 }
 
 int	init_files_biultins(char **str, t_info *info)
