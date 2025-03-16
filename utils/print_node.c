@@ -17,16 +17,16 @@ void	print_tokens(t_token *token, t_colors *colors)
 			for (int i = 0; token->cmd[i]; i++)
 				printf("%s ", token->cmd[i]);
 		}
-		if (token->input_redirect)
+		if (token->redirect)
 		{
-			printf("\n%sinput_redirect: %s\n", colors->cyan_color,colors->default_color);
-			print_nodes(token->input_redirect, colors);
+			printf("\n%sredirect: %s\n", colors->cyan_color,colors->default_color);
+			print_nodes(token->redirect, colors);
 		}
-		if (token->output_redirect)
-		{
-			printf("\n%soutput_redirect: %s\n", colors->cyan_color,colors->default_color);
-			print_nodes(token->output_redirect, colors);
-		}
+		// if (token->output_redirect)
+		// {
+		// 	printf("\n%soutput_redirect: %s\n", colors->cyan_color,colors->default_color);
+		// 	print_nodes(token->output_redirect, colors);
+		// }
 		token = token->next;
 		if (token)
 			printf("\n---------\n");

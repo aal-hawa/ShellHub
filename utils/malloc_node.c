@@ -8,8 +8,8 @@ t_token	*malloc_token()
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-	token->input_redirect = NULL;
-	token->output_redirect = NULL;
+	token->redirect = NULL;
+	// token->output_redirect = NULL;
 	token->cmd = NULL;
 	token->next = NULL;
 	token->is_bilt_cmd = 0;

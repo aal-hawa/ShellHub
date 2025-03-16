@@ -26,8 +26,7 @@ typedef struct s_node
 
 typedef struct s_token
 {
-	t_node			*input_redirect;
-	t_node			*output_redirect;
+	t_node			*redirect;
 	char			**cmd;
     int				is_bilt_cmd;
     struct s_token	*next;
@@ -35,13 +34,10 @@ typedef struct s_token
 
 typedef struct s_node_order
 {
-	t_node	*nodes_input;
-	t_node	*nodes_output;
-	t_node	*first_input;
-	t_node	*first_output;
+	t_node	*nodes;
+	t_node	*first_nodea;
 	char	**args;
 	char	*str_cmd;
-	char	*str_join;
 	int		i;
 } t_node_order;
 

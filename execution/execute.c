@@ -71,9 +71,9 @@ int	check_open_files(t_token *token, t_info *info)
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	info->fd_file_w = close_fd_fun(info->fd_file_w);
 	is_exit = 0;
-	is_exit = open_all_files(token->input_redirect, info);
-	if (is_exit == 0)
-		is_exit = open_all_files(token->output_redirect, info);
+	is_exit = open_all_files(token->redirect, info);
+	// if (is_exit == 0)
+	// 	is_exit = open_all_files(token->output_redirect, info);
 	if (is_exit == 1)
 	{
 		info->i_childs++;
@@ -120,7 +120,7 @@ void	put_name_herdoc_files(t_info *info)
 	token = info->tokens;
 	while (token)
 	{
-		input_node = token->input_redirect;
+		input_node = token->redirect;
 		while (input_node)
 		{
 			if (!ft_strcmp(input_node->type_before, "<<"))
