@@ -9,7 +9,7 @@ void	devide_line_be4_after(char **line, int i, char **str_be4, char **str_after)
 		ft_strlcpy(*str_be4, *line, i);
 		// str_join = ft_strjoin(*str_be4, " ");
 		// *str_be4 = ft_restore_value(str_be4, &str_join, 1);
-		*str_be4 = ft_join_with_restore(str_be4,*str_be4, " ", NULL);
+		*str_be4 = join_with_restore(str_be4,*str_be4, " ", NULL);
 	}
 	if (line[0][i + 1])
 		*str_after = ft_strdup(&line[0][i + 1]);
@@ -34,7 +34,9 @@ char	*tilde(char **line, char *str_home)
 				|| line[0][i + 1] == '/' || !line[0][i + 1]))
 			{
 				devide_line_be4_after(line, i, &str_be4, &str_after);
-				*line = marge_new_line(line, &str_be4, &str_after, str_home);
+				*line = join_with_restore(line, str_be4, str_home, str_after);
+				str_be4 = free_string(&str_be4);	
+				str_after = free_string(&str_after);
 			}
 		}
 		is_qout = is_qout_fun(is_qout, line[0][i]);

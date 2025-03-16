@@ -12,7 +12,7 @@ void	check_delete(char *arg, t_info *info)
 	if (arg[i] == '=')
 		return ;
 	export_arg = NULL;
-	export_arg = ft_join_with_restore(&export_arg, "declare -x ", arg, NULL);
+	export_arg = join_with_restore(&export_arg, "declare -x ", arg, NULL);
 	info->export = del_str_from_array2d(&info->export, export_arg);
 	info->envp = del_str_from_array2d(&info->envp, arg);
 	export_arg = free_string(&export_arg);

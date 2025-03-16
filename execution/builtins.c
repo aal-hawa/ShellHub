@@ -6,7 +6,7 @@ void	builtins_fun(char	***result, char **biultins, t_info *info, int is_print)
 		result[0] = cd_fun(biultins, info);
 	else if (!ft_strcmp(biultins[0], "echo"))
 	{
-		if (!ft_strcmp(biultins[1], "-n"))
+		if (check_echo_n(biultins[1]))
 			result[0] = echo_n_fun(biultins, is_print);
 		else
 			result[0] = echo_with_line_fun(biultins, is_print);

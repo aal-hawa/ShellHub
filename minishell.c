@@ -44,7 +44,7 @@ void	minishell(t_info *info)
 		line = free_string(&line);
 		if (info->tokens)
 		{
-			print_tokens(info->tokens, info->colors);
+			// print_tokens(info->tokens, info->colors);
 			execute_fun(info);
 			unlink_files(info);
 		}

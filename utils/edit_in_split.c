@@ -44,7 +44,7 @@ char	**copy_array2d(char **array2d, int is_newline)
 		if (!is_newline)
 			new_array2d[i] = ft_strdup(array2d[i]);
 		else
-			new_array2d[i] = ft_join_with_restore(&new_array2d[i], array2d[i], "\n", NULL);
+			new_array2d[i] = join_with_restore(&new_array2d[i], array2d[i], "\n", NULL);
 		i++;
 	}
 	new_array2d[i] = NULL;
@@ -96,7 +96,7 @@ char	**copy_array2d_export(char **array2d)
 	while (i < len)
 	{
 		new_array2d[i] = NULL;
-		new_array2d[i] = ft_join_with_restore(&new_array2d[i], "declare -x ", array2d[i], NULL);
+		new_array2d[i] = join_with_restore(&new_array2d[i], "declare -x ", array2d[i], NULL);
 		ft_add_qout_export(&new_array2d[i], ft_strlen(new_array2d[i]));
 		i++;
 	}
@@ -187,7 +187,7 @@ char	**merge_2_arrays2d(char ***first_array2d, char ***second_array2d)
 	return (new_array2d);
 }
 
-char	*ft_join_with_restore(char	**dst, char *s1, char *s2, char *s3)
+char	*join_with_restore(char	**dst, char *s1, char *s2, char *s3)
 {
 	char	*str_join;
 

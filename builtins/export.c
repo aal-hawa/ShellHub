@@ -5,7 +5,7 @@ void	check_and_add(t_info *info, char *arg, int add_to_env)
 	char	*key;
 
 	key = ft_strdup(arg);
-	key = ft_join_with_restore(&key, "declare -x ", key, NULL);
+	key = join_with_restore(&key, "declare -x ", key, NULL);
 	ft_add_qout_export(&key, ft_strlen(key));
 	if (is_exist_str_in_2array(info->export, key))
 	{
@@ -56,7 +56,7 @@ void	print_value(char *arg, t_info *info)
 		printf("minishell: export: `%s': not a valid identifier\n", key);
 	else if (value)
 	{
-		new_arg = ft_join_with_restore(&new_arg, key, "=", value);
+		new_arg = join_with_restore(&new_arg, key, "=", value);
 		check_and_add(info, new_arg, 0);
 		check_and_add_env(info, new_arg, key);
 		new_arg = free_string(&new_arg);

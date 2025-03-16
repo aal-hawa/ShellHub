@@ -68,7 +68,6 @@ void	after_qout(char **line, int *adress_i)
 	}
 }
 
-
 char	*chck_spacesbetween_qout(char **line)
 {
 	int		i;
@@ -84,7 +83,8 @@ char	*chck_spacesbetween_qout(char **line)
 		{
 			if (is_qout == 0)
 				before_qout(line, i);
-			else
+			else if ((is_qout == 1 && line[0][i] == '\'')
+				|| (is_qout == 2 && line[0][i] == '\"'))
 				after_qout(line, &i);
 		}
 		is_qout = is_qout_fun(is_qout, c);

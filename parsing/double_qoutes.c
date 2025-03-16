@@ -16,10 +16,14 @@ char	*double_quot_fun(char **line, int i, char *str, t_info *info)
 	line_before_qout = malloc(sizeof(char) * (i + 2));
 	ft_strlcpy(line_before_qout, *line, i + 1);
 	dst = ft_strccpy(str,  '\"');
-	if (dst && ft_strlen(dst) > 0)
-		line_after_qout = ft_strdup(&line[0][i + ft_strlen(dst)]);
+
 	if (dst)
+	{
+		line_after_qout = ft_strdup(&line[0][i + ft_strlen(dst)]);
 		dst = find_doller_sign_fun(&dst, info);
-	*line = marge_new_line(line, &line_before_qout, &line_after_qout, dst);
+	}
+	*line = join_with_restore(line, line_before_qout, dst, line_after_qout);
+	line_before_qout = free_string(&line_before_qout);	
+	line_after_qout = free_string(&line_after_qout);
 	return (dst);
 }

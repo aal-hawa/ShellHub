@@ -97,7 +97,7 @@ void	order_info_nodes(t_info *info, t_node **node)
 	next_node = NULL;
 	if (*node)
 		next_node = *node;
-	print_array2d(next_node->args, 1);
+	// print_array2d(next_node->args, 1);
 	while (next_node)
 	{
 		order_nodes(&next_node, &tokens, info);

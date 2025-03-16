@@ -15,6 +15,7 @@ char	*value_fun(char *str, char devide_char)
 	if (!str[i] || !str[i + 1])
 		return (NULL);
 	i++;
+	return (ft_strdup(&str[i]));
 	y = ft_strlen(&str[i]);
 	dest = malloc(sizeof(char) * (y + 1));
 	if (!dest)
@@ -26,14 +27,17 @@ char	*value_fun(char *str, char devide_char)
 	return (dest);
 }
 
-char	*marge_doller_sign(char *str_dollersign, char *str)
+char	*merge_result_with_after_space(char *str_dollersign, char *str)
 {
+	char	*after_space;
 	char	*dst;
 
-	dst = value_fun(str, ' ');
-	if (dst)
+	after_space = value_fun(str, ' ');
+	dst = NULL;
+	if (after_space)
 	{
-		dst = ft_join_with_restore(&dst, str_dollersign," ", dst);
+		dst = join_with_restore(&dst, str_dollersign," ", after_space);
+		after_space = free_string(&after_space);
 		return (dst);
 	}
 	return (str_dollersign);
@@ -44,15 +48,18 @@ char	*merge_doller_sign(char **str, char **str_sign, t_info *info)
 	int		i;
 	char	*value;
 
+	value = NULL;
 	i = is_exist_str_in_2array(info->envp, *str_sign);
 	if (i > -1)
 	{
 		*str_sign = free_string(str_sign);
 		value = value_fun(info->envp[i], '=');
-		*str_sign = marge_doller_sign(value, *str);
+		*str_sign = merge_result_with_after_space(value, *str);
 		*str = ft_restore_value(str, str_sign, 1);
 		return (*str);
 	}
+	*str_sign = free_string(str_sign);
+	*str_sign = merge_result_with_after_space(value, *str);
 	return (*str_sign);
 }
 
@@ -111,7 +118,7 @@ char	*find_doller_sign_fun(char **str, t_info *info)
 		split_str[i] = doller_sign_fun(&split_str[i], info);
 	i = -1;
 	while (split_str[++i])
-		dst = ft_join_with_restore(&dst, dst, split_str[i], NULL);
+		dst = join_with_restore(&dst, dst, split_str[i], NULL);
 	free_array2d(&split_str, 0);
 	*str = free_string(str);
 	*str = dst;

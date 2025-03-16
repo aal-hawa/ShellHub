@@ -31,10 +31,7 @@ t_node	*malloc_node()
 void	copy_node(t_node **to_node, t_node **from_node, int is_free_before)
 {
 	if (!from_node[0])
-	{
-		printf("\n\n--------------  Error  --------------\n\n");
 		return ;
-	}
 	if (is_free_before == 1 && to_node[0]->type_before)
 		to_node[0]->type_before = free_string(&to_node[0]->type_before);
 	if (is_free_before == 1 && to_node[0]->fd_name)
