@@ -1,22 +1,22 @@
 
 # include "../minishell.h"
 
-void	free_splits(char **strs)
-{
-	int	i;
+// void	free_splits(char **strs)
+// {
+// 	int	i;
 
-	if (strs)
-	{
-		i = 0;
-		while (strs[i])
-		{
-			strs[i] = free_string(&strs[i]);
-			i++;
-		}
-		free(strs);
-		strs = NULL;
-	}
-}
+// 	if (strs)
+// 	{
+// 		i = 0;
+// 		while (strs[i])
+// 		{
+// 			strs[i] = free_string(&strs[i]);
+// 			i++;
+// 		}
+// 		free(strs);
+// 		strs = NULL;
+// 	}
+// }
 
 void	error_pipe(int **fds, int i, t_info *info)
 {

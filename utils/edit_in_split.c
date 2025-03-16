@@ -159,33 +159,33 @@ char	**add_in_array2d(char ***array2d, char *add_str, int is_alpha)
 	return (new_array2d);
 }
 
-char	**merge_2_arrays2d(char ***first_array2d, char ***second_array2d)
-{
-	int		i;
-	int		j;
-	int		len1;
-	int		len2;
-	char	**new_array2d;
+// char	**merge_2_arrays2d(char ***first_array2d, char ***second_array2d)
+// {
+// 	int		i;
+// 	int		j;
+// 	int		len1;
+// 	int		len2;
+// 	char	**new_array2d;
 
-	i = 0;
-	len1 = len_array2d(*first_array2d);
-	len2 = len_array2d(*second_array2d);
-	new_array2d = malloc(sizeof(char *) * (len1 + len2 + 1));
-	if (!new_array2d)
-		return (NULL);
-	while (*first_array2d && first_array2d[0][i])
-	{
-		new_array2d[i] = ft_strdup(first_array2d[0][i]);
-		i++;
-	}
-	j = 0;
-	while (*second_array2d && second_array2d[0][j])
-		new_array2d[i++] = ft_strdup(second_array2d[0][j++]);
-	new_array2d[i] = NULL;
-	free_array2d(first_array2d, len1);
-	free_array2d(second_array2d, len2);
-	return (new_array2d);
-}
+// 	i = 0;
+// 	len1 = len_array2d(*first_array2d);
+// 	len2 = len_array2d(*second_array2d);
+// 	new_array2d = malloc(sizeof(char *) * (len1 + len2 + 1));
+// 	if (!new_array2d)
+// 		return (NULL);
+// 	while (*first_array2d && first_array2d[0][i])
+// 	{
+// 		new_array2d[i] = ft_strdup(first_array2d[0][i]);
+// 		i++;
+// 	}
+// 	j = 0;
+// 	while (*second_array2d && second_array2d[0][j])
+// 		new_array2d[i++] = ft_strdup(second_array2d[0][j++]);
+// 	new_array2d[i] = NULL;
+// 	free_array2d(first_array2d, len1);
+// 	free_array2d(second_array2d, len2);
+// 	return (new_array2d);
+// }
 
 char	*join_with_restore(char	**dst, char *s1, char *s2, char *s3)
 {

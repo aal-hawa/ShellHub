@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:06:25 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/11 16:49:42 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/16 23:17:10 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 // return str to the last char inside it
 // example: folder1/folder2/folder3 by char is / it will return folder1/folder2
-char	*ft_strlchr(char **str, char lst_char, int is_str_malloc)
-{
-	size_t	i;
-	char	*dest;
+// char	*ft_strlchr(char **str, char lst_char, int is_str_malloc)
+// {
+// 	size_t	i;
+// 	char	*dest;
 
-	i = ft_strlen(*str);
-	while (1)
-	{
-		if (str[0][i] == lst_char)
-			break ;
-		if (i == 0)
-			break ;
-		i--;
-	}
-	if (i == 0)
-		return (*str);
-	dest = malloc(sizeof(char) * (i + 1));
-	if (!dest)
-	{
-		*str = free_string(str);
-		return (NULL);
-	}
-	ft_strlcpy(dest, *str, i + 1);
-	if (is_str_malloc == 1)
-		*str = free_string(str);
-	return (dest);
-}
+// 	i = ft_strlen(*str);
+// 	while (1)
+// 	{
+// 		if (str[0][i] == lst_char)
+// 			break ;
+// 		if (i == 0)
+// 			break ;
+// 		i--;
+// 	}
+// 	if (i == 0)
+// 		return (*str);
+// 	dest = malloc(sizeof(char) * (i + 1));
+// 	if (!dest)
+// 	{
+// 		*str = free_string(str);
+// 		return (NULL);
+// 	}
+// 	ft_strlcpy(dest, *str, i + 1);
+// 	if (is_str_malloc == 1)
+// 		*str = free_string(str);
+// 	return (dest);
+// }

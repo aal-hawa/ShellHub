@@ -1,22 +1,17 @@
 # include "../minishell.h"
 
-int	wait_fun(t_info *info)
+void	wait_fun(t_info *info)
 {
 	int	exit_child;
-	int	is_error_127;
 
 	info->i_wait = 0;
-	is_error_127 = 0;
 	exit_child = 0;
 	while (info->i_wait < info->str_i)
 	{
 		wait(&exit_child);
 		info->status_exit = exit_child % 255;
-		if (exit_child % 255 == 127)
-			is_error_127 = 1;
 		info->i_wait++;
 	}
-	return (is_error_127);
 }
 
 void	close_fds_parent(int **fd1, t_info *info)
@@ -36,14 +31,11 @@ void	close_fds_parent(int **fd1, t_info *info)
 		free_string(&info->limiter);
 }
 
-int	finish_parent(t_info *info)
+void	finish_parent(t_info *info)
 {
-	int	is_error_127;
-
 	if (info->str_i == 0)
-		return (0);
+		return ;
 	close_fds_parent(info->fds, info);
-	is_error_127 = wait_fun(info);
+	wait_fun(info);
 	de_allocate(&info->fds, &info->frs, info->str_i);
-	return (is_error_127);
 }

@@ -2,13 +2,10 @@
 
 void	devide_line_be4_after(char **line, int i, char **str_be4, char **str_after)
 {
-	// char	*str_join;
 	if (i != 0)
 	{
 		*str_be4 = malloc(sizeof(char) * (i + 1));
 		ft_strlcpy(*str_be4, *line, i);
-		// str_join = ft_strjoin(*str_be4, " ");
-		// *str_be4 = ft_restore_value(str_be4, &str_join, 1);
 		*str_be4 = join_with_restore(str_be4,*str_be4, " ", NULL);
 	}
 	if (line[0][i + 1])

@@ -26,7 +26,7 @@ char	**change_path(char *cd, t_info *info)
 	old_path = ft_strjoin("OLDPWD=", info->curent_path);
 	if (chdir(info->curent_path))
 	{
-		printf ("%sError path: %s%s\n",info->colors->red_color, info->curent_path, info->colors->default_color); //delete this line
+		// printf ("%sError path: %s%s\n",info->colors->red_color, info->curent_path, info->colors->default_color); //delete this line
 		pwd_fun(info, 0);
 		info->status_exit = 1;
 		str_message = builtins_error_message("cd", cd);

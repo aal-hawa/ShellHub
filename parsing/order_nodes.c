@@ -41,9 +41,11 @@ void	make_order_nodes(t_node_order *node_order, t_info *info)
 		else
 		{
 			if (node_order->str_cmd)
-				node_order->str_cmd = join_with_restore(&node_order->str_cmd, node_order->str_cmd, " ", NULL);
-			node_order->str_cmd = join_with_restore(&node_order->str_cmd,
-				node_order->str_cmd,node_order->args[node_order->i], NULL);
+				node_order->str_cmd = join_with_restore(
+				&node_order->str_cmd, node_order->str_cmd, " ", node_order->args[node_order->i]);
+			else
+				node_order->str_cmd = join_with_restore(&node_order->str_cmd,
+					node_order->str_cmd,node_order->args[node_order->i], NULL);
 		}
 		if (node_order->args[node_order->i])
 			node_order->i++;

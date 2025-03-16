@@ -21,6 +21,7 @@ void	del_qout_nodes(t_node *node)
 		node = node->next;
 	}
 }
+
 void	del_qout_cmd(char **cmd)
 {
 	int	i;

@@ -13,8 +13,6 @@ void	free_tokens(t_token **token)
 			free_array2d(&(token[0]->cmd), 0);
 		if (token[0]->redirect)
 			free_nodes(&token[0]->redirect);
-		// if (token[0]->output_redirect)
-		// 	free_nodes(&token[0]->output_redirect);
 		temp = token[0];
 		token[0] = token[0]->next;
 		free(temp);
@@ -40,6 +38,7 @@ void	free_nodes(t_node **node)
 		free(temp);
 	}
 }
+
 void	free_node(t_node **node)
 {
 	if (!node || !node[0])

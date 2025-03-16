@@ -22,6 +22,12 @@ void	unlink_files(t_info *info)
 	info->index_files_crt = 0;
 }
 
+void	null_line(t_info *info)
+{
+	write(1, "exit\n", 5);
+	exit_number(0, 0, info);
+}
+
 void	minishell(t_info *info)
 {
 	char	*line;
@@ -30,11 +36,8 @@ void	minishell(t_info *info)
 	{
 		line = readline_fun();
 		if (!line)
-        {
-            write(1, "exit\n", 5);
-            exit_number(0, 0, info);
-        }
-		printf("%sthe input: %s%s\n", info->colors->cyan_color, info->colors->default_color, line);
+			null_line(info);
+		// printf("%sthe input: %s%s\n", info->colors->cyan_color, info->colors->default_color, line);
 		if (!check_valid_line(&line, info))
 			continue ;
 		fixed_line_spaces(&line);

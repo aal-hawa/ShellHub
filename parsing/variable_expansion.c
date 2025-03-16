@@ -4,8 +4,6 @@
 char	*value_fun(char *str, char devide_char)
 {
 	int	i;
-	int	y;
-	char	*dest;
 	
 	if (!str)
 		return (NULL);
@@ -16,15 +14,6 @@ char	*value_fun(char *str, char devide_char)
 		return (NULL);
 	i++;
 	return (ft_strdup(&str[i]));
-	y = ft_strlen(&str[i]);
-	dest = malloc(sizeof(char) * (y + 1));
-	if (!dest)
-		return (NULL);
-	y = 0;
-	while (str[i])
-		dest[y++] = str[i++];
-	dest[y] = '\0';
-	return (dest);
 }
 
 char	*merge_result_with_after_space(char *str_dollersign, char *str)

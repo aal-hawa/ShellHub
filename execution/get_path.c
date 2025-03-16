@@ -75,7 +75,7 @@ void	get_path_command(char **strs, t_info *info)
 	int		i;
 
 	i = 0;
-	if (strs[0])
+	if (strs && strs[0])
 	{
 		while (strs[0][i])
 		{

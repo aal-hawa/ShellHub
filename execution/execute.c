@@ -23,10 +23,8 @@ void	str_i_count(t_info *info)
 }
 void	do_builtins_check_fork(t_token *token,  t_info *info, char ***result_blts)
 {
-	// pid_t	frs_1;
 	if (info->str_i > 0)
 	{
-		// frs_1 = fork();
 		info->frs[info->i_childs] = fork();
 		if (info->frs[info->i_childs] == 0)
 		{
@@ -72,8 +70,6 @@ int	check_open_files(t_token *token, t_info *info)
 	info->fd_file_w = close_fd_fun(info->fd_file_w);
 	is_exit = 0;
 	is_exit = open_all_files(token->redirect, info);
-	// if (is_exit == 0)
-	// 	is_exit = open_all_files(token->output_redirect, info);
 	if (is_exit == 1)
 	{
 		info->i_childs++;
@@ -173,14 +169,14 @@ int	init_pipes(t_info *info)
 	return (0);
 }
 
-int	execute_fun(t_info *info)
+void	execute_fun(t_info *info)
 {
 	str_i_count(info);
 	if (init_pipes(info) == 1)
-		return (1);
+		return ;
 	pwd_fun(info, -1);
 	open_herdoc_files(info->herdoc_files, info);
 	put_name_herdoc_files(info);
 	dir_blt_execve_fun(info->tokens, info);
-	return (finish_parent(info));
+	finish_parent(info);
 }

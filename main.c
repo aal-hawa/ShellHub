@@ -21,18 +21,14 @@ int	main(int ac, char **arg, char **envp)
 {
 	setup_signals();
 	(void) arg;
-	// (void) envp;
 	t_info	info;
-	t_colors	colors;
+	// t_colors	colors;
 
-	if (ac == 1)
-	{
-		init_colors(&colors, &info);
-		init_info(envp, &info);
-		env_data(&info);
-		minishell(&info);
-	}
-	else
+	if (ac != 1)
 		return (1);
+	// init_colors(&colors, &info);
+	init_info(envp, &info);
+	env_data(&info);
+	minishell(&info);
 	return (0);
 }

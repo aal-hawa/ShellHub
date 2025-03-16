@@ -38,17 +38,3 @@ void	init_here_doc(char *herdoc_file, t_info *info)
 	info->fd_file_r = close_fd_fun(info->fd_file_r);
 	str = free_string(&str);
 }
-
-int	init_files_biultins(char **str, t_info *info)
-{
-	int	i;
-
-	i = 0;
-	info->fd_file_r = close_fd_fun(info->fd_file_r);
-	info->fd_file_r = open_file_r_w("/tmp/tmp_biultins");
-	while(str[i])
-		ft_putstr_fd(str[i++], info->fd_file_r);
-	info->fd_file_r = close_fd_fun(info->fd_file_r);
-	info->fd_file_r = open_file_r("/tmp/tmp_biultins");
-	return (info->fd_file_r);
-}
