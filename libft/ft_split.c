@@ -6,12 +6,11 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:04:01 by tmahmoud          #+#    #+#             */
-/*   Updated: 2025/02/18 14:39:43 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:19:24 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 int	is_qout_fun1(int last_is_qout, char c)
 {
@@ -21,7 +20,7 @@ int	is_qout_fun1(int last_is_qout, char c)
 		last_is_qout = 2;
 	else if (last_is_qout == 1 && c == '\'')
 		last_is_qout = 0;
-	else if (last_is_qout == 2 &&  c == '\"')
+	else if (last_is_qout == 2 && c == '\"')
 		last_is_qout = 0;
 	return (last_is_qout);
 }
@@ -66,8 +65,7 @@ int	fill(char **result, char const *s, char c)
 			if (mymalloc(result, i, len + 1))
 				return (1);
 		}
-		ft_strlcpy(result[i], s - len, len + 1);
-		i++;
+		ft_strlcpy(result[i++], s - len, len + 1);
 	}
 	return (0);
 }
@@ -95,8 +93,7 @@ size_t	wordscount(char const *s, char c)
 				++words;
 				new = 1;
 			}
-			is_qout = is_qout_fun1(is_qout, s[i]);
-			i++;
+			is_qout = is_qout_fun1(is_qout, s[i++]);
 		}
 	}
 	return (words);

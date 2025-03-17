@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:21:25 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:21:26 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	check_and_add(t_info *info, char *arg, int add_to_env)
@@ -32,7 +44,7 @@ void	check_and_add_env(t_info *info, char *arg, char *key)
 
 void	got_key_value(char *arg, char **key, char **value)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (arg[i] && arg[i] != '=')
@@ -66,7 +78,6 @@ void	print_value(char *arg, t_info *info)
 	key = free_string(&key);
 	value = free_string(&value);
 }
-
 
 char	**export_fun(char **args, t_info *info, int is_print)
 {

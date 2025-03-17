@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+#include "../minishell.h"
 
 // return str to the last char inside it
 // example: folder1/folder2/folder3 by char is / it will return folder1/folder2

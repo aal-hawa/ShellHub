@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   malloc_node.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:27:30 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:28:36 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-
-t_token	*malloc_token()
+t_token	*malloc_token(void)
 {
 	t_token	*token;
 
@@ -14,9 +25,11 @@ t_token	*malloc_token()
 	token->is_bilt_cmd = 0;
 	return (token);
 }
-t_node	*malloc_node()
+
+t_node	*malloc_node(void)
 {
 	t_node	*node;
+
 	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);

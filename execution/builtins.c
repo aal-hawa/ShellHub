@@ -1,6 +1,19 @@
-# include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:21:48 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 18:07:33 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	builtins_fun(char	***result, char **biultins, t_info *info, int is_print)
+#include "../minishell.h"
+
+void	builtins_fun(char ***result, char **biultins, t_info *info,
+		int is_print)
 {
 	if (!ft_strcmp(biultins[0], "cd"))
 		result[0] = cd_fun(biultins, info);
@@ -34,7 +47,6 @@ int	do_builtins(t_token *token, char ***result_blts, t_info *info)
 	if (*result_blts)
 		free_array2d(result_blts, 0);
 	builtins_fun(result_blts, token->cmd, info, is_print);
-
 	if (*result_blts && is_print == 0)
 	{
 		if (info->fd_file_w >= 0)
@@ -46,4 +58,32 @@ int	do_builtins(t_token *token, char ***result_blts, t_info *info)
 			return (1);
 	}
 	return (0);
+}
+
+void	do_builtins_check_fork(t_token *token, t_info *info,
+	char ***result_blts)
+{
+	if (info->str_i > 0)
+	{
+		info->frs[info->i_childs] = fork();
+		if (info->frs[info->i_childs] == 0)
+		{
+			if (do_builtins(token, result_blts, info) == 1)
+			{
+				dup2(info->fds[info->i_childs + 1][1], STDOUT_FILENO);
+				print_array2d_fd(*result_blts, STDOUT_FILENO);
+			}
+			close_fds_childs(info->fds, info);
+			close(info->fds[info->i_childs + 1][1]);
+			close(info->fds[info->i_childs][0]);
+			if (info->str_i > 0)
+				de_allocate(&info->fds, &info->frs, info->str_i);
+			free_array2d(result_blts, 0);
+			exit_number(info->status_exit, 0, info);
+		}
+		info->fd_file_w = close_fd_fun(info->fd_file_w);
+		info->i_childs++;
+	}
+	else
+		do_builtins(token, result_blts, info);
 }

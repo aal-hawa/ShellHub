@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:37:17 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:37:31 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
 void	unlink_files(t_info *info)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 	char	*str_i;
+
 	i = 0;
 	if (info->index_files_crt > 0)
 	{
@@ -13,7 +25,7 @@ void	unlink_files(t_info *info)
 		{
 			str_i = ft_itoa(i);
 			str = ft_strjoin("/tmp/tmp_shell_", str_i);
-			unlink (str);
+			unlink(str);
 			str_i = free_string(&str_i);
 			str = free_string(&str);
 			i++;
@@ -37,7 +49,6 @@ void	minishell(t_info *info)
 		line = readline_fun();
 		if (!line)
 			null_line(info);
-		// printf("%sthe input: %s%s\n", info->colors->cyan_color, info->colors->default_color, line);
 		if (!check_valid_line(&line, info))
 			continue ;
 		fixed_line_spaces(&line);
@@ -47,7 +58,6 @@ void	minishell(t_info *info)
 		line = free_string(&line);
 		if (info->tokens)
 		{
-			// print_tokens(info->tokens, info->colors);
 			execute_fun(info);
 			unlink_files(info);
 		}

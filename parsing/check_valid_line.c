@@ -1,11 +1,23 @@
-# include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_valid_line.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:23:07 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:23:08 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
 
 char	next_chr_not_space(char *line, int is_second)
 {
 	int	i;
 
 	i = 0;
-	while(line[++i])
+	while (line[++i])
 	{
 		if (line[i] != ' ')
 		{
@@ -20,25 +32,24 @@ char	next_chr_not_space(char *line, int is_second)
 
 int	check_valid_operator(char **line)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (line[0][i] == ' ')
 		i++;
-	while(line[0][i])
-	{	
+	while (line[0][i])
+	{
 		if ((is_char_operator_fun(line[0][i]) && line[0][i] != '|'
-			&& is_char_operator_fun(next_chr_not_space(&line[0][i], 0))
-			&& is_char_operator_fun(next_chr_not_space(&line[0][i], 1)))
+				&& is_char_operator_fun(next_chr_not_space(&line[0][i], 0))
+				&& is_char_operator_fun(next_chr_not_space(&line[0][i], 1)))
 			|| (is_char_operator_fun(line[0][i])
-			&& next_chr_not_space(&line[0][i], 0) == '|')
+				&& next_chr_not_space(&line[0][i], 0) == '|')
 			|| (line[0][i] == '>' && next_chr_not_space(&line[0][i], 0) == '<')
 			|| (line[0][i] == '<' && next_chr_not_space(&line[0][i], 0) == '>')
 			|| (line[0][i] == '>' && line[0][i + 1] == ' '
-			&& next_chr_not_space(&line[0][i], 0) == '>')
+				&& next_chr_not_space(&line[0][i], 0) == '>')
 			|| (line[0][i] == '<' && line[0][i + 1] == ' '
-			&& next_chr_not_space(&line[0][i], 0) == '<')
-			)
+				&& next_chr_not_space(&line[0][i], 0) == '<'))
 			return (0);
 		i++;
 		while (line[0][i] == ' ')
@@ -56,7 +67,7 @@ int	check_first_last_line(char **line)
 		i++;
 	if (line[0][i] == '|')
 	{
-		printf ("bash: syntax error near unexpected token `|'\n");
+		printf("bash: syntax error near unexpected token `|'\n");
 		line[0] = free_string(&line[0]);
 		return (0);
 	}
@@ -66,9 +77,9 @@ int	check_first_last_line(char **line)
 	if (line[0][i] == '|' || line[0][i] == '>' || line[0][i] == '<')
 	{
 		if (line[0][i] == '|')
-			printf ("error syntax\n");
+			printf("error syntax\n");
 		else
-			printf ("bash: syntax error near unexpected token `newline'\n");
+			printf("bash: syntax error near unexpected token `newline'\n");
 		line[0] = free_string(line);
 		return (0);
 	}
@@ -79,18 +90,18 @@ int	check_valid_line(char **line, t_info *info)
 {
 	if (ft_strlen(line[0]) == 0)
 		return (0);
-	if(!check_first_last_line(line))
+	if (!check_first_last_line(line))
 		return (0);
-	if(!check_valid_operator(line))
+	if (!check_valid_operator(line))
 	{
-		printf ("error syntax parsing\n");
+		printf("error syntax parsing\n");
 		line[0] = free_string(line);
 		return (0);
 	}
 	*line = chck_spacesbetween_qout(line);
-	if(!is_valid_qout(line, info))
+	if (!is_valid_qout(line, info))
 	{
-		printf ("error syntax qoutition\n");
+		printf("error syntax qoutition\n");
 		line[0] = free_string(line);
 		return (0);
 	}

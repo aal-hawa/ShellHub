@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins_message.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:26:11 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:29:19 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -16,12 +27,12 @@ char	*builtins_error_message(char *str_tybe_builtins, char *str_input)
 	return (str_message);
 }
 
-char	**builtins_Message(char **str_message, int is_print, int is_malloc)
+char	**builtins_message(char **str_message, int is_print, int is_malloc)
 {
 	char	**result;
 
 	if (is_print == 1)
-		printf ("%s", *str_message);
+		printf("%s", *str_message);
 	result = malloc(sizeof(char *) * 2);
 	if (!result)
 		return (NULL);

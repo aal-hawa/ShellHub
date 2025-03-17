@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strclen.c                                       :+:      :+:    :+:   */
+/*   ft_strlccpy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 17:27:03 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 17:28:22 by aal-hawa         ###   ########.fr       */
+/*   Created: 2025/03/17 18:11:28 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 18:13:37 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// return length of string before to_char
-// return 0 if did not have to_char inside the string
-// return -1 if the to_char is the first index
-ssize_t	ft_strclen(const char *s, char to_char)
+// copy char *str from devide_char to last char
+// if didnt have the char devide_char inside the char *str it will return NULL
+// if have it will return malloc char	*
+char	*ft_strlccpy(char *str, char devide_char)
 {
-	ssize_t	i;
+	int	i;
 
+	if (!str)
+		return (NULL);
 	i = 0;
-	while (s[i] && s[i] != to_char)
+	while (str[i] && str[i] != devide_char)
 		i++;
-	if (!s[i])
-		return (0);
-	if (i == 0)
-		i = -1;
-	return (i);
+	if (!str[i] || !str[i + 1])
+		return (NULL);
+	i++;
+	return (ft_strdup(&str[i]));
 }

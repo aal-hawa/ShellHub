@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:21:05 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:29:19 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-
-# include "../minishell.h"
+#include "../minishell.h"
 
 int	check_echo_n(char *str)
 {
@@ -11,7 +21,7 @@ int	check_echo_n(char *str)
 	if (ft_strlen(str) < 2 || str[0] != '-')
 		return (0);
 	i = 1;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] != 'n')
 			return (0);
@@ -19,7 +29,6 @@ int	check_echo_n(char *str)
 	}
 	return (1);
 }
-
 
 char	**echo_n_fun(char **args, int is_print)
 {
@@ -44,7 +53,7 @@ char	**echo_n_fun(char **args, int is_print)
 	free_array2d(&result, 0);
 	if (!dst)
 		dst = ft_strdup("");
-	result = builtins_Message(&dst, is_print, 1);
+	result = builtins_message(&dst, is_print, 1);
 	if (!is_print)
 		free_array2d(&result, 0);
 	return (result);
@@ -73,7 +82,7 @@ char	**echo_with_line_fun(char **args, int is_print)
 	free_array2d(&result, 0);
 	if (!dst)
 		dst = ft_strdup("\n");
-	result = builtins_Message(&dst, is_print, 1);
+	result = builtins_message(&dst, is_print, 1);
 	if (!is_print)
 		free_array2d(&result, 0);
 	return (result);

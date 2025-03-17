@@ -1,12 +1,25 @@
-# include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tilde.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:23:40 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:23:41 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	devide_line_be4_after(char **line, int i, char **str_be4, char **str_after)
+#include "../minishell.h"
+
+void	devide_line_be4_after(char **line, int i, char **str_be4,
+		char **str_after)
 {
 	if (i != 0)
 	{
 		*str_be4 = malloc(sizeof(char) * (i + 1));
 		ft_strlcpy(*str_be4, *line, i);
-		*str_be4 = join_with_restore(str_be4,*str_be4, " ", NULL);
+		*str_be4 = join_with_restore(str_be4, *str_be4, " ", NULL);
 	}
 	if (line[0][i + 1])
 		*str_after = ft_strdup(&line[0][i + 1]);
@@ -23,16 +36,16 @@ char	*tilde(char **line, char *str_home)
 	is_qout = 0;
 	str_be4 = NULL;
 	str_after = NULL;
-	while(line[0][++i])
+	while (line[0][++i])
 	{
 		if (is_qout == 0 && (line[0][i] == '~'))
 		{
 			if ((i == 0 || line[0][i - 1] == ' ') && (line[0][i + 1] == ' '
-				|| line[0][i + 1] == '/' || !line[0][i + 1]))
+					|| line[0][i + 1] == '/' || !line[0][i + 1]))
 			{
 				devide_line_be4_after(line, i, &str_be4, &str_after);
 				*line = join_with_restore(line, str_be4, str_home, str_after);
-				str_be4 = free_string(&str_be4);	
+				str_be4 = free_string(&str_be4);
 				str_after = free_string(&str_after);
 			}
 		}

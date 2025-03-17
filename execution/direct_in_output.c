@@ -1,4 +1,16 @@
-# include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   direct_in_output.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:21:51 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:21:52 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
 
 int	utils_direct_fun(t_info *info)
 {
@@ -21,9 +33,9 @@ int	utils_direct_fun(t_info *info)
 
 int	direct_fun(t_node *node, t_info *info)
 {
-	if (!ft_strcmp(node->type_before,">"))
+	if (!ft_strcmp(node->type_before, ">"))
 		info->fd_file_w = open_file_w(node->args[0]);
-	else if (!ft_strcmp(node->type_before,">>"))
+	else if (!ft_strcmp(node->type_before, ">>"))
 		info->fd_file_w = open_file_w_b(node->args[0]);
 	else if (!ft_strcmp(node->type_before, "<"))
 		init_files(node, info);

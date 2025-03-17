@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:21:15 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:21:18 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../minishell.h"
 
-# include "../minishell.h"
-
-void	exit_number(int exit_status, int is_de_allocate, t_info * info)
+void	exit_number(int exit_status, int is_de_allocate, t_info *info)
 {
 	if (is_de_allocate == 1)
 		de_allocate(&info->fds, &info->frs, info->str_i);
 	unlink_files(info);
 	free_info(info);
-	exit (exit_status);
+	exit(exit_status);
 }
+
 void	exit_fun(char **arg, t_info *info)
 {
 	int	status_exit;
 	int	i;
+
 	if (!arg[1])
 		exit_number(0, 1, info);
 	i = -1;
@@ -33,7 +45,5 @@ void	exit_fun(char **arg, t_info *info)
 	if (!ft_isdigit(arg[1][0]))
 		exit_number(2, 1, info);
 	status_exit = ft_atoi(arg[1]);
-	// free all things before exit program
 	exit_number(status_exit % 256, 1, info);
 }
-

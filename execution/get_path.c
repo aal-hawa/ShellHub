@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_path.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:22:16 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:22:19 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "../minishell.h"
+#include "../minishell.h"
 
 void	env_data(t_info *info)
 {
-	int	i;
-	char **envp;
+	int		i;
+	char	**envp;
 
 	envp = info->envp;
 	i = 0;
@@ -23,7 +34,7 @@ void	env_data(t_info *info)
 		}
 	}
 	if (!info->path_env)
-			info->env_null = 1;
+		info->env_null = 1;
 }
 
 int	is_access_str_cmd(char ***env_split, char *str_joined, char *str)
@@ -72,7 +83,7 @@ char	*get_from_env(char *env, char *str)
 
 void	get_path_command(char **strs, t_info *info)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (strs && strs[0])

@@ -1,4 +1,16 @@
-# include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execve.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:22:01 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:22:02 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
 
 void	execve_no_cmd(t_info *info)
 {
@@ -12,7 +24,6 @@ void	execve_no_cmd(t_info *info)
 	}
 	info->i_childs++;
 }
-
 
 void	do_execve_fun(t_token *token, t_info *info)
 {

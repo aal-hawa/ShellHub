@@ -1,10 +1,22 @@
-# include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_valid_qout.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:23:12 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:23:13 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	same_qout_order(char **line,char **str, int i, int j)
+#include "../minishell.h"
+
+int	same_qout_order(char **line, char **str, int i, int j)
 {
 	if (str[0][j + 1] == line[0][i])
 	{
-		while(str[0][j + 2])
+		while (str[0][j + 2])
 		{
 			str[0][j] = str[0][j + 2];
 			j++;
@@ -17,18 +29,20 @@ int	same_qout_order(char **line,char **str, int i, int j)
 void	before_qout(char **line, int i)
 {
 	int		j;
-	char 	*str;
+	char	*str;
 	char	c[2];
 
 	c[0] = '\0';
 	c[1] = '\0';
 	if (i > 0)
 		c[0] = line[0][i - 1];
-	if (i != 0 && line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i] && !is_operator_fun(c))
+	if (i != 0 && line[0][i - 1] != ' ' && line[0][i - 1] != line[0][i]
+		&& !is_operator_fun(c))
 	{
 		str = ft_strdup(*line);
 		j = i;
-		while (j > 0 && line[0][j - 1] && line[0][j - 1] != line[0][i] && !is_operator_fun(c))
+		while (j > 0 && line[0][j - 1] && line[0][j - 1] != line[0][i]
+			&& !is_operator_fun(c))
 		{
 			str[j] = line[0][j - 1];
 			j--;
@@ -43,19 +57,19 @@ void	after_qout(char **line, int *adress_i)
 {
 	int		j;
 	int		i;
-	char 	*str;
+	char	*str;
 	char	c[2];
 
 	i = *(adress_i);
 	c[0] = line[0][i + 1];
 	c[1] = '\0';
-	if (line[0][i + 1] && line[0][i + 1] != ' '
-		&& line[0][i + 1] != line[0][i] && !is_operator_fun(c))
+	if (line[0][i + 1] && line[0][i + 1] != ' ' && line[0][i + 1] != line[0][i]
+		&& !is_operator_fun(c))
 	{
 		str = ft_strdup(*line);
 		j = i;
-		while (line[0][j + 1] && line[0][j + 1] != ' '
-			&& line[0][j + 1] != line[0][i] && !is_operator_fun(c))
+		while (line[0][j + 1] && line[0][j + 1] != ' ' && line[0][j
+			+ 1] != line[0][i] && !is_operator_fun(c))
 		{
 			str[j] = line[0][j + 1];
 			j++;
@@ -83,8 +97,8 @@ char	*chck_spacesbetween_qout(char **line)
 		{
 			if (is_qout == 0)
 				before_qout(line, i);
-			else if ((is_qout == 1 && line[0][i] == '\'')
-				|| (is_qout == 2 && line[0][i] == '\"'))
+			else if ((is_qout == 1 && line[0][i] == '\'') || (is_qout == 2
+					&& line[0][i] == '\"'))
 				after_qout(line, &i);
 		}
 		is_qout = is_qout_fun(is_qout, c);

@@ -1,31 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   variable_expansion.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:23:44 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 18:12:22 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "../minishell.h"
-
-char	*value_fun(char *str, char devide_char)
-{
-	int	i;
-	
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != devide_char)
-		i++;
-	if (!str[i] || !str[i + 1])
-		return (NULL);
-	i++;
-	return (ft_strdup(&str[i]));
-}
+#include "../minishell.h"
 
 char	*merge_result_with_after_space(char *str_dollersign, char *str)
 {
 	char	*after_space;
 	char	*dst;
 
-	after_space = value_fun(str, ' ');
+	after_space = ft_strlccpy(str, ' ');
 	dst = NULL;
 	if (after_space)
 	{
-		dst = join_with_restore(&dst, str_dollersign," ", after_space);
+		dst = join_with_restore(&dst, str_dollersign, " ", after_space);
 		after_space = free_string(&after_space);
 		return (dst);
 	}
@@ -42,7 +38,7 @@ char	*merge_doller_sign(char **str, char **str_sign, t_info *info)
 	if (i > -1)
 	{
 		*str_sign = free_string(str_sign);
-		value = value_fun(info->envp[i], '=');
+		value = ft_strlccpy(info->envp[i], '=');
 		*str_sign = merge_result_with_after_space(value, *str);
 		*str = ft_restore_value(str, str_sign, 1);
 		return (*str);
@@ -57,7 +53,7 @@ char	*doller_sign_fun(char **str, t_info *info)
 	char	*str_sign;
 
 	if (ft_strlen(*str) == 0)
-		return ft_strdup("$");
+		return (ft_strdup("$"));
 	if (str[0][0] == '?')
 		return (status_program_fun(str, info));
 	str_sign = ft_strccpy(*str, ' ');

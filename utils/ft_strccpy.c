@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strccpy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:27:00 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:29:31 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
 // copy char *str to first char of char to_char
 // if didnt have the char to_char inside the char *str it will return NULL
 // if have it will return malloc char	*
-char *ft_strccpy(char *str, char to_char)
+char	*ft_strccpy(char *str, char to_char)
 {
 	char	*dest;
 	ssize_t	i;
@@ -28,4 +39,3 @@ char *ft_strccpy(char *str, char to_char)
 	dest[i] = '\0';
 	return (dest);
 }
-

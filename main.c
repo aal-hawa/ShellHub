@@ -1,32 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:38:06 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:38:14 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void sigint_handler(int sig)
+void	sigint_handler(int sig)
 {
-    (void)sig;
-    write(1, "\nshellhub$ ", 12);
+	(void)sig;
+	write(1, "\nshellhub$ ", 12);
 }
 
-void sigquit_handler(int sig)
+void	sigquit_handler(int sig)
 {
-    (void)sig;
+	(void)sig;
 }
 
-void setup_signals(void)
+void	setup_signals(void)
 {
-    signal(SIGINT, sigint_handler);  // Ctrl-C: Show new prompt
-    signal(SIGQUIT, sigquit_handler); // Ctrl-\: Do nothing
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 }
 
 int	main(int ac, char **arg, char **envp)
 {
-	setup_signals();
-	(void) arg;
 	t_info	info;
-	// t_colors	colors;
 
+	setup_signals();
+	(void)arg;
 	if (ac != 1)
 		return (1);
-	// init_colors(&colors, &info);
 	init_info(envp, &info);
 	env_data(&info);
 	minishell(&info);

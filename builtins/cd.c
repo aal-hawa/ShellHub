@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:21:00 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:29:19 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "../minishell.h"
+#include "../minishell.h"
 
-void 	change_in_env(char **old_path, t_info *info)
+void	change_in_env(char **old_path, t_info *info)
 {
 	char	**args;
 
@@ -19,18 +30,16 @@ void 	change_in_env(char **old_path, t_info *info)
 
 char	**change_path(char *cd, t_info *info)
 {
-	// char	*result;
 	char	*str_message;
-	char *old_path;
-	
+	char	*old_path;
+
 	old_path = ft_strjoin("OLDPWD=", info->curent_path);
 	if (chdir(info->curent_path))
 	{
-		// printf ("%sError path: %s%s\n",info->colors->red_color, info->curent_path, info->colors->default_color); //delete this line
 		pwd_fun(info, 0);
 		info->status_exit = 1;
 		str_message = builtins_error_message("cd", cd);
-		builtins_Message(&str_message, 1, 1);
+		builtins_message(&str_message, 1, 1);
 		old_path = free_string(&old_path);
 		return (NULL);
 	}
@@ -46,16 +55,17 @@ char	**cd_fun(char **args, t_info *info)
 
 	cd = args[1];
 	if (!cd)
-		info->curent_path = ft_restore_value(&info->curent_path, &info->home, 0);
-	else if (cd[0] == '/' || (!ft_strncmp(cd,"..", 2) && ft_strlen(cd) > 2))
+		info->curent_path = ft_restore_value(&info->curent_path, &info->home,
+				0);
+	else if (cd[0] == '/' || (!ft_strncmp(cd, "..", 2) && ft_strlen(cd) > 2))
 		info->curent_path = ft_restore_value(&info->curent_path, &cd, 0);
 	else
 	{
-		if (!ft_strcmp(cd,".."))
+		if (!ft_strcmp(cd, ".."))
 			str = ft_strdup("../");
 		else
 			str = ft_strjoin_path(info->curent_path, cd, 1);
 		info->curent_path = ft_restore_value(&info->curent_path, &str, 1);
 	}
-	return(change_path(cd, info));
+	return (change_path(cd, info));
 }

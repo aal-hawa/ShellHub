@@ -1,22 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipes_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:22:35 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 18:03:30 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "../minishell.h"
-
-// void	free_splits(char **strs)
-// {
-// 	int	i;
-
-// 	if (strs)
-// 	{
-// 		i = 0;
-// 		while (strs[i])
-// 		{
-// 			strs[i] = free_string(&strs[i]);
-// 			i++;
-// 		}
-// 		free(strs);
-// 		strs = NULL;
-// 	}
-// }
+#include "../minishell.h"
 
 void	error_pipe(int **fds, int i, t_info *info)
 {
@@ -80,4 +74,28 @@ void	allocate_fds(int ***fd, pid_t **frs, int j)
 		}
 		i++;
 	}
+}
+
+int	init_pipes(t_info *info)
+{
+	int		**fds;
+	pid_t	*frs;
+
+	fds = NULL;
+	frs = NULL;
+	allocate_fds(&fds, &frs, info->str_i);
+	info->fds = fds;
+	info->frs = frs;
+	info->i_fds = 0;
+	while (info->i_fds < info->str_i + 1)
+	{
+		if (pipe(fds[info->i_fds++]) == -1)
+		{
+			error_pipe(fds, --info->i_fds, info);
+			de_allocate(&fds, &frs, info->str_i);
+			exit_number(1, 0, info);
+			return (1);
+		}
+	}
+	return (0);
 }

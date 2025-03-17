@@ -1,13 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_node_2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:23:22 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:23:23 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	is_biult_fun(char *first_arg)
 {
-	if (!ft_strcmp(first_arg, "cd")
-		|| !ft_strcmp(first_arg, "pwd") 
-		|| !ft_strcmp(first_arg, "echo")
-		|| !ft_strcmp(first_arg, "env") 
-		|| !ft_strcmp(first_arg, "export")
-		|| !ft_strcmp(first_arg, "unset")
+	if (!ft_strcmp(first_arg, "cd") || !ft_strcmp(first_arg, "pwd")
+		|| !ft_strcmp(first_arg, "echo") || !ft_strcmp(first_arg, "env")
+		|| !ft_strcmp(first_arg, "export") || !ft_strcmp(first_arg, "unset")
 		|| !ft_strcmp(first_arg, "exit"))
 		return (1);
 	return (0);
@@ -33,12 +42,11 @@ void	insert_node(t_node **node, char **line, int i, int j)
 	free(cmd_order);
 }
 
-
-void	create_nodes_without_order(char *line, t_node	*node)
+void	create_nodes_without_order(char *line, t_node *node)
 {
-	int		i;
-	int		j;
-	int		is_qout;
+	int	i;
+	int	j;
+	int	is_qout;
 
 	j = 0;
 	i = -1;

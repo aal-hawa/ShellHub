@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:22:41 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:22:43 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "../minishell.h"
+#include "../minishell.h"
 
 int	close_fd_fun(int fd2close)
 {
@@ -69,8 +80,8 @@ void	childs(t_token *token, t_info *info)
 	if (!info->path_commd)
 	{
 		if (info->env_null == 1)
-			ft_putstr_fd_malloc(
-				ft_strjoin_path("zsh: command not found: ", strs[0], 0), 2, 2);
+			ft_putstr_fd_malloc(ft_strjoin_path("zsh: command not found: ",
+					strs[0], 0), 2, 2);
 		error_pipe(info->fds, -3, info);
 		de_allocate(&info->fds, &info->frs, info->str_i);
 		return (exit_number(127, 0, info));

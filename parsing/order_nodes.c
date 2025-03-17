@@ -1,4 +1,16 @@
-# include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   order_nodes.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:23:27 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:23:28 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
 
 int	init_node_order(t_node_order *node_order, t_node **current_node)
 {
@@ -29,7 +41,8 @@ void	do_operator(t_node_order *node_order, t_node **nodes, t_info *info)
 	node_order->i++;
 	nodes[0]->args = ft_split(node_order->args[node_order->i], ' ');
 	if (!ft_strcmp(nodes[0]->type_before, "<<"))
-		info->herdoc_files = add_in_array2d(&info->herdoc_files, nodes[0]->args[0], 0);
+		info->herdoc_files = add_in_array2d(&info->herdoc_files,
+				nodes[0]->args[0], 0);
 }
 
 void	make_order_nodes(t_node_order *node_order, t_info *info)
@@ -41,11 +54,13 @@ void	make_order_nodes(t_node_order *node_order, t_info *info)
 		else
 		{
 			if (node_order->str_cmd)
-				node_order->str_cmd = join_with_restore(
-				&node_order->str_cmd, node_order->str_cmd, " ", node_order->args[node_order->i]);
+				node_order->str_cmd = join_with_restore(&node_order->str_cmd,
+						node_order->str_cmd, " ",
+						node_order->args[node_order->i]);
 			else
 				node_order->str_cmd = join_with_restore(&node_order->str_cmd,
-					node_order->str_cmd,node_order->args[node_order->i], NULL);
+						node_order->str_cmd, node_order->args[node_order->i],
+						NULL);
 		}
 		if (node_order->args[node_order->i])
 			node_order->i++;
@@ -72,8 +87,8 @@ void	order_nodes(t_node **current_node, t_token **token, t_info *info)
 
 void	order_info_nodes(t_info *info, t_node **node)
 {
-	t_node *next_node;
-	t_token *tokens;
+	t_node	*next_node;
+	t_token	*tokens;
 
 	tokens = malloc_token();
 	info->tokens = tokens;

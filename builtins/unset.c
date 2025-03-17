@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:21:41 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:21:42 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "../minishell.h"
+#include "../minishell.h"
 
 void	check_delete(char *arg, t_info *info)
 {
@@ -20,12 +31,12 @@ void	check_delete(char *arg, t_info *info)
 
 char	**unset_func(char **args, t_info *info)
 {
-	int i;
+	int	i;
 
 	i = 1;
-	if(args[i])
+	if (args[i])
 	{
-		while(args[i])
+		while (args[i])
 		{
 			check_delete(args[i], info);
 			i++;

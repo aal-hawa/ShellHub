@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_nodes.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/17 17:26:52 by aal-hawa          #+#    #+#             */
+/*   Updated: 2025/03/17 17:30:34 by aal-hawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -6,7 +17,7 @@ void	free_tokens(t_token **token)
 	t_token	*temp;
 
 	if (!token || !*token)
-			return ;
+		return ;
 	while (token[0])
 	{
 		if (token[0]->cmd)
@@ -24,7 +35,7 @@ void	free_nodes(t_node **node)
 	t_node	*temp;
 
 	if (!node || !*node)
-			return ;
+		return ;
 	while (node[0])
 	{
 		if (node[0]->args)
