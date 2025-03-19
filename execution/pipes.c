@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:22:41 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 17:22:43 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/19 01:57:10 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void	child_execve(t_token *token, char **strs, t_info *info)
 	close(info->fds[info->i_childs + 1][1]);
 	execve(info->path_commd, strs, info->envp);
 	perror(info->path_commd);
-	de_allocate(&info->fds, &info->frs, info->str_i);
-	free_array2d(&strs, 0);
-	exit_number(1, 0, info);
+	exit_number(1, 1, info);
 }
 
 void	dup_stdin_fileno(t_info *info)

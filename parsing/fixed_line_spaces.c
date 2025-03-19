@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:23:20 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 17:23:21 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:39:07 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ void	fixed_line_spaces(char **line)
 	if (len == 0)
 		return ;
 	len += strlen(*line);
-	printf("len %d\n", len);
 	dest = fill_new_string(line, len);
-	printf("strlen dest %ld\n", strlen(dest));
 	*line = free_string(line);
 	*line = dest;
 }

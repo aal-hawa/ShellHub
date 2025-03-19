@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:21:48 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 18:07:33 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:01:49 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	builtins_fun(char ***result, char **biultins, t_info *info,
 			result[0] = echo_with_line_fun(biultins, is_print);
 		info->status_exit = 0;
 	}
-	else if (!ft_strcmp(biultins[0], "env"))
+	else if (to_lower_pwd_env(biultins[0]) == 2)
 		result[0] = env_fun(biultins, info, is_print);
 	else if (!ft_strcmp(biultins[0], "export"))
 		result[0] = export_fun(biultins, info, is_print);
 	else if (!ft_strcmp(biultins[0], "unset"))
 		result[0] = unset_func(biultins, info);
-	else if (!ft_strcmp(biultins[0], "pwd"))
+	else if (to_lower_pwd_env(biultins[0]) == 1)
 		result[0] = pwd_fun(info, is_print);
 	else if (!ft_strcmp(biultins[0], "exit"))
 		exit_fun(biultins, info);

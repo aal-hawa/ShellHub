@@ -17,8 +17,7 @@ SRC = minishell.c \
 	utils/free_nodes.c utils/free_array2d.c utils/ft_restore_value.c utils/init_info.c utils/print_array2d.c utils/is_qout.c utils/builtins_message.c \
     utils/ft_strndup.c utils/free_info.c utils/utils_export.c \
 	execution/r_wr_func.c execution/pipes.c execution/parent_func.c execution/execve.c execution/builtins.c execution/direct_in_output.c \
-	execution/pipes_utils.c execution/get_path.c  execution/get_next_line.c execution/get_next_line_utils.c execution/execute.c execution/init_file.c execution/here_doc.c \
-	signals/signals_handler.c
+	execution/pipes_utils.c execution/get_path.c  execution/get_next_line.c execution/get_next_line_utils.c execution/execute.c execution/init_file.c execution/here_doc.c
 
 OBJS = $(SRC:.c=.o) $(SRC_MAIN:.c=.o)
 

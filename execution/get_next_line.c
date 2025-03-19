@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:22:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 17:39:29 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/19 03:57:40 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,16 @@ char	*get_next_line(t_info *info)
 	char	*returntext;
 	int		is_done;
 
+	g_global_variable = 0;
 	is_done = 0;
 	text_buffer = NULL;
 	while (1)
 	{
 		returntext = readline("> ");
+		if (!returntext)
+			break ;
+		if (g_global_variable == 1)
+			break ;
 		text_buffer = strjoin_herdoc(&text_buffer, returntext, &is_done, info);
 		returntext = free_string(&returntext);
 		if (is_done == 1)

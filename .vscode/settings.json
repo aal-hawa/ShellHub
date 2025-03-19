@@ -9,6 +9,9 @@
 		"qq": "cpp",
 		"libft.h": "c",
 		"functional": "c",
-		"random": "c"
+		"random": "c",
+		"errno.h": "c",
+		"history.h": "c",
+		"readline.h": "c"
 	}
 }

@@ -6,16 +6,33 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:23:22 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 17:23:23 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/19 03:04:20 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	to_lower_pwd_env(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		str[i] = ft_tolower(str[i]);
+		i++;
+	}
+	if (!ft_strcmp(str, "pwd"))
+		return (1);
+	if (!ft_strcmp(str, "env"))
+		return (2);
+	return (0);
+}
+
 int	is_biult_fun(char *first_arg)
 {
-	if (!ft_strcmp(first_arg, "cd") || !ft_strcmp(first_arg, "pwd")
-		|| !ft_strcmp(first_arg, "echo") || !ft_strcmp(first_arg, "env")
+	if (!ft_strcmp(first_arg, "cd") || to_lower_pwd_env(first_arg) == 1
+		|| !ft_strcmp(first_arg, "echo") || to_lower_pwd_env(first_arg) == 2
 		|| !ft_strcmp(first_arg, "export") || !ft_strcmp(first_arg, "unset")
 		|| !ft_strcmp(first_arg, "exit"))
 		return (1);

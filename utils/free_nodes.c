@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:26:52 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 17:30:34 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/19 01:37:29 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	free_tokens(t_token **token)
 		return ;
 	while (token[0])
 	{
-		if (token[0]->cmd)
-			free_array2d(&(token[0]->cmd), 0);
 		if (token[0]->redirect)
 			free_nodes(&token[0]->redirect);
+		if (token[0]->cmd)
+			free_array2d(&token[0]->cmd, 0);
 		temp = token[0];
 		token[0] = token[0]->next;
 		free(temp);

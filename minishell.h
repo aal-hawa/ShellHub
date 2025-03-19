@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:32:18 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 18:21:16 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/19 04:00:52 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+int	g_global_variable;
 
 typedef struct s_node
 {
@@ -159,14 +161,13 @@ void		de_allocate(int ***fd, pid_t **frs, int i);
 void		free_array2d(char ***dst, size_t i);
 char		*ft_strdup(const char *str);
 void		get_path_command(char **strs, t_info *info);
-void		allocate_fds(int ***fd, pid_t **frs, int j);
+void		allocate_fds(int ***fd, pid_t **frs, int j, t_info *info);
 void		childs(t_token *token, t_info *info);
 void		close_fds_childs(int **fds, t_info *info);
 void		execute_fun(t_info *info);
 void		create_nodes(char *line, t_info *info);
 char		*ft_strndup(const char *s, size_t n);
 int			check_is_valid_key(char *str);
-void		execute_command(char *cmd);
 void		put_name_herdoc_files(t_info *info);
 void		open_herdoc_files(char **herdoc_files, t_info *info);
 char		*new_name_herdoc(int index);
@@ -176,5 +177,6 @@ void		do_builtins_check_fork(t_token *token, t_info *info,
 				char ***result_blts);
 int			init_pipes(t_info *info);
 char		*ft_strlccpy(char *str, char devide_char);
+int			to_lower_pwd_env(char *str);
 
 #endif

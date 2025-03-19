@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:22:35 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 18:03:30 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/19 03:03:32 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,19 @@ void	de_allocate(int ***fd, pid_t **frs, int i)
 	}
 }
 
-void	allocate_fds(int ***fd, pid_t **frs, int j)
+void	allocate_fds(int ***fd, pid_t **frs, int j, t_info *info)
 {
 	int	i;
 
 	i = 0;
 	*fd = malloc(sizeof(int *) * (j + 1));
 	if (!*fd)
-		exit(1);
+		exit_number(1, 0, info);
 	*frs = malloc(sizeof(pid_t) * j);
 	if (!*frs)
 	{
 		free(*fd);
-		exit(1);
+		exit_number(1, 0, info);
 	}
 	while (i < j + 1)
 	{
@@ -70,7 +70,7 @@ void	allocate_fds(int ***fd, pid_t **frs, int j)
 				free(fd[0][i]);
 			free(*fd);
 			free(*frs);
-			exit(1);
+			exit_number(1, 0, info);
 		}
 		i++;
 	}
@@ -83,7 +83,7 @@ int	init_pipes(t_info *info)
 
 	fds = NULL;
 	frs = NULL;
-	allocate_fds(&fds, &frs, info->str_i);
+	allocate_fds(&fds, &frs, info->str_i, info);
 	info->fds = fds;
 	info->frs = frs;
 	info->i_fds = 0;
