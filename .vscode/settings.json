@@ -12,6 +12,7 @@
 		"random": "c",
 		"errno.h": "c",
 		"history.h": "c",
-		"readline.h": "c"
+		"readline.h": "c",
+		"unistd.h": "c"
 	}
 }

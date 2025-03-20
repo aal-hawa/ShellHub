@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:21:05 by aal-hawa          #+#    #+#             */
-/*   Updated: 2025/03/17 17:29:19 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:58:45 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ char	**echo_n_fun(char **args, int is_print)
 	free_array2d(&result, 0);
 	if (!dst)
 		dst = ft_strdup("");
-	result = builtins_message(&dst, is_print, 1);
-	if (!is_print)
-		free_array2d(&result, 0);
-	return (result);
+	return (builtins_message(&dst, is_print, 1));
 }
 
 char	**echo_with_line_fun(char **args, int is_print)
@@ -82,8 +79,5 @@ char	**echo_with_line_fun(char **args, int is_print)
 	free_array2d(&result, 0);
 	if (!dst)
 		dst = ft_strdup("\n");
-	result = builtins_message(&dst, is_print, 1);
-	if (!is_print)
-		free_array2d(&result, 0);
-	return (result);
+	return (builtins_message(&dst, is_print, 1));
 }
